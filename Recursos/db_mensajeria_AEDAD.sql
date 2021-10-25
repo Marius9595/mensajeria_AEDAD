@@ -45,10 +45,10 @@ CREATE TABLE IF NOT EXISTS `mydb`.`usuario` (
   `id_provincia` INT NOT NULL,
   `permisos` ENUM("0", "1", "2", "3") NOT NULL,
   PRIMARY KEY (`id_usuario`),
-  INDEX `fk_usuario_provincia1_idx` (`id_provincia` ASC) VISIBLE,
+  INDEX `fk_usuario_provincia1_idx` (`id_provincia` ASC),
   CONSTRAINT `fk_usuario_provincia1`
     FOREIGN KEY (`id_provincia`)
-    REFERENCES `mydb`.`provincia` (`id_provincia`)
+    REFERENCES `provincia` (`id_provincia`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -65,10 +65,10 @@ CREATE TABLE IF NOT EXISTS `mydb`.`pedido` (
   `fecha_entrega` DATETIME NULL,
   `num_articulos` INT NOT NULL DEFAULT 1,
   PRIMARY KEY (`id_articulo`, `id_cliente`),
-  INDEX `fk_cliente_has_articulo_articulo1_idx` (`id_articulo` ASC) VISIBLE,
-  INDEX `fk_pedido_provincia1_idx` (`provincia_id_provincia` ASC) VISIBLE,
-  INDEX `fk_pedido_usuario1_idx` (`id_cliente` ASC) VISIBLE,
-  INDEX `fk_pedido_usuario2_idx` (`id_repartidor` ASC) VISIBLE,
+  INDEX `fk_cliente_has_articulo_articulo1_idx` (`id_articulo` ASC),
+  INDEX `fk_pedido_provincia1_idx` (`provincia_id_provincia` ASC),
+  INDEX `fk_pedido_usuario1_idx` (`id_cliente` ASC),
+  INDEX `fk_pedido_usuario2_idx` (`id_repartidor` ASC),
   CONSTRAINT `fk_cliente_has_articulo_articulo1`
     FOREIGN KEY (`id_articulo`)
     REFERENCES `mydb`.`articulo` (`id_articulo`)
