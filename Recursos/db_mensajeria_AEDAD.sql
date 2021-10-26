@@ -59,14 +59,14 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`pedido` (
   `id_articulo` INT NOT NULL,
-  `provincia_id_provincia` INT NOT NULL,
+  `id_provincia` INT NOT NULL,
   `id_cliente` INT NOT NULL,
   `id_repartidor` INT NULL,
   `fecha_entrega` DATETIME NULL,
   `num_articulos` INT NOT NULL DEFAULT 1,
   PRIMARY KEY (`id_articulo`, `id_cliente`),
   INDEX `fk_cliente_has_articulo_articulo1_idx` (`id_articulo` ASC),
-  INDEX `fk_pedido_provincia1_idx` (`provincia_id_provincia` ASC),
+  INDEX `fk_pedido_provincia1_idx` (`id_provincia` ASC),
   INDEX `fk_pedido_usuario1_idx` (`id_cliente` ASC),
   INDEX `fk_pedido_usuario2_idx` (`id_repartidor` ASC),
   CONSTRAINT `fk_cliente_has_articulo_articulo1`
@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`pedido` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_pedido_provincia1`
-    FOREIGN KEY (`provincia_id_provincia`)
+    FOREIGN KEY (`id_provincia`)
     REFERENCES `mydb`.`provincia` (`id_provincia`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
