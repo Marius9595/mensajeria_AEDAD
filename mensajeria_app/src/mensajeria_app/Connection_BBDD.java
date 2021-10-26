@@ -22,12 +22,12 @@ import java.util.logging.Logger;
 public class Connection_BBDD {
     
     
-    String     user;  
-    String     password;
-    String     ip_connection;       
-    String     BBDD;                
-    Connection conexion;          
-    Statement  query;            
+    private String     user;  
+    private String     password;
+    private String     ip_connection;       
+    private String     BBDD;                
+    private Connection conexion;          
+    private Statement  query;            
 
     public Connection_BBDD(String user, String password, String ip_connection, String data_base) {
              

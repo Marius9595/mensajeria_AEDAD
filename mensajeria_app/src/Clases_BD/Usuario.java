@@ -13,16 +13,18 @@ import java.time.LocalDateTime;
  * @author Dizzy
  */
 public class Usuario {
+   private final String[] PERMISOS = new String[]{"Cliente", "Reparto", "Administrador", "Admin"};
+    
    private int id_usuario;
    private String nombre;
    private String apellidos;
    // la idea es qeu cargue aquí los datos datetime: yyyy-MM-dd HH:mm:ss
    private LocalDateTime  fecha_ultima_conection;
    private int id_provincia;
-   private Enum permisos; 
+   private int permisos; 
    //ENUM("0", "1", "2", "3") NOT NULL,
 
-    public Usuario(int id_usuario, String nombre, String apellidos, LocalDateTime fecha_ultima_conection, int id_provincia, Enum permisos) {
+    public Usuario(int id_usuario, String nombre, String apellidos, LocalDateTime fecha_ultima_conection, int id_provincia, int permisos) {
         this.id_usuario = id_usuario;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -52,7 +54,7 @@ public class Usuario {
         return id_provincia;
     }
 
-    public Enum getPermisos() {
+    public int getPermisos() {
         return permisos;
     }
 
@@ -76,9 +78,11 @@ public class Usuario {
         this.id_provincia = id_provincia;
     }
 
-    public void setPermisos(Enum permisos) {
+    public void setPermisos(int permisos) {
         this.permisos = permisos;
     }
-   
-   
+    
+    public String getPermisosToString(){
+        return PERMISOS[permisos];
+    }
 }
