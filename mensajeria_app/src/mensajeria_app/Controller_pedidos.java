@@ -5,21 +5,10 @@
  */
 package mensajeria_app;
 
-import interfaz.FramePrincipal;
-
 /**
  *
- * @author Jonathan
  * @author Mario
  */
-public class Mensajeria_app {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        
-        new FramePrincipal();
-    }
+public class Controller_pedidos {
     
 }
