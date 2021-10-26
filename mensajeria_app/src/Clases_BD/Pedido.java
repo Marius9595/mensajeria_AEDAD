@@ -9,7 +9,8 @@ import java.time.LocalDateTime;
 
 /**
  *
- * @author Dizzy
+ * @author Jonathan
+ * @author Mario
  */
 public class Pedido {
     private int id_articulo;

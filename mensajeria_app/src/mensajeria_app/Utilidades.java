@@ -12,20 +12,38 @@ import java.util.Date;
 
 /**
  *
- * @author Dizzy
+ * @author Jonathan
+ * @author Mario
  */
 public class Utilidades {
-    //devuelve string fechas como el formato del patron
-    public String formatearLocalDateTime(LocalDateTime myDateObj){
+    /**
+     * devuelve string fechas como el formato del patron: dd-MM-yyyy HH:mm:ss
+     * @param myDateObj
+     * @return 
+     */
+    public static String formatearLocalDateTime(LocalDateTime myDateObj){
         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         String formattedDate = myDateObj.format(myFormatObj);
         return formattedDate;
     }
-    //devuelve string fechas como el formato del patron - SQL
-    public String formatearDatetime(Date dt){
+    /**
+     * devuelve string fechas como el formato del patron - SQL: yyyy-MM-dd HH:mm:ss
+     * @param dt
+     * @return 
+     */
+    public static String formatearDatetime(Date dt){
         SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String formattedDate = sdf.format(dt);
         return formattedDate;
     }
-    
+    /**
+     * formatea String a LocalDateTime
+     * @param fecha
+     * @return 
+     */
+    public static LocalDateTime stringToLocalDateTime(String fecha){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime dateTime = LocalDateTime.parse(fecha, formatter);
+        return dateTime;
+    }
 }

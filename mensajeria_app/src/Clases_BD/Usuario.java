@@ -6,13 +6,16 @@
 package Clases_BD;
 
 import java.time.LocalDateTime;
+import mensajeria_app.Utilidades;
 
 
 /**
  *
- * @author Dizzy
+ * @author Jonathan
+ * @author Mario
  */
 public class Usuario {
+    // los permisos
    private final String[] PERMISOS = new String[]{"Cliente", "Reparto", "Administrador", "Admin"};
     
    private int id_usuario;
@@ -22,7 +25,6 @@ public class Usuario {
    private LocalDateTime  fecha_ultima_conection;
    private int id_provincia;
    private int permisos; 
-   //ENUM("0", "1", "2", "3") NOT NULL,
 
     public Usuario(int id_usuario, String nombre, String apellidos, LocalDateTime fecha_ultima_conection, int id_provincia, int permisos) {
         this.id_usuario = id_usuario;
@@ -45,7 +47,10 @@ public class Usuario {
         return apellidos;
     }
 
-    // ojo que esto retorna: yyyy-MM-dd-'T'-HH-mm-ss-ns
+    /**
+     * getter fecha ultima conection formato: yyyy-MM-dd-'T'-HH-mm-ss-ns
+     * @return localDateTime
+     */
     public LocalDateTime getFecha_ultima_conection() {
         return fecha_ultima_conection;
     }
@@ -70,10 +75,22 @@ public class Usuario {
         this.apellidos = apellidos;
     }
 
+    /**
+     * Setter formato localDateTime: yyyy-MM-dd-'T'-HH-mm-ss-ns
+     * @param fecha_ultima_conection 
+     */
     public void setFecha_ultima_conection(LocalDateTime fecha_ultima_conection) {
         this.fecha_ultima_conection = fecha_ultima_conection;
     }
 
+    /**
+     * Setter formato string
+     * @param fecha_ultima_conection 
+     */
+    public void setFecha_ultima_conection(String fecha_ultima_conection) {
+        this.fecha_ultima_conection = Utilidades.stringToLocalDateTime(fecha_ultima_conection);
+    }
+    
     public void setId_provincia(int id_provincia) {
         this.id_provincia = id_provincia;
     }
@@ -81,7 +98,10 @@ public class Usuario {
     public void setPermisos(int permisos) {
         this.permisos = permisos;
     }
-    
+    /**
+     * funcion que coge el valor del permiso y lo traduce a string
+     * @return string del valor de permiso
+     */
     public String getPermisosToString(){
         return PERMISOS[permisos];
     }

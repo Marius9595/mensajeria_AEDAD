@@ -7,7 +7,8 @@ package Clases_BD;
 
 /**
  *
- * @author Dizzy
+ * @author Jonathan
+ * @author Mario
  */
 public class Provincia {
     private int id_provincia;

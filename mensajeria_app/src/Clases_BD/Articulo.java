@@ -7,7 +7,8 @@ package Clases_BD;
 
 /**
  *
- * @author Dizzy
+ * @author Jonathan
+ * @author Mario
  */
 public class Articulo {
     private int id_articulo;

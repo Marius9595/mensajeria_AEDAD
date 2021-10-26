@@ -7,6 +7,7 @@ package mensajeria_app;
 
 /**
  *
+ * @author Jonathan
  * @author Mario
  */
 public class Mensajeria_app {

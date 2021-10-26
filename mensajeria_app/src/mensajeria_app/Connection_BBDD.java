@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 
 /**
  *
+ * @author Jonathan
  * @author Mario
  */
 public class Connection_BBDD {
@@ -79,7 +80,12 @@ public class Connection_BBDD {
     
     //FUNCIONES INTERNAS PARA HACER INTELIGIBLES LAS OPERACIONES CRUD
 
-    
+    /**
+     * recoge una sentencia en String y le añade el where, que viene como "filtros"
+     * @param sentencia la query a procesar
+     * @param filtros las condiciones del where
+     * @return String con la sentencia completa
+     */
     private String add_filters (String sentencia, String filtros){
         
 
@@ -91,8 +97,7 @@ public class Connection_BBDD {
         return sentencia;
     }
     
-    
-    private String parse_register_type (Object value){
+    /*private String parse_register_type (Object value){
         
         String  result = "";
         
@@ -108,10 +113,14 @@ public class Connection_BBDD {
         
      return result;   
         
-    }
+    }*/
     
     
-    
+    /**
+     * parsea los registros para que sean strin, string en el hashmap
+     * @param registros
+     * @return 
+     */
     private HashMap<String,String> parse_registers_data(HashMap<String,Object> registros){
         
         
@@ -119,7 +128,8 @@ public class Connection_BBDD {
 
         for (String columna : registros.keySet()) {
             
-            registros_parseados.put(columna, parse_register_type(registros.get(columna)));
+            registros_parseados.put(columna, (registros.get(columna)) instanceof String ? "'" + registros.get(columna).toString() + "'" : registros.get(columna)+ "");
+//    parse_register_type(registros.get(columna)));
 
         }
         
@@ -178,7 +188,7 @@ public class Connection_BBDD {
         
         
         HashMap<String,String> registros_parseados = parse_registers_data(registros);
-        
+
         ArrayList<String> columnas = new ArrayList<>();
         ArrayList<String> values = new ArrayList<>();
         
@@ -299,7 +309,11 @@ public class Connection_BBDD {
         
     }
     
-    
+    /**
+     * select pasandole un string, devuelve el resultSet, no hay cerrado ojo
+     * @param query_sended String con la petición
+     * @return ResultSet con la consulta
+     */
     public ResultSet raw_select(String query_sended){
         
 
