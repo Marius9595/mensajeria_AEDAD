@@ -30,6 +30,7 @@ public class AbstractPestana extends JPanel {
         this.permisoUser = permiso;
         
         setLayout(new BorderLayout());
+        // temporal
         setPreferredSize(new Dimension(490, 100));
         
         /* cabeceras */
@@ -44,8 +45,10 @@ public class AbstractPestana extends JPanel {
         // ----------- superior oeste ---------------
         JLabel imagen = new JLabel();
         /* poner foto genérica no vamos a implementar un cargador de imagenes  */
-        Icon imp = new ImageIcon("D:/ic_email.png");
+        Icon imp = new ImageIcon("..\\Recursos\\error.jpg");
         imagen.setIcon(imp);
+        // ajustar recursivo
+        //imagen.setSize(100, 100);
         panelSuperior.add(imagen, BorderLayout.WEST);
 
         // ------------ Superior este ----------
@@ -99,8 +102,6 @@ public class AbstractPestana extends JPanel {
         cargaDatosPermisos();
         
         // -----     panel central -----------
-
-        JPanel panelCentral = new JPanel();
 
         /* las propiedades y demás para los hijos */
     }
