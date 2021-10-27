@@ -24,15 +24,20 @@ public class Usuario {
    // la idea es qeu cargue aquí los datos datetime: yyyy-MM-dd HH:mm:ss
    private LocalDateTime  fecha_ultima_conection;
    private int id_provincia;
-   private int permisos; 
+   private int permisos;
+   // faltaban estos dos
+   private String correo;
+   private String password;
 
-    public Usuario(int id_usuario, String nombre, String apellidos, LocalDateTime fecha_ultima_conection, int id_provincia, int permisos) {
+    public Usuario(int id_usuario, String nombre, String apellidos, LocalDateTime fecha_ultima_conection, int id_provincia, int permisos, String correo, String password) {
         this.id_usuario = id_usuario;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.fecha_ultima_conection = fecha_ultima_conection;
         this.id_provincia = id_provincia;
         this.permisos = permisos;
+        this.correo = correo;
+        this.password = password;
     }
 
     public int getId_usuario() {
@@ -105,4 +110,23 @@ public class Usuario {
     public String getPermisosToString(){
         return PERMISOS[permisos];
     }
+
+    // los que faltaban
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
+    
 }

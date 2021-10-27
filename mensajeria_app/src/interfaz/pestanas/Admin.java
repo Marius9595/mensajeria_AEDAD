@@ -12,5 +12,8 @@ import javax.swing.JPanel;
  * @author Mario
  */
 public class Admin extends AbstractPestana{
-    
+
+    public Admin(int permiso) {
+        super(permiso);
+    }
 }

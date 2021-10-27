@@ -39,8 +39,10 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`usuario` (
   `id_usuario` INT NOT NULL,
-  `Nombre` VARCHAR(45) NULL,
-  `Apellidos` VARCHAR(45) NULL,
+  `Nombre` VARCHAR(50) NULL,
+  `Apellidos` VARCHAR(150) NULL,
+  `Correo` VARCHAR(45) NULL,
+  `Password` VARCHAR(45) NULL,
   `fecha_ultima_conection` DATETIME NOT NULL,
   `id_provincia` INT NOT NULL,
   `permisos` ENUM("0", "1", "2", "3") NOT NULL,
