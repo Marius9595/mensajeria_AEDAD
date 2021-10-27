@@ -41,6 +41,9 @@ public class Cliente_Repartidor extends AbstractPestana {
         panelCentro.add(panelCentralSur, BorderLayout.SOUTH);
         
         // -------  norte ----------
+        JPanel panelLabelTituloLista = new JPanel();
+        panelLabelTituloLista.setLayout(new GridBagLayout());
+        
         JLabel nombreLista = new JLabel();
         
         if(permisoUser == 0)
@@ -48,7 +51,8 @@ public class Cliente_Repartidor extends AbstractPestana {
         else
             nombreLista.setText("Peidos pendientes");
         
-        panelCentralNorte.add(nombreLista);
+        panelLabelTituloLista.add(nombreLista);
+        panelCentralNorte.add(panelLabelTituloLista);
         
         // ---------  centro ----------- 
         JList listaPedidos = new JList<>();
