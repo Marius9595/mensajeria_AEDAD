@@ -30,15 +30,15 @@ public class Cliente_Repartidor extends AbstractPestana {
         // los paneles
         panelCentralNorte = new JPanel();
         panelCentralNorte.setLayout(new BorderLayout());
-        add(panelCentralNorte, BorderLayout.NORTH);
+        panelCentro.add(panelCentralNorte, BorderLayout.NORTH);
 
         panelCentralCentro = new JPanel();
         panelCentralCentro.setLayout(new BorderLayout());
-        add(panelCentralCentro, BorderLayout.CENTER);
+        panelCentro.add(panelCentralCentro, BorderLayout.CENTER);
 
         panelCentralSur = new JPanel();
         panelCentralSur.setLayout(new GridBagLayout());
-        add(panelCentralSur, BorderLayout.SOUTH);
+        panelCentro.add(panelCentralSur, BorderLayout.SOUTH);
         
         // -------  norte ----------
         JLabel nombreLista = new JLabel();
