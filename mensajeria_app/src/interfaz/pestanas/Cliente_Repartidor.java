@@ -72,8 +72,10 @@ public class Cliente_Repartidor extends AbstractPestana {
         
         // no queremos que marque nada solo que sea visual
         listaPedidos.setEnabled(false);
+        listaPedidos.setPreferredSize(new Dimension(100,100));
         
         panelCentralCentro.add(listaPedidos);
+
         
         // ------- sur ---------
         JButton botonConsultarPedido = new JButton();

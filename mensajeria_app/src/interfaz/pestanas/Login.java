@@ -21,8 +21,13 @@ public class Login extends JPanel {
         
         setLayout(new BorderLayout());
         
-        JPanel center_container = new JPanel();
+        JPanel center_container = new JPanel();       
         center_container.setLayout(new BoxLayout(center_container,BoxLayout.Y_AXIS));
+        
+        center_container.setSize(new Dimension(100,100));
+        
+        
+        
         
         // panel del login
         JPanel north_container = new JPanel(new FlowLayout());
@@ -32,6 +37,8 @@ public class Login extends JPanel {
         // paneles formularios
         JPanel linea_user_name = new JPanel(new FlowLayout());
         JPanel linea_password= new JPanel(new FlowLayout());
+        
+        
         
         // faltaba un panel
 
@@ -44,10 +51,10 @@ public class Login extends JPanel {
         linea_user_name.add(campo_user_name);
 
         JLabel label_password = new JLabel("Contraseña :");       
-        linea_user_name.add(label_password);
+        linea_password.add(label_password);
         
         campo_password=new JTextField();
-        linea_user_name.add(campo_password);
+        linea_password.add(campo_password);
 
         JButton botonEnviar = new JButton();
         botonEnviar.setText("Acceder");
@@ -60,8 +67,12 @@ public class Login extends JPanel {
         
         south_container.add(botonEnviar);
      
+
+        
         add(north_container, BorderLayout.NORTH );
         add(center_container,BorderLayout.CENTER);
         add(south_container,BorderLayout.SOUTH);
+        
+        
     }
 }

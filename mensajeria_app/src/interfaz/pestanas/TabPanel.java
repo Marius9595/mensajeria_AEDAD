@@ -33,7 +33,7 @@ public class TabPanel extends JTabbedPane {
         */
         
         //temporal: TODO: HACER RESPONSIVE
-        setPreferredSize(new Dimension(500,500));
+        //setPreferredSize(new Dimension(500,500));
 
     }
 
