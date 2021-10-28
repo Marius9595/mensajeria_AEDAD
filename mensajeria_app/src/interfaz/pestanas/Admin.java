@@ -6,6 +6,7 @@
 package interfaz.pestanas;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import javax.swing.*;
 
 /**
@@ -14,6 +15,11 @@ import javax.swing.*;
  */
 public class Admin extends AbstractPestana{
 
+    JRadioButton radioButton_Select;
+    JRadioButton radioButton_New;
+    JRadioButton radioButton_Update;
+    JRadioButton radioButton_Delete;
+    
     public Admin(int permiso) {
         super(permiso);
         
@@ -33,17 +39,17 @@ public class Admin extends AbstractPestana{
         
         /* radioButton */
         // que por defecto sea siempre un select
-        JRadioButton radioButton_Select = new JRadioButton("Consultar");
+        radioButton_Select = new JRadioButton("Consultar");
         radioButton_Select.setSelected(true);
         //radioButton_Select.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
-        JRadioButton radioButton_New = new JRadioButton("Crear ");
+        radioButton_New = new JRadioButton("Crear ");
         //radioButton_New.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
-        JRadioButton radioButton_Update = new JRadioButton("Actualizar");  
+        radioButton_Update = new JRadioButton("Actualizar");  
         //radioButton_Update.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
-        JRadioButton radioButton_Delete = new JRadioButton("Borrar");  
+        radioButton_Delete = new JRadioButton("Borrar");  
         //radioButton_Delete.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         /* grupo de botones */
@@ -53,8 +59,6 @@ public class Admin extends AbstractPestana{
         bg.add(radioButton_Update);
         bg.add(radioButton_Delete);
         
-        
-        
         // aqui van las tablas que usamos
         String tablas[]={"Articulos","Pedidos","Provincias","Usuarios"};        
         JComboBox comboTablas=new JComboBox(tablas);
@@ -63,7 +67,7 @@ public class Admin extends AbstractPestana{
         JButton botonEnviar = new JButton();
         botonEnviar.setText("OPERAR");
         //botonEnviar.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        //botonEdit.addComponentListener(new ActionListener()); // evento operar
+        botonEnviar.addActionListener(new click_operar()); // evento operar
         
         panelComandos.add(radioButton_New);
         panelComandos.add(radioButton_Select);
@@ -110,5 +114,28 @@ public class Admin extends AbstractPestana{
         
         panelTabla.add(tablaConection, BorderLayout.CENTER);
         
+    }
+    
+    private class click_operar extends Eventos.Event_Boton_Personalizado{
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            this.source = (JButton) ae.getSource();
+            //JOptionPane.showMessageDialog(null, "funciona", "Error", JOptionPane.PLAIN_MESSAGE);
+            int opcion_Marcada = 0;
+            if(radioButton_New.isSelected()){
+                // edit 0
+                opcion_Marcada = 1;
+            }
+            if(radioButton_Select.isSelected()){
+                
+                opcion_Marcada = 2;
+            }
+            if(radioButton_Update.isSelected()){
+                opcion_Marcada = 3;
+            }
+            if(radioButton_New.isSelected()){
+                opcion_Marcada = 4;
+            }
+        }
     }
 }

@@ -194,6 +194,14 @@ public class AbstractPestana extends JPanel {
     public void setPermisoUser(int permisoUser) {
         this.permisoUser = permisoUser;
     }
+
+    public int getId_user() {
+        return id_user;
+    }
+
+    public void setId_user(int id_user) {
+        this.id_user = id_user;
+    }
     
     /**
      * es el método qeu carga los datos en el formulario de cabecera
