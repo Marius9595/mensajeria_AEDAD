@@ -19,15 +19,12 @@ public class Login extends JPanel {
 
     public Login() {
         
-        setLayout(new BorderLayout());
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         
         JPanel center_container = new JPanel();       
-        center_container.setLayout(new BoxLayout(center_container,BoxLayout.Y_AXIS));
+        center_container.setLayout(new GridLayout(3, 1));
         
-        center_container.setSize(new Dimension(100,100));
-        
-        
-        
+
         
         // panel del login
         JPanel north_container = new JPanel(new FlowLayout());
@@ -44,7 +41,7 @@ public class Login extends JPanel {
         JLabel titulo = new JLabel("LOGIN");
         //titulo.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
-        JLabel label_usuario = new JLabel("Usuario :");
+        JLabel label_usuario = new JLabel("Usuario :   ");
         //label_usuario.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         linea_user_name.add(label_usuario);
@@ -71,16 +68,17 @@ public class Login extends JPanel {
 
         north_container.add(titulo);
         
+        center_container.add(north_container);
         center_container.add(linea_user_name);
         center_container.add(linea_password);
-        
+
         south_container.add(botonEnviar);
      
 
         
-        add(north_container, BorderLayout.NORTH );
-        add(center_container,BorderLayout.CENTER);
-        add(south_container,BorderLayout.SOUTH);
+        add(north_container);
+        add(center_container);
+        add(south_container);
         
         
     }

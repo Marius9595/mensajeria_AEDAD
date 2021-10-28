@@ -91,7 +91,7 @@ public class Cliente_Repartidor extends AbstractPestana {
         JButton botonConsultarPedido = new JButton();
         botonConsultarPedido.setText("Consultar Pedidos");
         //botonConsultarPedido.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        //botonEdit.addComponentListener(new ActionListener()); // evento editar
+        //botonConsultarPedido.addActionListener(new consultar_pedidos_cliente_repartidor()); // evento editar
         panelCentralSur.add(botonConsultarPedido);
         
         // solo si es cliente
@@ -102,4 +102,6 @@ public class Cliente_Repartidor extends AbstractPestana {
             panelCentralSur.add(botonCrearPedido);// evento editar
         }
     }
+    
+
 }

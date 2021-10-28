@@ -24,6 +24,9 @@ public class Usuario {
    // la idea es qeu cargue aquí los datos datetime: yyyy-MM-dd HH:mm:ss
    private LocalDateTime  fecha_ultima_conection;
    private int id_provincia;
+
+
+   private String provincia;
    private int permisos;
    // faltaban estos dos
    private String correo;
@@ -38,6 +41,18 @@ public class Usuario {
         this.permisos = permisos;
         this.correo = correo;
         this.password = password;
+    }
+
+    public Usuario() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public String getProvincia() {
+        return provincia;
+    }
+
+    public void setProvincia(String provincia) {
+        this.provincia = provincia;
     }
 
     public int getId_usuario() {
