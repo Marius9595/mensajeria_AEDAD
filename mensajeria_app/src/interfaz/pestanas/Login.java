@@ -38,26 +38,35 @@ public class Login extends JPanel {
         JPanel linea_user_name = new JPanel(new FlowLayout());
         JPanel linea_password= new JPanel(new FlowLayout());
         
-        
-        
-        // faltaba un panel
+        // para obligar a cargar un espacio en lso textfield
+        int tam_textField = 15;          
 
         JLabel titulo = new JLabel("LOGIN");
+        //titulo.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         JLabel label_usuario = new JLabel("Usuario :");
+        //label_usuario.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        
         linea_user_name.add(label_usuario);
         
-        campo_user_name=new JTextField();
+        campo_user_name=new JTextField(tam_textField);
+        //campo_user_name.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        
         linea_user_name.add(campo_user_name);
 
         JLabel label_password = new JLabel("Contraseña :");       
+        //label_password.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        
         linea_password.add(label_password);
         
-        campo_password=new JTextField();
+        campo_password=new JTextField(tam_textField);
+        //campo_password.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        
         linea_password.add(campo_password);
 
         JButton botonEnviar = new JButton();
         botonEnviar.setText("Acceder");
+        //botonEnviar.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         //botonLogout.addComponentListener(new ActionListener()); // evento sing in
 
         north_container.add(titulo);

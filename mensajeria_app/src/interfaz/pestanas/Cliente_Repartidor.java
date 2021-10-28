@@ -41,18 +41,28 @@ public class Cliente_Repartidor extends AbstractPestana {
         panelCentro.add(panelCentralSur, BorderLayout.SOUTH);
         
         // -------  norte ----------
+        // separador
+        JPanel panelSeparator = new JPanel();
+        panelSeparator.setLayout(new BorderLayout());
+        panelSeparator.setBorder(BorderFactory.createEmptyBorder(0, 0, 5, 0));
+        
         JPanel panelLabelTituloLista = new JPanel();
         panelLabelTituloLista.setLayout(new GridBagLayout());
         
         JLabel nombreLista = new JLabel();
+        //nombreLista.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         if(permisoUser == 0)
             nombreLista.setText("Últimos pedidos");
         else
             nombreLista.setText("Peidos pendientes");
         
+        
         panelLabelTituloLista.add(nombreLista);
-        panelCentralNorte.add(panelLabelTituloLista);
+        
+        panelSeparator.add(new JSeparator(JSeparator.HORIZONTAL), BorderLayout.SOUTH);
+        panelSeparator.add(panelLabelTituloLista, BorderLayout.CENTER);
+        panelCentralNorte.add(panelSeparator);
         
         // ---------  centro ----------- 
         JList listaPedidos = new JList<>();
@@ -80,6 +90,7 @@ public class Cliente_Repartidor extends AbstractPestana {
         // ------- sur ---------
         JButton botonConsultarPedido = new JButton();
         botonConsultarPedido.setText("Consultar Pedidos");
+        //botonConsultarPedido.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         //botonEdit.addComponentListener(new ActionListener()); // evento editar
         panelCentralSur.add(botonConsultarPedido);
         
