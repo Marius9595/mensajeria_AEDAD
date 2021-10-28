@@ -14,11 +14,14 @@ import javax.swing.JButton;
  * @author Admin
  */
 public class Event_Boton_Personalizado implements ActionListener {
-    private JButton source;
-    private int id_usuario;
-    private int permisos;
-    private int id_pedido;
+    protected JButton source;
+    protected int id_usuario;
+    protected int permisos;
+    protected int id_pedido;
 
+    public Event_Boton_Personalizado() {
+    }
+    
     public Event_Boton_Personalizado(int id_usuario, int permisos) {
         this.id_usuario = id_usuario;
         this.permisos = permisos;
