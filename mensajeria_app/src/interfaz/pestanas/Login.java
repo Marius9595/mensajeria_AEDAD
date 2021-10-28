@@ -5,7 +5,12 @@
  */
 package interfaz.pestanas;
 
+import Eventos.Event_Boton_Personalizado;
+import interfaz.Formulario_dialog;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
 import javax.swing.*;
 
 /**
@@ -16,8 +21,11 @@ public class Login extends JPanel {
     
     private JTextField campo_user_name;
     private JTextField campo_password;
+    private JTabbedPane tab;
 
-    public Login() {
+    public Login(JTabbedPane tab) {
+        
+        this.tab = tab;
         
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         
@@ -62,6 +70,9 @@ public class Login extends JPanel {
         linea_password.add(campo_password);
 
         JButton botonEnviar = new JButton();
+        
+        botonEnviar.addActionListener(new click_acceder());
+        
         botonEnviar.setText("Acceder");
         //botonEnviar.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         //botonLogout.addComponentListener(new ActionListener()); // evento sing in
@@ -80,6 +91,28 @@ public class Login extends JPanel {
         add(center_container);
         add(south_container);
         
+        
+    }
+    
+    
+    private class click_acceder extends Event_Boton_Personalizado{
+
+
+       
+
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            
+            //COMPROBAR EXISTENCIA
+            // OBTENER PERMISO Y PASARLO
+            
+            tab.setEnabledAt(0, false);
+            
+            tab.setEnabledAt(1, true);
+            tab.setSelectedIndex(1);
+            
+        }
+     
         
     }
 }

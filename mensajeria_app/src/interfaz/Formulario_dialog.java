@@ -88,7 +88,7 @@ public class Formulario_dialog extends JFrame {
         
         setVisible(true);
         
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         
     }
     

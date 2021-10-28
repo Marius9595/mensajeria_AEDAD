@@ -47,7 +47,7 @@ public class AbstractPestana extends JPanel {
         JPanel panelSeparator = new JPanel();
         panelSeparator.setLayout(new BorderLayout());
         panelSeparator.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
-        
+
         panelCentro = new JPanel(); // <-- este es el contenido de los hijos
         
         panelSeparator.add(new JSeparator(JSeparator.HORIZONTAL), BorderLayout.NORTH);
