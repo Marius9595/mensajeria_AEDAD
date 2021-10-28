@@ -13,6 +13,19 @@ import javax.swing.JTabbedPane;
  * @author Mario
  */
 public class TabPanel extends JTabbedPane {
+    
+    
+    private int id_usuario;
+
+    public int getId_usuario() {
+        return id_usuario;
+    }
+
+    public void setId_usuario(int id_usuario) {
+        this.id_usuario = id_usuario;
+    }
+    
+    
 
     public TabPanel() {
         /* si lo hacemos así no podremos luego mandarle el permiso de usuario a la pestaña 

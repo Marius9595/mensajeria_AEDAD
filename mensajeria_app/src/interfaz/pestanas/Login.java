@@ -21,9 +21,9 @@ public class Login extends JPanel {
     
     private JTextField campo_user_name;
     private JTextField campo_password;
-    private JTabbedPane tab;
+    private TabPanel tab;
 
-    public Login(JTabbedPane tab) {
+    public Login(TabPanel tab) {
         
         this.tab = tab;
         
@@ -108,9 +108,14 @@ public class Login extends JPanel {
             
             tab.setEnabledAt(0, false);
             
+            
+            tab.setId_usuario(1);
             tab.setEnabledAt(1, true);
             tab.setSelectedIndex(1);
+            AbstractPestana pestana = (AbstractPestana) tab.getTabComponentAt(1);
             
+            
+           // pestana.set
         }
      
         
