@@ -16,6 +16,7 @@ import javax.swing.*;
 public class AbstractPestana extends JPanel {
     // almacenar permiso
     protected int permisoUser;
+    protected int id_user;
     //marco inicial
     protected JPanel panelSuperior;
     protected JPanel panelCentro;
