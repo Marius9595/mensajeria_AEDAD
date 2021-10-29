@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -39,21 +40,7 @@ public class Tabla_dialog extends JFrame implements ActionListener{
     private HashMap<String,String> datos;
     
     // para pruebas
-    private String data[][]={   {"101","Amit","670000"},    // los datos
-                            {"102","Jai","780000"},    
-                            {"101","Sachin","700000"},
-                            {"101","Amit","670000"},    // los datos
-                            {"102","Jai","780000"},    
-                            {"101","Sachin","700000"}, 
-                            {"101","Amit","670000"},    // los datos
-                            {"102","Jai","780000"},    
-                            {"101","Sachin","700000"}, 
-                            {"101","Amit","670000"},    // los datos
-                            {"102","Jai","780000"},    
-                            {"101","Sachin","700000"}, 
-                            {"101","Amit","670000"},    // los datos
-                            {"102","Jai","780000"},    
-                            {"101","Sachin","700000"}}; 
+    private ArrayList<String[]> listaDatos;
     
     public Tabla_dialog(int tabla, int modo, int id, int per) {
         this.tabla = tabla;
@@ -194,25 +181,25 @@ public class Tabla_dialog extends JFrame implements ActionListener{
         panelTabla.add(panelSeparator, BorderLayout.NORTH);
         
         /* tabla de datos */
-        // deberian sser 3 o 5 lo que se vea en el frame
-        String data[][]={   {"101","Amit","670000"},    // los datos
-                            {"102","Jai","780000"},    
-                            {"101","Sachin","700000"},
-                            {"101","Amit","670000"},    // los datos
-                            {"102","Jai","780000"},    
-                            {"101","Sachin","700000"}, 
-                            {"101","Amit","670000"},    // los datos
-                            {"102","Jai","780000"},    
-                            {"101","Sachin","700000"}, 
-                            {"101","Amit","670000"},    // los datos
-                            {"102","Jai","780000"},    
-                            {"101","Sachin","700000"}, 
-                            {"101","Amit","670000"},    // los datos
-                            {"102","Jai","780000"},    
-                            {"101","Sachin","700000"}}; 
-        String column[]={"ID","CAMPO1","CAMPO2"};    // nombre columnas      
         
-        JTable tabla_datos=new JTable(data,column);    
+        listaDatos = new ArrayList<>();
+        
+        // la carga de datos esta aquí
+        for (int i = 0; i < 20; i++) {
+            // seria String[] = {valor1, valor2, valor3};
+            String valores[] = {String.valueOf(100+i),"Amit","670000"};
+            listaDatos.add(valores);
+        }
+
+        String column[]={"ID","CAMPO1","CAMPO2"};    // nombre columnas      
+        DefaultTableModel tableModel = new DefaultTableModel(column, 0);
+        
+        for (String dat[] : listaDatos){
+            Object[] data = dat;
+            tableModel.addRow(data);
+        }        
+        
+        JTable tabla_datos=new JTable(tableModel);    
         // solo que se vea
         tabla_datos.setEnabled(false);
         //tablaConection.setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -253,16 +240,13 @@ public class Tabla_dialog extends JFrame implements ActionListener{
     
     private void accionEnTabla(int row, int col){
         // la idea es recuperar el row ver qeu valor es y del hasmap coger el row que toca y ponelro en los textField        
-        ArrayList<String> listaDatosRow = new ArrayList<>();
-        for (int i = 0; i < data[row].length; i++) {
-            listaDatosRow.add(data[row][i]);
-        }
-        // cargamos los textfield
-        txt_id.setText(listaDatosRow.get(0));
-        txt_campo1.setText(listaDatosRow.get(1));
-        txt_campo2.setText(listaDatosRow.get(2));
-        txt_campo3.setText("");
+        String rowElegida[] = listaDatos.get(row);
         
+        // cargamos los textfield
+        txt_id.setText(rowElegida[0]);
+        txt_campo1.setText(rowElegida[1]);
+        txt_campo2.setText(rowElegida[2]);
+        txt_campo3.setText("");  
     }
 
     /**
