@@ -5,19 +5,19 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema mensajeria
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema mensajeria
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+CREATE SCHEMA IF NOT EXISTS `mensajeria` DEFAULT CHARACTER SET utf8 ;
+USE `mensajeria` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`articulo`
+-- Table `mensajeria`.`articulo`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`articulo` (
+CREATE TABLE IF NOT EXISTS `mensajeria`.`articulo` (
   `id_articulo` INT NOT NULL,
   `descripcion` VARCHAR(45) NULL,
   PRIMARY KEY (`id_articulo`))
@@ -25,9 +25,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`provincia`
+-- Table `mensajeria`.`provincia`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`provincia` (
+CREATE TABLE IF NOT EXISTS `mensajeria`.`provincia` (
   `id_provincia` INT NOT NULL,
   `nombre` VARCHAR(45) NULL,
   PRIMARY KEY (`id_provincia`))
@@ -35,9 +35,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`usuario`
+-- Table `mensajeria`.`usuario`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`usuario` (
+CREATE TABLE IF NOT EXISTS `mensajeria`.`usuario` (
   `id_usuario` INT NOT NULL,
   `Nombre` VARCHAR(50) NULL,
   `Apellidos` VARCHAR(150) NULL,
@@ -57,9 +57,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`pedido`
+-- Table `mensajeria`.`pedido`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`pedido` (
+CREATE TABLE IF NOT EXISTS `mensajeria`.`pedido` (
   `id_articulo` INT NOT NULL,
   `id_provincia` INT NOT NULL,
   `id_cliente` INT NOT NULL,
@@ -73,22 +73,22 @@ CREATE TABLE IF NOT EXISTS `mydb`.`pedido` (
   INDEX `fk_pedido_usuario2_idx` (`id_repartidor` ASC),
   CONSTRAINT `fk_cliente_has_articulo_articulo1`
     FOREIGN KEY (`id_articulo`)
-    REFERENCES `mydb`.`articulo` (`id_articulo`)
+    REFERENCES `mensajeria`.`articulo` (`id_articulo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_pedido_provincia1`
     FOREIGN KEY (`id_provincia`)
-    REFERENCES `mydb`.`provincia` (`id_provincia`)
+    REFERENCES `mensajeria`.`provincia` (`id_provincia`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_pedido_usuario1`
     FOREIGN KEY (`id_cliente`)
-    REFERENCES `mydb`.`usuario` (`id_usuario`)
+    REFERENCES `mensajeria`.`usuario` (`id_usuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_pedido_usuario2`
     FOREIGN KEY (`id_repartidor`)
-    REFERENCES `mydb`.`usuario` (`id_usuario`)
+    REFERENCES `mensajeria`.`usuario` (`id_usuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
