@@ -43,11 +43,13 @@ public class TabPanel extends JTabbedPane {
         // inicialmente que este todo en disabled y cuando loggee activamos
         //para pruebas comentar esta parte
         
+        
+        /*
         for (int i = 0; i < 5; i++) {
             setEnabledAt(i, false);
         }
 
-        
+        */
         
         //temporal: TODO: HACER RESPONSIVE
         setPreferredSize(new Dimension(650,500));

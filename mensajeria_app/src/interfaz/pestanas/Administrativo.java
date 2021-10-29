@@ -28,7 +28,7 @@ public class Administrativo extends AbstractPestana {
         /* cosas padre */
         super(permiso,tab);
         boton_Edit.addActionListener(new click_operar());
-        boton_Logout.addActionListener(new click_Logout());
+       
         
         panelCentro.setLayout(new BorderLayout());      
         
@@ -165,11 +165,5 @@ public class Administrativo extends AbstractPestana {
         }
     }
     
-    private class click_Logout extends Eventos.Event_Boton_Personalizado{
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            this.source = (JButton) ae.getSource();
-            // logout
-        }
-    }
+
 }

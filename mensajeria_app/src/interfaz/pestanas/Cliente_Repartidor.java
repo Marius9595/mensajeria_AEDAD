@@ -25,7 +25,7 @@ public class Cliente_Repartidor extends AbstractPestana {
         /* cosas padre */
         super(permiso,tab);
         boton_Edit.addActionListener(new click_operar());
-        boton_Logout.addActionListener(new click_Logout());
+        //boton_Logout.addActionListener(new click_Logout(super.permisoUser+1));
         
         // esto es el "body" que cambia en los hijos     
         panelCentro.setLayout(new BorderLayout());
@@ -131,10 +131,5 @@ public class Cliente_Repartidor extends AbstractPestana {
         }
     }
     
-    private class click_Logout extends Eventos.Event_Boton_Personalizado{
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            this.source = (JButton) ae.getSource();
-        }
-    }
+
 }
