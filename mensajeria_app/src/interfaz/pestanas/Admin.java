@@ -109,6 +109,9 @@ public class Admin extends AbstractPestana{
         /* tabla de datos */     
         
         lista_datos = new ArrayList<>();
+        
+        // SELECT * FROM mensajeria.usuario ORDER BY mensajeria.usuario.fecha_ultima_conection DESC LIMIT 0, 15
+        
         //lista_Datos =  <-----  método de carga de datos;
         
         // ------------------ carga de datos -----------------------
@@ -143,27 +146,28 @@ public class Admin extends AbstractPestana{
                 // edit  -> formulario edit id_usuario
                 new Formulario_dialog("Editar perfil", 3, 2, super.id_usuario, super.permisos);
             } else {
-                int opcion_Marcada = -1;
+                int opcion_Marcada = 1; // para simplificar por defecto edit
+                boolean nuevo = false; // para controlar el nuevo registro
                 if(radioButton_New.isSelected()){
                     // New edit -> formulario edit 0
-                    opcion_Marcada = 1;
-                }
-                if(radioButton_Select.isSelected()){
+                    nuevo = true;
+                } else if(radioButton_Select.isSelected()){
                     //select -> modal tabla modo 0
                     opcion_Marcada = 0;
-                }
-                if(radioButton_Update.isSelected()){
-                    // edit -> modal tabla: modo 1
-                    opcion_Marcada = 1;
-                }
-                if(radioButton_Delete.isSelected()){
+                } else if(radioButton_Delete.isSelected()){
                     //  delete -> modal tabla: modo 2                
                     opcion_Marcada = 2;
+                } else{
+                    // edit -> modal tabla: modo 1
                 }
 
                 int tabla = (int)comboTablas.getSelectedIndex();
                 
-                new Tabla_dialog(tabla, opcion_Marcada, super.id_usuario, super.permisos);
+                if (nuevo) {
+                    new Formulario_dialog("Nuevo", tabla, 1, 0, super.permisos);
+                } else{
+                    new Tabla_dialog(tabla, opcion_Marcada, super.id_usuario, super.permisos);
+                }
             }
         }
     }

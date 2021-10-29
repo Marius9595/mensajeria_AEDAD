@@ -192,7 +192,14 @@ public class Tabla_dialog extends JFrame implements ActionListener{
         lista_Datos = new ArrayList<>();
         //-------------------------- carga de datos --------------
 
+
+        if(modo == 3){
+            // Select * From "Tabla"
+        } else{
+            // Select * From 'pedidos' where id_repartidor = null
+        }
         //lista_Datos =  <-----  método de carga de datos;
+        
         //ejemplo
         String column[]={"ID","CAMPO1","CAMPO2"}; //
         lista_Datos.add(column); // <--- indice 0 nombre columnas

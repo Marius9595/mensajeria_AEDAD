@@ -135,35 +135,24 @@ public class Administrativo extends AbstractPestana {
                 // edit  -> formulario edit id_usuario
                 new Formulario_dialog("Editar perfil", 3, 2, super.id_usuario, super.permisos);
             } else {
-                int opcion_Marcada = -1;
-                int tabla = 1;
                 if(OPCIONES[0].equals(source.getText()) ){
                     // select pedidos -> modal tabla: select tabla pedidos
-                    opcion_Marcada = 0;
-                }
-                if(OPCIONES[1].equals(source.getText())){
+                    new Tabla_dialog(1, 0, super.id_usuario, super.permisos); 
+                } else if(OPCIONES[1].equals(source.getText())){
                     // new pedido -> mandar a modal formulario: edit tabla pedidos, id_pedido = 0                   
-                    opcion_Marcada = 1;
-                    // edit  -> formulario edit id_usuario
                     new Formulario_dialog("Nuevo pedido", 1, 1, 0, super.permisos);
-                }
-                if(OPCIONES[2].equals(source.getText())){
+                } else if(OPCIONES[2].equals(source.getText())){
                     // new user 0 -> mandar a modal formulario: edit tabla user, id_user = 0, permisos = 0
-                    opcion_Marcada = 2;
-                }
-                if(OPCIONES[3].equals(source.getText())){
+                    new Formulario_dialog("Nuevo Cliente", 3, 1, 0, super.permisos);
+                } else if(OPCIONES[3].equals(source.getText())){
                     // new user 0 -> mandar a modal formulario: edit tabla user, id_user = 0, permisos = 1
-                    opcion_Marcada = 3;
-                }
-                if(OPCIONES[4].equals(source.getText())){
+                    new Formulario_dialog("Nuevo Repartidor", 3, 1, 0, super.permisos);
+                } else if(OPCIONES[4].equals(source.getText())){
                     // select pedidos -> modal tabla: edit tabla pedidos, no repartidor
-                    opcion_Marcada = 3;
+                    new Tabla_dialog(1, 3, super.id_usuario, super.permisos); 
+                } else{
+                    JOptionPane.showMessageDialog(null, "No de berias estar viendo esto....", "Error", JOptionPane.ERROR_MESSAGE);   
                 }
-
-                // pruebas
-                //JOptionPane.showMessageDialog(null, "funciona: " + opcion_Marcada + ", " + tabla , "Tester", JOptionPane.PLAIN_MESSAGE);
-
-                new Tabla_dialog(tabla, opcion_Marcada, super.id_usuario, super.permisos); 
             }
         }
     }

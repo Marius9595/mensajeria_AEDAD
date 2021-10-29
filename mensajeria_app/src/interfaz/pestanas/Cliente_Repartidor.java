@@ -115,11 +115,12 @@ public class Cliente_Repartidor extends AbstractPestana {
             
             switch(source.getName()){
                 case "Editar_Perfil":
-                    // edit -> formulario edit id_usuario
+                    // edit -> modal formulario: edit tabla usuario, id_usuario, permisos
                     new Formulario_dialog("Editar perfil", 3, 2, super.id_usuario, super.permisos);
                     break;
                 case "New_Pedido":
-                    // new edit -> formulario edit usuario, id_usuario = 0
+                    // new edit -> modal formulario: edit tabla pedidos, 0, permisos
+                    new Formulario_dialog("Nuevo pedido", 1, 1, 0, super.permisos);
                     break;
                 default:
                     // modal tabla: tabla pedidos, modo 0, id_usuario, permiso
