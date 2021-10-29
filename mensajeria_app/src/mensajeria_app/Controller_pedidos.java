@@ -24,11 +24,19 @@ public class Controller_pedidos {
     ArrayList<Articulo>  articulos  = new ArrayList<Articulo>();
     ArrayList<Pedido>    pedidos    = new ArrayList<Pedido>();
     ArrayList<Provincia> provincias = new ArrayList<Provincia>();
-    ;
     
+    private final String USER = "root";
+    private final String PASS = "";
+    private final String IP = "Localhost:3306";
+    private final String DATABASE = "mensajeria";
+    /*
+    private final String USER = "jony";
+    private final String PASS = "123456";
+    private final String IP = "Localhost:3306";
+    private final String DATABASE = "mensajeria";
+    */
     
-    
-    Connection_BBDD DB = new Connection_BBDD("root", "", "Localhost:3306", "mensajeria");
+    Connection_BBDD DB = new Connection_BBDD(USER, PASS, IP, DATABASE);
     
     
     
