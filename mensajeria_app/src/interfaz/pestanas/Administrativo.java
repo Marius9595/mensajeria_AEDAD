@@ -5,6 +5,7 @@
  */
 package interfaz.pestanas;
 
+import interfaz.Formulario_dialog;
 import interfaz.Tabla_dialog;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -131,8 +132,8 @@ public class Administrativo extends AbstractPestana {
             this.source = (JButton) ae.getSource();
             
             if("Editar_Perfil".equals(source.getName())){
-                // New edit -> formulario edit id_usuario
-                JOptionPane.showMessageDialog(null, "Editando", "tester", JOptionPane.PLAIN_MESSAGE);
+                // edit  -> formulario edit id_usuario
+                new Formulario_dialog("Editar perfil", 3, 2, super.id_usuario, super.permisos);
             } else {
                 int opcion_Marcada = -1;
                 int tabla = 1;
@@ -141,8 +142,10 @@ public class Administrativo extends AbstractPestana {
                     opcion_Marcada = 0;
                 }
                 if(OPCIONES[1].equals(source.getText())){
-                    // new pedido -> mandar a modal formulario: edit tabla pedidos, id_pedido = 0
+                    // new pedido -> mandar a modal formulario: edit tabla pedidos, id_pedido = 0                   
                     opcion_Marcada = 1;
+                    // edit  -> formulario edit id_usuario
+                    new Formulario_dialog("Nuevo pedido", 1, 1, 0, super.permisos);
                 }
                 if(OPCIONES[2].equals(source.getText())){
                     // new user 0 -> mandar a modal formulario: edit tabla user, id_user = 0, permisos = 0
