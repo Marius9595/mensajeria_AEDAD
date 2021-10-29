@@ -6,6 +6,9 @@
 package interfaz.pestanas;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.*;
 
 
@@ -26,6 +29,8 @@ public class AbstractPestana extends JPanel {
     // cossas usuarios
     protected int permisoUser;
     protected int id_user;
+    protected TabPanel tab;
+    protected ArrayList<String[]> lista_datos;
     
     //Cabecera común
     private JPanel panelSuperior;
@@ -44,9 +49,10 @@ public class AbstractPestana extends JPanel {
     protected JButton boton_Edit;
     protected JButton boton_Logout;
     
-    public AbstractPestana(int permiso){
+    public AbstractPestana(int permiso, TabPanel tab){
         // por defecto siempre que sea cliente
         this.permisoUser = permiso;
+        this.tab = tab;
         
         setLayout(new BorderLayout());
         //setPreferredSize(new Dimension(490, 100));
@@ -99,7 +105,8 @@ public class AbstractPestana extends JPanel {
 
         boton_Logout = new JButton();
         boton_Logout.setText("Salir");
-        boton_Logout.setName("Log_out");        
+        boton_Logout.setName("Log_out"); 
+        boton_Logout.addActionListener(new click_Logout(this.permisoUser+1));
         //botonLogout.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         panelBotones.add(boton_Logout);
@@ -219,4 +226,24 @@ public class AbstractPestana extends JPanel {
         campo_user_mail.setText("mail@dominio.com");
         campo_user_city.setText("Santa Cruz de Tenerife");
     }
+    
+    private class click_Logout implements ActionListener{
+        
+        
+        private final int pestana;
+
+        public click_Logout(int pestana) {
+            this.pestana = pestana;
+        }
+        
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+
+           tab.setEnabledAt(this.pestana, false);
+           tab.setEnabledAt(0, true);
+           tab.setSelectedIndex(0);   
+        }
+ 
+    }
+    
 }

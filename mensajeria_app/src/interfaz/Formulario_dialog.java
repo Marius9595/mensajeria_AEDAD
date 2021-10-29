@@ -31,11 +31,36 @@ public class Formulario_dialog extends JFrame implements ActionListener{
     
     private JPanel container_pricipal = new JPanel();
 
-    
+    /**
+     * Constante MODO_TABLAS[] = {"Select", "Edit", "Delete", "Edit_NoReparto"}
+     */
+    protected final String MODO_TABLAS[] = {"Select", "Edit", "Delete", "Edit_NoReparto"};
+    /**
+     * Constante TABLAS[] = {"Articulos","Pedidos","Provincias","Usuarios"}
+     */
+    protected final String TABLAS[] = {"Articulos","Pedidos","Provincias","Usuarios"};
 
-    public Formulario_dialog(String titulo, HashMap<String,String> datos, boolean editable)  {
+    /**
+     * Contructor: 
+     * TABLAS[] = {"Articulos","Pedidos","Provincias","Usuarios"},
+     * MODO_TABLAS[] = {"Select", "Edit", "Delete", "Edit_NoReparto"}
+     * @param titulo
+     * @param tabla
+     * @param modo
+     * @param id_consulta
+     * @param permiso 
+     */
+    public Formulario_dialog(String titulo, int tabla, int modo, int id_consulta, int permiso )  {
         
         setTitle(titulo);
+        
+        boolean editable = (modo == 2);
+        
+        /* ------------- Carga datos ---------------- */
+        
+        
+        
+        HashMap<String,String> datos = new HashMap<String,String>();
         
         container_pricipal.setLayout(new GridLayout(datos.size()+1,1));
         

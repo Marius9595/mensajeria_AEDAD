@@ -39,9 +39,17 @@ public class Tabla_dialog extends JFrame implements ActionListener{
     // datos
     private HashMap<String,String> datos;
     
-    // para pruebas
-    private ArrayList<String[]> listaDatos;
+    private ArrayList<String[]> lista_Datos;
     
+    /**
+     * Constructor: 
+     * TABLAS[] = {"Articulos","Pedidos","Provincias","Usuarios"}, 
+     * MODO_TABLAS[] = {"Select", "Edit", "Delete", "Edit_NoReparto"}
+     * @param tabla tabla elegida
+     * @param modo modo de "lectura"
+     * @param id id del usuario 
+     * @param per id permiso del usuario
+     */
     public Tabla_dialog(int tabla, int modo, int id, int per) {
         this.tabla = tabla;
         this.modo = modo;
@@ -181,31 +189,29 @@ public class Tabla_dialog extends JFrame implements ActionListener{
         panelTabla.add(panelSeparator, BorderLayout.NORTH);
         
         /* tabla de datos */
-        
-        listaDatos = new ArrayList<>();
-        
-        // la carga de datos esta aquí
-        for (int i = 0; i < 20; i++) {
-            // seria String[] = {valor1, valor2, valor3};
-            String valores[] = {String.valueOf(100+i),"Amit","670000"};
-            listaDatos.add(valores);
-        }
+        lista_Datos = new ArrayList<>();
+        //-------------------------- carga de datos --------------
 
-        String column[]={"ID","CAMPO1","CAMPO2"};    // nombre columnas      
-        DefaultTableModel tableModel = new DefaultTableModel(column, 0);
+        //lista_Datos =  <-----  método de carga de datos;
+        //ejemplo
+        String column[]={"ID","CAMPO1","CAMPO2"}; //
+        lista_Datos.add(column); // <--- indice 0 nombre columnas
         
-        for (String dat[] : listaDatos){
-            Object[] data = dat;
-            tableModel.addRow(data);
-        }        
+        for (int i = 0; i < 20; i++) {
+            String dat[] = {String.valueOf(100 +i ),"Amit",String.valueOf(i * 10000)};
+            lista_Datos.add(dat);
+        }
         
-        JTable tabla_datos=new JTable(tableModel);    
+        // --------------------------------------------------------
+        
+        DefaultTableModel tableModel = mensajeria_app.Utilidades.ArrayList_to_DefaultTableModel(lista_Datos);
+        
+        JTable tabla_datos = new JTable(tableModel);    
         // solo que se vea
         tabla_datos.setEnabled(false);
         //tablaConection.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         //evento
-        //tablaConection.getModel().addTableModelListener(new TableModelListener() {
         tabla_datos.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -231,22 +237,23 @@ public class Tabla_dialog extends JFrame implements ActionListener{
         boton_cancelar.addActionListener(this);
         
         botones_container.add(boton_cancelar);
-                
-//        boton_realizar.addActionListener();
-//        boton_cancelar.addActionListener();
         
         return botones_container;
     }
-    
-    private void accionEnTabla(int row, int col){
-        // la idea es recuperar el row ver qeu valor es y del hasmap coger el row que toca y ponelro en los textField        
-        String rowElegida[] = listaDatos.get(row);
-        
+    /**
+     * lee el row  busca el indice de la lista de datos recuperandola y 
+     * volcandola en los textField
+     * @param row fila
+     * @param col  columna
+     */
+    private void accionEnTabla(int row, int col){   
+        String[] dat = lista_Datos.get(row);
         // cargamos los textfield
-        txt_id.setText(rowElegida[0]);
-        txt_campo1.setText(rowElegida[1]);
-        txt_campo2.setText(rowElegida[2]);
-        txt_campo3.setText("");  
+        txt_id.setText(dat[0]);
+        txt_campo1.setText(dat[1]);
+        txt_campo2.setText(dat[2]);
+        txt_campo3.setText("");
+        
     }
 
     /**
@@ -267,13 +274,15 @@ public class Tabla_dialog extends JFrame implements ActionListener{
         public void actionPerformed(ActionEvent ae) {
             this.source = (JButton) ae.getSource();
             
-            if("Buscar".equals(source.getName())){
-                //JOptionPane.showMessageDialog(null, "opcion 1 ", "tester", JOptionPane.PLAIN_MESSAGE);
-            } else {
-                txt_id.setText(" ");
-                txt_campo1.setText(" ");
-                txt_campo2.setText(" ");
-                txt_campo3.setText(" ");
+            switch(source.getName()){
+                case "Buscar":
+                    //JOptionPane.showMessageDialog(null, "opcion 1 ", "tester", JOptionPane.PLAIN_MESSAGE);
+                    break;
+                default:
+                    txt_id.setText(" ");
+                    txt_campo1.setText(" ");
+                    txt_campo2.setText(" ");
+                    txt_campo3.setText(" ");                   
             }
         }
     }

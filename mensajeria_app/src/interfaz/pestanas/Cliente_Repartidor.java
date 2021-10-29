@@ -9,6 +9,7 @@ import interfaz.Formulario_dialog;
 import interfaz.Tabla_dialog;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import javax.swing.*;
 
 /**
@@ -21,11 +22,11 @@ public class Cliente_Repartidor extends AbstractPestana {
     private JPanel panelCentralCentro;
     private JPanel panelCentralSur;
     
-    public Cliente_Repartidor(int permiso) {
+    public Cliente_Repartidor(int permiso, TabPanel tab) {
         /* cosas padre */
-        super(permiso);
+        super(permiso,tab);
         boton_Edit.addActionListener(new click_operar());
-        boton_Logout.addActionListener(new click_Logout());
+        //boton_Logout.addActionListener(new click_Logout(super.permisoUser+1));
         
         // esto es el "body" que cambia en los hijos     
         panelCentro.setLayout(new BorderLayout());
@@ -69,19 +70,18 @@ public class Cliente_Repartidor extends AbstractPestana {
         
         // ---------  centro ----------- 
         JList listaPedidos = new JList<>();
-        /* solicitar query a manager:
-        if permiso 1 solicitar 3-5 ultimos pedidos pendientes 
-        elsse -> 3-5 ultimos pedidos del user
-        */
+        
+        lista_datos = new ArrayList<>();
+        /* -------------   Carga de datos  --------------- */
+        
         DefaultListModel modelo = new DefaultListModel();
-        // carga de elementos en la lista iteración
-        modelo.addElement("Elemento1");
-        modelo.addElement("Elemento2");
-        modelo.addElement("Elemento3");
+        // id artículo
+        // nombre articulo
+        for(String[] dat : lista_datos){
+            modelo.addElement("Pedido id: " + dat[0] + ", Descripción: " + dat[1]);
+        }
+
         listaPedidos.setModel(modelo);
-        /* cosas qeu pueden ser utiles sino descartar*/
-        //listaPedidos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION ); // <- solo marque 1 para luego inssertar un escucha
-        //listaPedidos.addListSelectionListener(new ListSelectionListener()); // <- escuha para el cambio de selector
         
         // no queremos que marque nada solo que sea visual
         listaPedidos.setEnabled(false);
@@ -113,28 +113,18 @@ public class Cliente_Repartidor extends AbstractPestana {
         public void actionPerformed(ActionEvent ae) {
             this.source = (JButton) ae.getSource();
             
-            if("Editar_Perfil".equals(source.getName())){
-                // New edit -> formulario edit id_usuario
-                JOptionPane.showMessageDialog(null, "Editando", "tester", JOptionPane.PLAIN_MESSAGE);
-            } else {
-                if("New_Pedido".equals(source.getName())){
+            switch(source.getName()){
+                case "Editar_Perfil":
+                    // edit -> formulario edit id_usuario
+                    new Formulario_dialog("Editar perfil", 3, 2, super.id_usuario, super.permisos);
+                    break;
+                case "New_Pedido":
                     // new edit -> formulario edit usuario, id_usuario = 0
-                    
-                    //query datos -> HashMap -> new forumalrio
-                    
-                    new Formulario_dialog("Nuevo pedido", null, false);
-                } else{
+                    break;
+                default:
                     // modal tabla: tabla pedidos, modo 0, id_usuario, permiso
                     new Tabla_dialog(1, 0, super.id_usuario, super.permisos);
-                } 
             }
-        }
-    }
-    
-    private class click_Logout extends Eventos.Event_Boton_Personalizado{
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            this.source = (JButton) ae.getSource();
         }
     }
 }

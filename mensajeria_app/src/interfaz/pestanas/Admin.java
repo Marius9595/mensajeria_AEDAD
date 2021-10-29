@@ -5,10 +5,13 @@
  */
 package interfaz.pestanas;
 
+import interfaz.Formulario_dialog;
 import interfaz.Tabla_dialog;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -23,9 +26,9 @@ public class Admin extends AbstractPestana{
     private JRadioButton radioButton_Delete;
     private JComboBox comboTablas;
     
-    public Admin(int permiso) {
+    public Admin(int permiso,TabPanel tab) {
         /* cosas padre */
-        super(permiso);
+        super(permiso,tab);
         boton_Edit.addActionListener(new click_operar());
         boton_Logout.addActionListener(new click_Logout());
         
@@ -103,14 +106,26 @@ public class Admin extends AbstractPestana{
 
         panelTabla.add(panelSeparator, BorderLayout.NORTH);
         
-        /* tabla de datos */
-        // deberian sser 3 o 5 lo que se vea en el frame
-        String data[][]={ {"101","Amit","670000"},    // los datos
-                          {"102","Jai","780000"},    
-                          {"101","Sachin","700000"}};    
-        String column[]={"ID","NAME","SALARY"};    // nombre columnas      
+        /* tabla de datos */     
         
-        JTable tablaConection=new JTable(data,column);    
+        lista_datos = new ArrayList<>();
+        //lista_Datos =  <-----  método de carga de datos;
+        
+        // ------------------ carga de datos -----------------------
+        String column[]={"ID","CAMPO1","CAMPO2"}; //
+        lista_datos.add(column); // <--- indice 0 nombre columnas
+        
+        for (int i = 0; i < 20; i++) {
+            String dat[] = {String.valueOf(100 +i ),"Amit",String.valueOf(i * 10000)};
+            lista_datos.add(dat);
+        }
+        
+        // --------------------------------------------------------
+        
+        DefaultTableModel tableModel = mensajeria_app.Utilidades.ArrayList_to_DefaultTableModel(lista_datos);
+        
+        JTable tablaConection = new JTable(tableModel);
+           
         // solo que se vea
         tablaConection.setEnabled(false);
         //tablaConection.setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -125,8 +140,8 @@ public class Admin extends AbstractPestana{
             this.source = (JButton) ae.getSource();
             
             if("Editar_Perfil".equals(source.getName())){
-                // New edit -> formulario edit id_usuario
-                JOptionPane.showMessageDialog(null, "Editando", "tester", JOptionPane.PLAIN_MESSAGE);
+                // edit  -> formulario edit id_usuario
+                new Formulario_dialog("Editar perfil", 3, 2, super.id_usuario, super.permisos);
             } else {
                 int opcion_Marcada = -1;
                 if(radioButton_New.isSelected()){
@@ -146,13 +161,8 @@ public class Admin extends AbstractPestana{
                     opcion_Marcada = 2;
                 }
 
-                // va en este orden
-                // Articuloss, Pedidos, Provincias, Usuarios
                 int tabla = (int)comboTablas.getSelectedIndex();
-
-                // pruebas
-                //JOptionPane.showMessageDialog(null, "funciona: " + opcion_Marcada + ", " + tabla , "Tester", JOptionPane.PLAIN_MESSAGE);
-
+                
                 new Tabla_dialog(tabla, opcion_Marcada, super.id_usuario, super.permisos);
             }
         }

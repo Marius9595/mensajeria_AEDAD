@@ -10,8 +10,10 @@ import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -60,5 +62,16 @@ public class Utilidades {
         elFrame.pack();
         
         elFrame.setLocation(width/2 - elFrame.getWidth()/2 , height/2 - elFrame.getHeight()/2);
+    }
+    
+    public static DefaultTableModel ArrayList_to_DefaultTableModel(ArrayList<String[]> lista_Datos){
+        DefaultTableModel tableModel = new DefaultTableModel(lista_Datos.get(0), 0);
+
+        for(String[] rowAdd : lista_Datos){
+            Object[] objs = rowAdd;
+            tableModel.addRow(objs);
+        }
+        
+        return tableModel;
     }
 }
