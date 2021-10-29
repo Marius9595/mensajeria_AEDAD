@@ -21,9 +21,9 @@ public class Cliente_Repartidor extends AbstractPestana {
     private JPanel panelCentralCentro;
     private JPanel panelCentralSur;
     
-    public Cliente_Repartidor(int permiso) {
+    public Cliente_Repartidor(int permiso, TabPanel tab) {
         /* cosas padre */
-        super(permiso);
+        super(permiso,tab);
         boton_Edit.addActionListener(new click_operar());
         boton_Logout.addActionListener(new click_Logout());
         

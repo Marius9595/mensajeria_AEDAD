@@ -42,10 +42,11 @@ public class TabPanel extends JTabbedPane {
         
         // inicialmente que este todo en disabled y cuando loggee activamos
         //para pruebas comentar esta parte
-        setEnabledAt(1, false);
-        setEnabledAt(2, false);
-        setEnabledAt(3, false);
-        setEnabledAt(4, false);
+        
+        for (int i = 0; i < 5; i++) {
+            setEnabledAt(i, false);
+        }
+
         
         
         //temporal: TODO: HACER RESPONSIVE
