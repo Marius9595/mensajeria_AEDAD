@@ -18,7 +18,7 @@ USE `mensajeria` ;
 -- Table `mensajeria`.`articulo`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mensajeria`.`articulo` (
-  `id_articulo` INT NOT NULL,
+  `id_articulo` INT NOT NULL AUTO_INCREMENT,
   `descripcion` VARCHAR(45) NULL,
   PRIMARY KEY (`id_articulo`))
 ENGINE = InnoDB;
@@ -28,7 +28,7 @@ ENGINE = InnoDB;
 -- Table `mensajeria`.`provincia`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mensajeria`.`provincia` (
-  `id_provincia` INT NOT NULL,
+  `id_provincia` INT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(45) NULL,
   PRIMARY KEY (`id_provincia`))
 ENGINE = InnoDB;
@@ -38,7 +38,7 @@ ENGINE = InnoDB;
 -- Table `mensajeria`.`usuario`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mensajeria`.`usuario` (
-  `id_usuario` INT NOT NULL,
+  `id_usuario` INT NOT NULL AUTO_INCREMENT,
   `Nombre` VARCHAR(50) NULL,
   `Apellidos` VARCHAR(150) NULL,
   `Correo` VARCHAR(45) NULL,
