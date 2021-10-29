@@ -14,25 +14,41 @@ import javax.swing.*;
  * @author Mario
  */
 public class AbstractPestana extends JPanel {
-    // almacenar permiso
+    /**
+     * Constante MODO_TABLAS[] = {"Select", "Edit", "Delete", "Edit_NoReparto"}
+     */
+    protected final String MODO_TABLAS[] = {"Select", "Edit", "Delete", "Edit_NoReparto"};
+    /**
+     * Constante TABLAS[] = {"Articulos","Pedidos","Provincias","Usuarios"}
+     */
+    protected final String TABLAS[] = {"Articulos","Pedidos","Provincias","Usuarios"};     
+    
+    // cossas usuarios
     protected int permisoUser;
     protected int id_user;
-    //marco inicial
-    protected JPanel panelSuperior;
+    
+    //Cabecera común
+    private JPanel panelSuperior;
+    
+    /**
+     * JPanel Cuerpo central. Aqui es donde va el contenido de lso hijos
+     */
     protected JPanel panelCentro;
-    // datoss de usuario
-    protected JTextField campo_user_name;
-    protected JTextField campo_user_apellido;
-    protected JTextField campo_user_mail; 
-    protected JTextField campo_user_city;
+    
+    // datos de la cabecera
+    private JTextField campo_user_name;
+    private JTextField campo_user_apellido;
+    private JTextField campo_user_mail; 
+    private JTextField campo_user_city;
 
+    protected JButton boton_Edit;
+    protected JButton boton_Logout;
     
     public AbstractPestana(int permiso){
         // por defecto siempre que sea cliente
         this.permisoUser = permiso;
         
         setLayout(new BorderLayout());
-        // temporal
         //setPreferredSize(new Dimension(490, 100));
         
         
@@ -69,30 +85,26 @@ public class AbstractPestana extends JPanel {
         panelSuperior.add(imagen, BorderLayout.WEST);
 
         
-        
-        
-        
         // ------------ Superior este ----------
 
         JPanel panelBotones = new JPanel(new GridLayout(2, 1));
         
         
-        JButton botonEdit = new JButton();
-        botonEdit.setText("Editar Perfil");
+        boton_Edit = new JButton();
+        boton_Edit.setText("Editar Perfil");
+        boton_Edit.setName("Editar_Perfil");        
         //botonEdit.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        //botonEdit.addComponentListener(new ActionListener()); // evento editar
         
-        panelBotones.add(botonEdit);
+        panelBotones.add(boton_Edit);
 
-        JButton botonLogout = new JButton();
-        botonLogout.setText("Salir");
+        boton_Logout = new JButton();
+        boton_Logout.setText("Salir");
+        boton_Logout.setName("Log_out");        
         //botonLogout.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        //botonLogout.addComponentListener(new ActionListener()); // evento logout
         
-        panelBotones.add(botonLogout);
+        panelBotones.add(boton_Logout);
         
         
-    
         panelSuperior.add(panelBotones, BorderLayout.EAST);
 
 
@@ -132,7 +144,6 @@ public class AbstractPestana extends JPanel {
         panel_user_apellido.add(campo_user_apellido);        
 
         panelSuperiorDatos.add(panel_user_apellido);
-
      
 
         JLabel label_user_mail = new JLabel("Correo :    "); 
@@ -149,26 +160,20 @@ public class AbstractPestana extends JPanel {
         
         panelSuperiorDatos.add(panel_user_mail);
 
-
         /* ojo que estoy hay que convertirlo: id_provincia -> provincia_nombre */
         JLabel label_user_city = new JLabel("Provincia :");
         //label_user_city.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         campo_user_city=new JTextField(tam_textField);
         campo_user_city.setEditable(false);
-        //campo_user_city.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        
+        //campo_user_city.setPreferredSize(new Dimension(WIDTH, HEIGHT));      
         
         JPanel panel_user_city = new JPanel(new FlowLayout());
         panel_user_city.add(label_user_city);
-        panel_user_city.add(campo_user_city);
-        
+        panel_user_city.add(campo_user_city);       
         
         panelSuperiorDatos.add(panel_user_city);
-        
-        
-        
-        
+
         panelSuperior.add(panelSuperiorDatos);
 
         // una vez todo montado llamamos a la cargaDatosPermisos
@@ -207,5 +212,11 @@ public class AbstractPestana extends JPanel {
      * es el método qeu carga los datos en el formulario de cabecera
      */
     public void cargaDatosPermisos(){
+        // cargador de datos
+        
+        campo_user_name.setText("Pepe");
+        campo_user_apellido.setText("Apellido1 Apellido2");
+        campo_user_mail.setText("mail@dominio.com");
+        campo_user_city.setText("Santa Cruz de Tenerife");
     }
 }

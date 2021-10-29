@@ -10,6 +10,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -23,7 +25,7 @@ import javax.swing.JTextField;
  *
  * @author Mario
  */
-public class Formulario_dialog extends JFrame {
+public class Formulario_dialog extends JFrame implements ActionListener{
     
    
     
@@ -33,8 +35,7 @@ public class Formulario_dialog extends JFrame {
 
     public Formulario_dialog(String titulo, HashMap<String,String> datos, boolean editable)  {
         
-        Toolkit pantalla = Toolkit.getDefaultToolkit();
-        Dimension tamanoPantalla = pantalla.getScreenSize(); 
+        setTitle(titulo);
         
         container_pricipal.setLayout(new GridLayout(datos.size()+1,1));
         
@@ -62,7 +63,10 @@ public class Formulario_dialog extends JFrame {
         
         
         JButton boton_realizar = new JButton("Realizar");
+        boton_realizar.addActionListener(new click_Execute());
+        
         JButton boton_cancelar = new JButton("Cancelar");
+        boton_cancelar.addActionListener(this);
         
         
         
@@ -75,25 +79,29 @@ public class Formulario_dialog extends JFrame {
         
         container_pricipal.add(botones_container,CENTER_ALIGNMENT);
         
-        
-        int height = tamanoPantalla.height;
-        int width = tamanoPantalla.width;
-        
-
-        setLocation(width/2 + getWidth()/2 , height/2 +getHeight()/2);
-        
-        setTitle(titulo);
-
-        pack();
+        mensajeria_app.Utilidades.centrarPantalla(this);
         
         setVisible(true);
-        
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        
     }
     
-
+    /**
+     * cerrado genérico
+     * @param e 
+     */
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        setVisible(false);
+        dispose(); 
+    }
     
-    
-    
+        /**
+     * escucha del boton find
+     */
+    private class click_Execute extends Eventos.Event_Boton_Personalizado{
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            this.source = (JButton) ae.getSource();
+            //JOptionPane.showMessageDialog(null, "opcion 1 ", "tester", JOptionPane.PLAIN_MESSAGE);
+        }
+    }
 }

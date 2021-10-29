@@ -5,7 +5,9 @@
  */
 package interfaz.pestanas;
 
+import interfaz.Tabla_dialog;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import javax.swing.*;
 import mensajeria_app.Graficos;
 import org.jfree.chart.ChartPanel;
@@ -17,8 +19,16 @@ import org.jfree.chart.ChartPanel;
  */
 public class Administrativo extends AbstractPestana {
 
+    /**
+     * Constante OPCIONES[] = {"Select_Pedidos", "New_Pedidos", "New_Cliente", "New_Repartidor", "Edit_Pedidos"}
+     */
+    private final String OPCIONES[] = {"Select_Pedidos", "New_Pedidos", "New_Cliente", "New_Repartidor", "Edit_Pedidos"};
+    
     public Administrativo(int permiso) {
+        /* cosas padre */
         super(permiso);
+        boton_Edit.addActionListener(new click_operar());
+        boton_Logout.addActionListener(new click_Logout());
         
         panelCentro.setLayout(new BorderLayout());      
         
@@ -50,22 +60,27 @@ public class Administrativo extends AbstractPestana {
         
         JButton boton_Pedidos_Select = new JButton();
         boton_Pedidos_Select.setText("Consultar Pedidos");
+        boton_Pedidos_Select.setName(OPCIONES[0]);
         //boton_Pedidos_Select.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         JButton boton_Pedidos_New = new JButton();
         boton_Pedidos_New.setText("Crear Pedidos");
+        boton_Pedidos_New.setName(OPCIONES[1]);
         //boton_Pedidos_New.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         JButton boton_Cliente_New = new JButton();
         boton_Cliente_New.setText("Crear Cliente");
+        boton_Cliente_New.setName(OPCIONES[2]);
         //boton_Cliente_New.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         JButton boton_Repartidor_New = new JButton();
         boton_Repartidor_New.setText("Crear Repartidor");
+        boton_Repartidor_New.setName(OPCIONES[3]);
         //boton_Repartidor_New.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         JButton boton_Repartidor_Asignar = new JButton();
         boton_Repartidor_Asignar.setText("Asignar Repartidor");
+        boton_Repartidor_Asignar.setName(OPCIONES[4]);
         //boton_Repartidor_Asignar.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         panelBotones.add(boton_Pedidos_Select);
@@ -108,5 +123,53 @@ public class Administrativo extends AbstractPestana {
         chartPanel_Queso.setPreferredSize(new Dimension(50, 100)); // ajustar tamaño
         panelGraficosCentro.add(chartPanel_Queso);
         
+    }
+    
+    private class click_operar extends Eventos.Event_Boton_Personalizado{
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            this.source = (JButton) ae.getSource();
+            
+            if("Editar_Perfil".equals(source.getName())){
+                // New edit -> formulario edit id_usuario
+                JOptionPane.showMessageDialog(null, "Editando", "tester", JOptionPane.PLAIN_MESSAGE);
+            } else {
+                int opcion_Marcada = -1;
+                int tabla = 1;
+                if(OPCIONES[0].equals(source.getText()) ){
+                    // select pedidos -> modal tabla: select tabla pedidos
+                    opcion_Marcada = 0;
+                }
+                if(OPCIONES[1].equals(source.getText())){
+                    // new pedido -> mandar a modal formulario: edit tabla pedidos, id_pedido = 0
+                    opcion_Marcada = 1;
+                }
+                if(OPCIONES[2].equals(source.getText())){
+                    // new user 0 -> mandar a modal formulario: edit tabla user, id_user = 0, permisos = 0
+                    opcion_Marcada = 2;
+                }
+                if(OPCIONES[3].equals(source.getText())){
+                    // new user 0 -> mandar a modal formulario: edit tabla user, id_user = 0, permisos = 1
+                    opcion_Marcada = 3;
+                }
+                if(OPCIONES[4].equals(source.getText())){
+                    // select pedidos -> modal tabla: edit tabla pedidos, no repartidor
+                    opcion_Marcada = 3;
+                }
+
+                // pruebas
+                //JOptionPane.showMessageDialog(null, "funciona: " + opcion_Marcada + ", " + tabla , "Tester", JOptionPane.PLAIN_MESSAGE);
+
+                new Tabla_dialog(tabla, opcion_Marcada, super.id_usuario, super.permisos); 
+            }
+        }
+    }
+    
+    private class click_Logout extends Eventos.Event_Boton_Personalizado{
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            this.source = (JButton) ae.getSource();
+            // logout
+        }
     }
 }

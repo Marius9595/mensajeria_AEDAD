@@ -5,6 +5,7 @@
  */
 package interfaz.pestanas;
 
+import interfaz.Tabla_dialog;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import javax.swing.*;
@@ -15,13 +16,18 @@ import javax.swing.*;
  */
 public class Admin extends AbstractPestana{
 
-    JRadioButton radioButton_Select;
-    JRadioButton radioButton_New;
-    JRadioButton radioButton_Update;
-    JRadioButton radioButton_Delete;
+    // para el acceso a los componentes
+    private JRadioButton radioButton_Select;
+    private JRadioButton radioButton_New;
+    private JRadioButton radioButton_Update;
+    private JRadioButton radioButton_Delete;
+    private JComboBox comboTablas;
     
     public Admin(int permiso) {
+        /* cosas padre */
         super(permiso);
+        boton_Edit.addActionListener(new click_operar());
+        boton_Logout.addActionListener(new click_Logout());
         
         panelCentro.setLayout(new BoxLayout(panelCentro,BoxLayout.Y_AXIS));
         
@@ -58,10 +64,8 @@ public class Admin extends AbstractPestana{
         bg.add(radioButton_Select);
         bg.add(radioButton_Update);
         bg.add(radioButton_Delete);
-        
-        // aqui van las tablas que usamos
-        String tablas[]={"Articulos","Pedidos","Provincias","Usuarios"};        
-        JComboBox comboTablas=new JComboBox(tablas);
+              
+        comboTablas=new JComboBox(TABLAS);
         //comboTablas.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         JButton botonEnviar = new JButton();
@@ -82,7 +86,7 @@ public class Admin extends AbstractPestana{
         // separador
         JPanel panelSeparator = new JPanel();
         panelSeparator.setLayout(new BorderLayout());
-        panelSeparator.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
+        panelSeparator.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
         
         JPanel panelTituloTabla = new JPanel();
         panelTituloTabla.setLayout(new FlowLayout());
@@ -94,7 +98,6 @@ public class Admin extends AbstractPestana{
         panelTituloTabla.add(nombreLista);
         
         panelSeparator.add(new JSeparator(JSeparator.HORIZONTAL), BorderLayout.NORTH);
-        panelSeparator.add(new JSeparator(JSeparator.HORIZONTAL), BorderLayout.SOUTH);
         panelSeparator.add(panelTituloTabla, BorderLayout.CENTER);
         
 
@@ -111,31 +114,55 @@ public class Admin extends AbstractPestana{
         // solo que se vea
         tablaConection.setEnabled(false);
         //tablaConection.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        JScrollPane sp =new JScrollPane(tablaConection);
         
-        panelTabla.add(tablaConection, BorderLayout.CENTER);
-        
+        panelTabla.add(sp, BorderLayout.CENTER);
     }
     
     private class click_operar extends Eventos.Event_Boton_Personalizado{
         @Override
         public void actionPerformed(ActionEvent ae) {
             this.source = (JButton) ae.getSource();
-            //JOptionPane.showMessageDialog(null, "funciona", "Error", JOptionPane.PLAIN_MESSAGE);
-            int opcion_Marcada = 0;
-            if(radioButton_New.isSelected()){
-                // edit 0
-                opcion_Marcada = 1;
+            
+            if("Editar_Perfil".equals(source.getName())){
+                // New edit -> formulario edit id_usuario
+                JOptionPane.showMessageDialog(null, "Editando", "tester", JOptionPane.PLAIN_MESSAGE);
+            } else {
+                int opcion_Marcada = -1;
+                if(radioButton_New.isSelected()){
+                    // New edit -> formulario edit 0
+                    opcion_Marcada = 1;
+                }
+                if(radioButton_Select.isSelected()){
+                    //select -> modal tabla modo 0
+                    opcion_Marcada = 0;
+                }
+                if(radioButton_Update.isSelected()){
+                    // edit -> modal tabla: modo 1
+                    opcion_Marcada = 1;
+                }
+                if(radioButton_Delete.isSelected()){
+                    //  delete -> modal tabla: modo 2                
+                    opcion_Marcada = 2;
+                }
+
+                // va en este orden
+                // Articuloss, Pedidos, Provincias, Usuarios
+                int tabla = (int)comboTablas.getSelectedIndex();
+
+                // pruebas
+                //JOptionPane.showMessageDialog(null, "funciona: " + opcion_Marcada + ", " + tabla , "Tester", JOptionPane.PLAIN_MESSAGE);
+
+                new Tabla_dialog(tabla, opcion_Marcada, super.id_usuario, super.permisos);
             }
-            if(radioButton_Select.isSelected()){
-                
-                opcion_Marcada = 2;
-            }
-            if(radioButton_Update.isSelected()){
-                opcion_Marcada = 3;
-            }
-            if(radioButton_New.isSelected()){
-                opcion_Marcada = 4;
-            }
+        }
+    }
+    
+    private class click_Logout extends Eventos.Event_Boton_Personalizado{
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            this.source = (JButton) ae.getSource();
+            // logout
         }
     }
 }

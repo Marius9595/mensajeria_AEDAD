@@ -6,9 +6,8 @@
 package interfaz;
 
 import interfaz.pestanas.TabPanel;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import javax.swing.JFrame;
+import java.awt.*;
+import javax.swing.*;
 
 /**
  *
@@ -25,25 +24,16 @@ public class FramePrincipal extends JFrame {
         int height = tamanoPantalla.height;
         int width = tamanoPantalla.width;
         
-        //Lo que hay que usar
-        
-         //Loque hay que borrar
-        
-
-        setLocation(width/2 - getWidth()/2 , height/2 -getHeight()/2);
-        
         setTitle("Glovo Company S.L");
         
         add(new TabPanel());
         
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        
+        setDefaultCloseOperation(EXIT_ON_CLOSE);        
         
         pack();
+        
+        setLocation(width/2 - getWidth()/2 , height/2 -getHeight()/2);
         setVisible(true);
-        
-        
-
     }
 
 }

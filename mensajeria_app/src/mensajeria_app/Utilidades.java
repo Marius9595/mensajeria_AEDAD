@@ -5,10 +5,13 @@
  */
 package mensajeria_app;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import javax.swing.JFrame;
 
 /**
  *
@@ -45,5 +48,17 @@ public class Utilidades {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime dateTime = LocalDateTime.parse(fecha, formatter);
         return dateTime;
+    }
+    
+    public static void centrarPantalla(JFrame elFrame){
+        Toolkit pantalla = Toolkit.getDefaultToolkit();
+        Dimension tamanoPantalla = pantalla.getScreenSize(); 
+       
+        int height = tamanoPantalla.height - elFrame.getHeight()/2;
+        int width = tamanoPantalla.width - elFrame.getWidth()/2;
+        
+        elFrame.pack();
+        
+        elFrame.setLocation(width/2 - elFrame.getWidth()/2 , height/2 - elFrame.getHeight()/2);
     }
 }

@@ -5,10 +5,11 @@
  */
 package interfaz.pestanas;
 
-import Clases_BD.Pedido;
+import interfaz.Formulario_dialog;
+import interfaz.Tabla_dialog;
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -21,8 +22,10 @@ public class Cliente_Repartidor extends AbstractPestana {
     private JPanel panelCentralSur;
     
     public Cliente_Repartidor(int permiso) {
-        // todo lo del padre
+        /* cosas padre */
         super(permiso);
+        boton_Edit.addActionListener(new click_operar());
+        boton_Logout.addActionListener(new click_Logout());
         
         // esto es el "body" que cambia en los hijos     
         panelCentro.setLayout(new BorderLayout());
@@ -90,18 +93,48 @@ public class Cliente_Repartidor extends AbstractPestana {
         // ------- sur ---------
         JButton botonConsultarPedido = new JButton();
         botonConsultarPedido.setText("Consultar Pedidos");
+        botonConsultarPedido.setName("Select_pedidos");
         //botonConsultarPedido.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        //botonConsultarPedido.addActionListener(new consultar_pedidos_cliente_repartidor()); // evento editar
+        botonConsultarPedido.addActionListener(new click_operar()); // evento editar
         panelCentralSur.add(botonConsultarPedido);
         
         // solo si es cliente
         if(permisoUser == 0){
             JButton botonCrearPedido = new JButton();
             botonCrearPedido.setText("Realizar Pedidos");
-            //botonLogout.addComponentListener(new ActionListener()); // evento logout
+            botonCrearPedido.setName("New_Pedido");
+            botonCrearPedido.addActionListener(new click_operar()); // evento logout
             panelCentralSur.add(botonCrearPedido);// evento editar
         }
     }
     
-
+    private class click_operar extends Eventos.Event_Boton_Personalizado{
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            this.source = (JButton) ae.getSource();
+            
+            if("Editar_Perfil".equals(source.getName())){
+                // New edit -> formulario edit id_usuario
+                JOptionPane.showMessageDialog(null, "Editando", "tester", JOptionPane.PLAIN_MESSAGE);
+            } else {
+                if("New_Pedido".equals(source.getName())){
+                    // new edit -> formulario edit usuario, id_usuario = 0
+                    
+                    //query datos -> HashMap -> new forumalrio
+                    
+                    new Formulario_dialog("Nuevo pedido", null, false);
+                } else{
+                    // modal tabla: tabla pedidos, modo 0, id_usuario, permiso
+                    new Tabla_dialog(1, 0, super.id_usuario, super.permisos);
+                } 
+            }
+        }
+    }
+    
+    private class click_Logout extends Eventos.Event_Boton_Personalizado{
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            this.source = (JButton) ae.getSource();
+        }
+    }
 }

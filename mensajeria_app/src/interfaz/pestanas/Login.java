@@ -96,10 +96,7 @@ public class Login extends JPanel {
     
     
     private class click_acceder extends Event_Boton_Personalizado{
-
-
-       
-
+        
         @Override
         public void actionPerformed(ActionEvent ae) {
             
@@ -115,9 +112,8 @@ public class Login extends JPanel {
             AbstractPestana pestana = (AbstractPestana) tab.getTabComponentAt(1);
             
             
-           // pestana.set
+            //pestana.setId_user(1);
         }
-     
-        
+
     }
 }
