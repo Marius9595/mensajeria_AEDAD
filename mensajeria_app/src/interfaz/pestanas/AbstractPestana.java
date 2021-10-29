@@ -6,6 +6,7 @@
 package interfaz.pestanas;
 
 import java.awt.*;
+import java.util.ArrayList;
 import javax.swing.*;
 
 
@@ -26,6 +27,8 @@ public class AbstractPestana extends JPanel {
     // cossas usuarios
     protected int permisoUser;
     protected int id_user;
+    protected TabPanel tab;
+    protected ArrayList<String[]> lista_datos;
     
     //Cabecera común
     private JPanel panelSuperior;
@@ -44,9 +47,10 @@ public class AbstractPestana extends JPanel {
     protected JButton boton_Edit;
     protected JButton boton_Logout;
     
-    public AbstractPestana(int permiso){
+    public AbstractPestana(int permiso, TabPanel tab){
         // por defecto siempre que sea cliente
         this.permisoUser = permiso;
+        this.tab = tab;
         
         setLayout(new BorderLayout());
         //setPreferredSize(new Dimension(490, 100));

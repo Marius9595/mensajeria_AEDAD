@@ -23,9 +23,9 @@ public class Admin extends AbstractPestana{
     private JRadioButton radioButton_Delete;
     private JComboBox comboTablas;
     
-    public Admin(int permiso) {
+    public Admin(int permiso,TabPanel tab) {
         /* cosas padre */
-        super(permiso);
+        super(permiso,tab);
         boton_Edit.addActionListener(new click_operar());
         boton_Logout.addActionListener(new click_Logout());
         

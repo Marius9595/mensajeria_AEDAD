@@ -24,9 +24,9 @@ public class Administrativo extends AbstractPestana {
      */
     private final String OPCIONES[] = {"Select_Pedidos", "New_Pedidos", "New_Cliente", "New_Repartidor", "Edit_Pedidos"};
     
-    public Administrativo(int permiso) {
+    public Administrativo(int permiso,TabPanel tab) {
         /* cosas padre */
-        super(permiso);
+        super(permiso,tab);
         boton_Edit.addActionListener(new click_operar());
         boton_Logout.addActionListener(new click_Logout());
         
