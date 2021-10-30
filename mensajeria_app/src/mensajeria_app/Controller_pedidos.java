@@ -39,55 +39,108 @@ public class Controller_pedidos {
     Connection_BBDD DB = new Connection_BBDD(USER, PASS, IP, DATABASE);
     
     
-    
-    
-    
-    
-    public ArrayList<Usuario>  get_usuarios(int id_usuario_actual){
-        
-      ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
-        
-      ResultSet usuarios_tabla =  DB.raw_select("SELECT id_usuario,nombre,apellidos,correo, p.nombre FROM usuario INNER JOIN provincia p on usuario.id_provincia = p.id_provincia WHERE id_usuario != " + id_usuario_actual);
+    private ArrayList<Usuario> get_generic_usuarios(String columnas, String filtros) throws SQLException{
         
         
-      try {
-          
-        while(usuarios_tabla.next()){
+        ArrayList<Usuario> usuarios_consulta = new ArrayList<Usuario>();
         
-            Usuario usuario = new Usuario();
-            
-            usuario.setId_usuario(usuarios_tabla.getInt("id_usuario"));
-            usuario.setNombre(usuarios_tabla.getString("nombre"));
-            usuario.setCorreo(usuarios_tabla.getString("correo"));
-            usuario.setProvincia(usuarios_tabla.getString("p.nombre"));
-            
-            usuarios.add(usuario);
+        String  sentencia = "SELECT " + columnas + " FROM  usuario ";
+        
+        
+        if (filtros != null){
+   
+            sentencia += " WHERE " + filtros;
 
-        } } catch (SQLException ex) {
-            Logger.getLogger(Controller_pedidos.class.getName()).log(Level.SEVERE, null, ex);
-      }
-      
-      
-      return usuarios;
+        }
+        
+   
+        ResultSet respuesta = DB.raw_select(sentencia);
+        
+        if (respuesta != null){
 
-    }
-
-    
-    
-    public void update_usuarios(ArrayList<Usuario> usuario_actualizados){
-        
-        
-        
-        for (Usuario usuario_actualizado : usuario_actualizados) {
+            while(respuesta.next()){
+                
+                Usuario registro_usuario = new Usuario();
+                
+                registro_usuario.setNombre(respuesta.getString("nombre"));
+                registro_usuario.setApellidos(respuesta.getString("apellidos"));
+                registro_usuario.setCorreo(respuesta.getString("correo"));
+                registro_usuario.setId_provincia(Integer.parseInt(respuesta.getString("id_provincia")));
+                
+                usuarios_consulta.add(registro_usuario);
+                
+            }
+            
+            DB.close_connection();
             
             
+        } else {
             
-           // DB.update("usuario", registros, filtros);
             
+            usuarios_consulta = null;
         }
         
         
+        return usuarios_consulta;
+        
+ 
     }
+    
+    
+    
+    
+    public Usuario Login (String correo, String password) throws SQLException{
+        
+        String filtros = "correo = '" + correo + "' AND password = '" + password + "'";
+        
+        
+        
+        ArrayList<Usuario> usuario_loggin = get_generic_usuarios("*",filtros);
+
+        System.out.println(usuario_loggin.toString());
+        
+        if (!usuario_loggin.isEmpty()){
+            return usuario_loggin.get(0);
+            
+        }else{
+            
+            return null;
+        }
+        
+        
+        
+        
+    }
+    
+    
+    public String get_provincia_by_id (int id_provincia) throws SQLException{
+        
+        
+        String resultado = null;
+        
+        ResultSet respuesta = DB.raw_select("SELECT * FROM provincia WHERE id_provincia = " + id_provincia);
+        
+       
+        
+        if(respuesta != null){
+            
+            respuesta.next();
+            
+            resultado = respuesta.getString("nombre");
+        
+            DB.close_connection();
+        }
+        
+        
+        
+        
+        return resultado;
+
+    }
+    
+    
+    
+
     
     
     

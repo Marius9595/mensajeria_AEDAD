@@ -20,6 +20,10 @@ public class Provincia {
         this.nombre = nombre;
     }
 
+    public Provincia() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     // getter y setter
     public int getId_provincia() {
         return id_provincia;

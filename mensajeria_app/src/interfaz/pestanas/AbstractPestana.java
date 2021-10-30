@@ -9,9 +9,17 @@ import Clases_BD.Usuario;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import mensajeria_app.Controller_pedidos;
 
 
 /**
@@ -19,6 +27,8 @@ import javax.swing.*;
  * @author Mario
  */
 public class AbstractPestana extends JPanel {
+    
+    protected Controller_pedidos DB = new Controller_pedidos();
     /**
      * Constante MODO_TABLAS[] = {"Select", "Edit", "Delete", "Edit_NoReparto"}
      */
@@ -29,6 +39,8 @@ public class AbstractPestana extends JPanel {
     protected final String TABLAS[] = {"Articulos","Pedidos","Provincias","Usuarios"};     
     
     // cossas usuarios
+
+    protected Usuario usuario_logueado;
     protected int permisoUser;
     protected int id_user;
     protected TabPanel tab;
@@ -43,15 +55,15 @@ public class AbstractPestana extends JPanel {
     protected JPanel panelCentro;
     
     // datos de la cabecera
-    private JTextField campo_user_name;
-    private JTextField campo_user_apellido;
-    private JTextField campo_user_mail; 
-    private JTextField campo_user_city;
+    private JLabel campo_user_name;
+    private JLabel campo_user_apellido;
+    private JLabel campo_user_mail; 
+    private JLabel campo_user_city;
 
     protected JButton boton_Edit;
     protected JButton boton_Logout;
     
-    public AbstractPestana(int permiso, TabPanel tab){
+    public AbstractPestana(int permiso, TabPanel tab, Usuario usuario) throws SQLException{
         // por defecto siempre que sea cliente
         this.permisoUser = permiso;
         this.tab = tab;
@@ -59,7 +71,8 @@ public class AbstractPestana extends JPanel {
         setLayout(new BorderLayout());
         //setPreferredSize(new Dimension(490, 100));
         
-        
+
+      
         
         /* cabeceras */
         panelSuperior = new JPanel();
@@ -122,14 +135,13 @@ public class AbstractPestana extends JPanel {
         JPanel panelSuperiorDatos = new JPanel();
         
         panelSuperiorDatos.setLayout(new BoxLayout(panelSuperiorDatos, BoxLayout.Y_AXIS));
-
-        int tam_textField = 15;  
+ 
 
         JLabel label_user_name = new JLabel("Nombre :   ");  
         //label_user_name.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
-        campo_user_name=new JTextField(tam_textField);
-        campo_user_name.setEditable(false);
+        campo_user_name=new JLabel();
+        
         //campo_user_name.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         JPanel panel_user_name = new JPanel(new FlowLayout());
@@ -143,8 +155,8 @@ public class AbstractPestana extends JPanel {
         JLabel label_user_apellido = new JLabel("Apellidos :");
         //label_user_apellido.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
-        campo_user_apellido=new JTextField(tam_textField);
-        campo_user_apellido.setEditable(false);
+        campo_user_apellido=new JLabel();
+
         //campo_user_apellido.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         JPanel panel_user_apellido = new JPanel(new FlowLayout());
@@ -158,8 +170,8 @@ public class AbstractPestana extends JPanel {
         JLabel label_user_mail = new JLabel("Correo :    "); 
         //label_user_mail.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
-        campo_user_mail=new JTextField(tam_textField);
-        campo_user_mail.setEditable(false);
+        campo_user_mail=new JLabel();
+
         //campo_user_mail.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         JPanel panel_user_mail = new JPanel(new FlowLayout());
@@ -173,8 +185,8 @@ public class AbstractPestana extends JPanel {
         JLabel label_user_city = new JLabel("Provincia :");
         //label_user_city.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
-        campo_user_city=new JTextField(tam_textField);
-        campo_user_city.setEditable(false);
+        campo_user_city=new JLabel();
+
         //campo_user_city.setPreferredSize(new Dimension(WIDTH, HEIGHT));      
         
         JPanel panel_user_city = new JPanel(new FlowLayout());
@@ -184,9 +196,12 @@ public class AbstractPestana extends JPanel {
         panelSuperiorDatos.add(panel_user_city);
 
         panelSuperior.add(panelSuperiorDatos);
+        
+        cargaDatosPermisos(usuario);
+        
 
         // una vez todo montado llamamos a la cargaDatosPermisos
-        cargaDatosPermisos();
+        //cargaDatosPermisos();
         
         // -----     panel central -----------
         
@@ -220,22 +235,22 @@ public class AbstractPestana extends JPanel {
     /**
      * es el método qeu carga los datos en el formulario de cabecera
      */
-    public void cargaDatosPermisos(){
+    public void cargaDatosPermisos(Usuario usuario) throws SQLException{
         // cargador de datos
-        Usuario datos_usuario;
+     
         /* ----------- CARGAR DATOS AQUI ------------  */
         // AQUI SERÍA SOLO UN USUARIO Y EL NOMBRE DE LA PROVINCIA -> PUEDES INSERTARLO ANTES DE TRAERLO
         
         //SELECT usu.*, pro.nombre FROM mensajeria.usuario AS usu JOIN mensajeria.provincia AS pro ON usu.id_provincia = pro.id_provincia WHERE id_usuario = <<id_user>> LIMIT 1;
         
         // ejemplo
-        datos_usuario = new Usuario(0, "pepe", "apellido", LocalDateTime.now(), 42, 0, "correo@dominio.com", "123456"); // <-- datos usuario
-        datos_usuario.setProvincia("Santa Cruz de Tenerife"); // <-- nombre localidad
+
         
-        campo_user_name.setText(datos_usuario.getNombre());
-        campo_user_apellido.setText(datos_usuario.getApellidos());
-        campo_user_mail.setText(datos_usuario.getCorreo());
-        campo_user_city.setText(datos_usuario.getProvincia());
+        campo_user_name.setText(usuario.getNombre());
+        campo_user_apellido.setText(usuario.getApellidos());
+        campo_user_mail.setText(usuario.getCorreo());
+
+        //campo_user_city.setText(DB.get_provincia_by_id(usuario.getId_provincia()));
     }
     
     private class click_Logout implements ActionListener{
@@ -253,8 +268,12 @@ public class AbstractPestana extends JPanel {
            tab.setEnabledAt(this.pestana, false);
            tab.setEnabledAt(0, true);
            tab.setSelectedIndex(0);   
+           tab.remove(1);
         }
  
     }
+    
+    
+
     
 }

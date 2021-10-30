@@ -5,10 +5,12 @@
  */
 package interfaz.pestanas;
 
+import Clases_BD.Usuario;
 import interfaz.Formulario_dialog;
 import interfaz.Tabla_dialog;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.sql.SQLException;
 import javax.swing.*;
 import mensajeria_app.Graficos;
 import org.jfree.chart.ChartPanel;
@@ -25,9 +27,9 @@ public class Administrativo extends AbstractPestana {
      */
     private final String OPCIONES[] = {"Select_Pedidos", "New_Pedidos", "New_Cliente", "New_Repartidor", "Edit_Pedidos"};
     
-    public Administrativo(int permiso,TabPanel tab) {
+    public Administrativo(int permiso,TabPanel tab,Usuario usuario) throws SQLException {
         /* cosas padre */
-        super(permiso,tab);
+        super(permiso,tab,usuario);
         boton_Edit.addActionListener(new click_operar());
        
         

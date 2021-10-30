@@ -5,10 +5,12 @@
  */
 package interfaz.pestanas;
 
+import Clases_BD.Usuario;
 import interfaz.Formulario_dialog;
 import interfaz.Tabla_dialog;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.*;
 
@@ -22,9 +24,9 @@ public class Cliente_Repartidor extends AbstractPestana {
     private JPanel panelCentralCentro;
     private JPanel panelCentralSur;
     
-    public Cliente_Repartidor(int permiso, TabPanel tab) {
+    public Cliente_Repartidor(int permiso, TabPanel tab,Usuario usuario) throws SQLException {
         /* cosas padre */
-        super(permiso,tab);
+        super(permiso,tab,usuario);
         boton_Edit.addActionListener(new click_operar());
         //boton_Logout.addActionListener(new click_Logout(super.permisoUser+1));
         
