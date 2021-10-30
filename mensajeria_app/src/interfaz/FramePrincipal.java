@@ -7,6 +7,7 @@ package interfaz;
 
 import interfaz.pestanas.TabPanel;
 import java.awt.*;
+import java.sql.SQLException;
 import javax.swing.*;
 
 /**
@@ -17,7 +18,7 @@ public class FramePrincipal extends JFrame {
     
 
 
-    public FramePrincipal() {
+    public FramePrincipal() throws SQLException {
         
         Toolkit pantalla = Toolkit.getDefaultToolkit();
         Dimension tamanoPantalla = pantalla.getScreenSize();       

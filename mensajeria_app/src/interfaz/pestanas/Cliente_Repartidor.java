@@ -78,6 +78,8 @@ public class Cliente_Repartidor extends AbstractPestana {
         // EN AMBOS CASOS DEBERIAMOS TENER SOLO UN ArrayList<String[]>  CON ARTICULOS
         
         if(super.permisoUser == 1){
+            
+           // lista_datos = DB.lista_pedidos_cliente(super.permisoUser);
             // SELECT art.* from mensajeria.articulo AS art JOIN mensajeria.pedido AS ped ON art.id_articulo = ped.id_articulo WHERE ped.id_repartidor = <<super.id_user>> AND ped.fecha_entrega IS NULL ORDER BY art.id_articulo ASC;
         } else{
             // SELECT art.* from mensajeria.articulo AS art JOIN mensajeria.pedido AS ped ON art.id_articulo = ped.id_articulo WHERE ped.id_cliente = <<super.id_user>> ORDER BY ped.fecha_entrega DESC LIMIT 15;

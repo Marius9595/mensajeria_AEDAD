@@ -137,6 +137,18 @@ public class Controller_pedidos {
         return resultado;
 
     }
+/*
+    public ArrayList<String[]> lista_pedidos_cliente(int permisoUser) {
+        
+        
+        DB.raw_select("SELECT art.* from mensajeria.articulo AS art JOIN mensajeria.pedido AS ped ON art.id_articulo = ped.id_articulo WHERE ped.id_repartidor = <<super.id_user>> AND ped.fecha_entrega IS NULL ORDER BY art.id_articulo ASC");
+        
+        
+        
+        
+        
+        
+    }*/
     
     
     
