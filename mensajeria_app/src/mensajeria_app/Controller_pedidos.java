@@ -97,7 +97,6 @@ public class Controller_pedidos {
         
         ArrayList<Usuario> usuario_loggin = get_generic_usuarios("*",filtros);
 
-        System.out.println(usuario_loggin.toString());
         
         if (!usuario_loggin.isEmpty()){
             return usuario_loggin.get(0);
@@ -137,18 +136,38 @@ public class Controller_pedidos {
         return resultado;
 
     }
-/*
-    public ArrayList<String[]> lista_pedidos_cliente(int permisoUser) {
+
+    public ArrayList<String[]> lista_pedidos_cliente(int id_user) throws SQLException {
         
         
-        DB.raw_select("SELECT art.* from mensajeria.articulo AS art JOIN mensajeria.pedido AS ped ON art.id_articulo = ped.id_articulo WHERE ped.id_repartidor = <<super.id_user>> AND ped.fecha_entrega IS NULL ORDER BY art.id_articulo ASC");
+       ResultSet respuesta =  DB.raw_select("SELECT art.* from mensajeria.articulo AS art JOIN mensajeria.pedido AS ped ON art.id_articulo = ped.id_articulo WHERE ped.id_repartidor = "+ id_user +"  AND ped.fecha_entrega IS NULL ORDER BY art.id_articulo ASC");
         
         
+       ArrayList<String[]> articulos = new ArrayList<String[]>();
+       
+       
+       
+       
+       if (respuesta != null ){
+           
+           while(respuesta.next()){
+               
+               
+               String [] articulo = {respuesta.getString("id_articulo"),respuesta.getString("descripcion")};
+               
+               articulos.add(articulo);
+ 
+           }
+           
+           DB.close_connection();
+           
+       }
+        
+       
+       return articulos;
         
         
-        
-        
-    }*/
+    }
     
     
     

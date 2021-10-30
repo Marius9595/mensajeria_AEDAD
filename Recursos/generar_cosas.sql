@@ -9,15 +9,15 @@ insert mensajeria.provincia(mensajeria.provincia.nombre) values ('A Coruña'),
 insert mensajeria.articulo(descripcion) values ('pack1'), ('pack2'), ('pack3'), ('pack4'), ('pack5'), ('pack6'), ('pack7'), ('pack8');
 
 INSERT INTO `mensajeria`.`usuario` (`Nombre`, `Apellidos`, `Correo`, `Password`, `fecha_ultima_conection`, `id_provincia`, `permisos`) VALUES
-('Paco', 'Apellido1', 'Correo@domino.es', '123456', CURRENT_TIMESTAMP(), 10, "0"),
-('Pepe', 'Apellido1', 'Correo@domino.es', '123456', CURRENT_TIMESTAMP(), 10, "0"),
-('Juan', 'Apellido1', 'Correo@domino.es', '123456', CURRENT_TIMESTAMP(), 21, "0"),
-('Felipe', 'Apellido1', 'Correo@domino.es', '123456', CURRENT_TIMESTAMP(), 11, "2"),
-('Carlos', 'Apellido1', 'Correo@domino.es', '123456', CURRENT_TIMESTAMP(), 15, "2"),
-('Jony', 'Apellido1', 'Correo@domino.es', '123456', CURRENT_TIMESTAMP(), 42, "3"),
-('Mario', 'Apellido1', 'Correo@domino.es', '123456', CURRENT_TIMESTAMP(), 42, "3"),
-('Dani', 'Apellido1', 'Correo@domino.es', '123456', CURRENT_TIMESTAMP(), 23, "1"),
-('Carla', 'Apellido1', 'Correo@domino.es', '123456', CURRENT_TIMESTAMP(), 30, "1");
+('Paco', 'Apellido1', 'Correo1@domino.es', '123456', CURRENT_TIMESTAMP(), 10, "0"),
+('Pepe', 'Apellido1', 'Correo2@domino.es', '123456', CURRENT_TIMESTAMP(), 10, "0"),
+('Juan', 'Apellido1', 'Correo3@domino.es', '123456', CURRENT_TIMESTAMP(), 21, "0"),
+('Felipe', 'Apellido1', 'Correo4@domino.es', '123456', CURRENT_TIMESTAMP(), 11, "2"),
+('Carlos', 'Apellido1', 'Correo5@domino.es', '123456', CURRENT_TIMESTAMP(), 15, "2"),
+('Jony', 'Apellido1', 'Correo6@domino.es', '123456', CURRENT_TIMESTAMP(), 42, "3"),
+('Mario', 'Apellido1', 'Correo7@domino.es', '123456', CURRENT_TIMESTAMP(), 42, "3"),
+('Dani', 'Apellido1', 'Correo8@domino.es', '123456', CURRENT_TIMESTAMP(), 23, "1"),
+('Carla', 'Apellido1', 'Correo9@domino.es', '123456', CURRENT_TIMESTAMP(), 30, "1");
 
 INSERT INTO `mensajeria`.`pedido` (`id_articulo`, `id_provincia`, `id_cliente`, `id_repartidor`, `fecha_entrega`, `num_articulos`) 
 VALUES 	(1, 42, 2, null, null, 12), 
