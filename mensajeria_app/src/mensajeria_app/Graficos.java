@@ -190,7 +190,7 @@ public class Graficos {
         //  ------- AQUI VA LA CONSULTA -----------
         
 //        SELECT SUM(mensajeria.pedido.id_articulo) FROM mensajeria.pedido WHERE fecha_entrega IS NOT NULL;
-//        SELECT SUM(mensajeria.pedido.id_articulo) FROM mensajeria.pedido WHERE fecha_entrega IS NULL;
+//        SELECT SUM(mensajeria.pedido.id_articulo) FROM mensajeria.pedido WHERE fecha_entrega IS NULL AND id_repartidor IS NOT NULL;
 //        SELECT SUM(mensajeria.pedido.id_articulo) FROM mensajeria.pedido WHERE fecha_entrega IS NULL AND id_repartidor IS NULL;
         
         // ejemplo
@@ -260,7 +260,7 @@ public class Graficos {
         //  ------- AQUI VA LA CONSULTA -----------
         
 //        SELECT SUM(mensajeria.pedido.id_articulo) FROM mensajeria.pedido WHERE fecha_entrega IS NOT NULL;
-//        SELECT SUM(mensajeria.pedido.id_articulo) FROM mensajeria.pedido WHERE fecha_entrega IS NULL;
+//        SELECT SUM(mensajeria.pedido.id_articulo) FROM mensajeria.pedido WHERE fecha_entrega IS NULL AND id_repartidor IS NOT NULL;
 //        SELECT SUM(mensajeria.pedido.id_articulo) FROM mensajeria.pedido WHERE fecha_entrega IS NULL AND id_repartidor IS NULL;
         
         // ejemplo
