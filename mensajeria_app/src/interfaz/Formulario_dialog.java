@@ -98,6 +98,8 @@ public class Formulario_dialog extends JFrame implements ActionListener{
                 } else {
                     // new pedido
                 }
+            } else{
+                // SELECT * FROM pedidos WHERE id_repartidor = <<id_consulta>>
             }
         }
         
