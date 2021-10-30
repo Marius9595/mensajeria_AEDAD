@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `mensajeria`.`usuario` (
   `id_usuario` INT NOT NULL AUTO_INCREMENT,
   `Nombre` VARCHAR(50) NULL,
   `Apellidos` VARCHAR(150) NULL,
-  `Correo` VARCHAR(45) unique NULL,
+  `Correo` VARCHAR(45) unique NOT NULL,
   `Password` VARCHAR(45) NULL,
   `fecha_ultima_conection` DATETIME NOT NULL,
   `id_provincia` INT NOT NULL,
