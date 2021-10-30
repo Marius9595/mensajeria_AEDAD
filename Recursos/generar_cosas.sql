@@ -22,7 +22,7 @@ INSERT INTO `mensajeria`.`usuario` (`Nombre`, `Apellidos`, `Correo`, `Password`,
 INSERT INTO `mensajeria`.`pedido` (`id_articulo`, `id_provincia`, `id_cliente`, `id_repartidor`, `fecha_entrega`, `num_articulos`) 
 VALUES 	(1, 42, 2, null, null, 12), 
 		(2, 24, 3, null, null, 2), 
-		(3, 30, 4, 9, null, 1), 
-		(4, 10, 2, 10, null, 20), 
-		(5, 1, 3, 9, CURRENT_TIMESTAMP(), 4), 
-		(6, 2, 4, 10, CURRENT_TIMESTAMP(), 11);
+		(3, 30, 4, 8, null, 1), 
+		(4, 10, 2, 9, null, 20), 
+		(5, 1, 3, 8, CURRENT_TIMESTAMP(), 4), 
+		(6, 2, 4, 9, CURRENT_TIMESTAMP(), 11);
