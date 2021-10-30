@@ -61,7 +61,7 @@ public class Controller_pedidos {
             while(respuesta.next()){
                 
                 Usuario registro_usuario = new Usuario();
-                
+                registro_usuario.setId_usuario(Integer.parseInt(respuesta.getString("id_usuario")));
                 registro_usuario.setNombre(respuesta.getString("nombre"));
                 registro_usuario.setApellidos(respuesta.getString("apellidos"));
                 registro_usuario.setCorreo(respuesta.getString("correo"));
@@ -143,6 +143,8 @@ public class Controller_pedidos {
        ResultSet respuesta; 
         
        if (permiso == 1 ){
+           
+           System.out.println("id: "+ id_user);
            
            respuesta =  DB.raw_select("SELECT art.* from articulo AS art INNER JOIN pedido AS ped ON art.id_articulo = ped.id_articulo WHERE ped.id_repartidor = "+ id_user +"  AND ped.fecha_entrega IS NULL ORDER BY art.id_articulo ASC");
         

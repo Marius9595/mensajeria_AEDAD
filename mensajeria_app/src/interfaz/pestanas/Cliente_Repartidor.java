@@ -79,7 +79,7 @@ public class Cliente_Repartidor extends AbstractPestana {
         
         
             
-        lista_datos = DB.lista_pedidos(id_user,super.permisoUser);
+        lista_datos = DB.lista_pedidos(usuario.getId_usuario(),super.permisoUser);
             
 
         System.out.println(lista_datos);
