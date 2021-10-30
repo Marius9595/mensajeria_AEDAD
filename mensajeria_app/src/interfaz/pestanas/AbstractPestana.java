@@ -265,7 +265,7 @@ public class AbstractPestana extends JPanel {
         @Override
         public void actionPerformed(ActionEvent ae) {
 
-           tab.setEnabledAt(this.pestana, false);
+           tab.setEnabledAt(1, false);
            tab.setEnabledAt(0, true);
            tab.setSelectedIndex(0);   
            tab.remove(1);

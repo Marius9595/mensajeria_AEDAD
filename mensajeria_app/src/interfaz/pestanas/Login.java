@@ -124,8 +124,9 @@ public class Login extends JPanel {
 
                     tab.setEnabledAt(0, false);
 
-                    int pestana_redirigida = usuario_login.getPermisos()+1;
+                    int pestana_redirigida = 1;
                     
+                    System.out.println(usuario_login.getPermisos());
                     
                     switch (usuario_login.getPermisos()){
                         
@@ -138,10 +139,10 @@ public class Login extends JPanel {
                             tab.addTab("Repartidor", new Cliente_Repartidor(1, tab,usuario_login));
                             break;                         
                         case 2:
-                            tab.addTab("Administrativo", new Cliente_Repartidor(2, tab,usuario_login));
+                            tab.addTab("Administrativo", new Administrativo(2, tab,usuario_login));
                             break;                        
                         case 3:
-                            tab.addTab("Admin", new Cliente_Repartidor(3, tab,usuario_login));
+                            tab.addTab("Admin", new Admin(3, tab,usuario_login));
                             break;                        
                     }
                     

@@ -73,31 +73,31 @@ public class Cliente_Repartidor extends AbstractPestana {
         // ---------  centro ----------- 
         JList listaPedidos = new JList<>();
         
-        lista_datos = new ArrayList<>();
+        lista_datos = new ArrayList<String[]>();
         /* ----------- CARGAR DATOS AQUI ------------  */
         // EN AMBOS CASOS DEBERIAMOS TENER SOLO UN ArrayList<String[]>  CON ARTICULOS
         
-        if(super.permisoUser == 1){
+        
             
-            lista_datos = DB.lista_pedidos_cliente(id_user);
+        lista_datos = DB.lista_pedidos(id_user,super.permisoUser);
             
-            System.out.println(lista_datos.get(2));
-            // SELECT art.* from mensajeria.articulo AS art JOIN mensajeria.pedido AS ped ON art.id_articulo = ped.id_articulo WHERE ped.id_repartidor = <<super.id_user>> AND ped.fecha_entrega IS NULL ORDER BY art.id_articulo ASC;
-        } else{
-            // SELECT art.* from mensajeria.articulo AS art JOIN mensajeria.pedido AS ped ON art.id_articulo = ped.id_articulo WHERE ped.id_cliente = <<super.id_user>> ORDER BY ped.fecha_entrega DESC LIMIT 15;
-        }
 
+        System.out.println(lista_datos);
+       
         DefaultListModel modelo = new DefaultListModel();
         // id artículo
         // nombre articulo
         for(String[] dat : lista_datos){
+            
+            //System.out.println(dat[1]);
+            
             modelo.addElement("Pedido id: " + dat[0] + ", Descripción: " + dat[1]);
         }
 
         listaPedidos.setModel(modelo);
         
         // no queremos que marque nada solo que sea visual
-        listaPedidos.setEnabled(false);
+        listaPedidos.setEnabled(true);
         listaPedidos.setPreferredSize(new Dimension(100,100));
         
         panelCentralCentro.add(listaPedidos);

@@ -65,6 +65,7 @@ public class Controller_pedidos {
                 registro_usuario.setNombre(respuesta.getString("nombre"));
                 registro_usuario.setApellidos(respuesta.getString("apellidos"));
                 registro_usuario.setCorreo(respuesta.getString("correo"));
+                registro_usuario.setPermisos(Integer.parseInt(respuesta.getString("permisos")));
                 registro_usuario.setId_provincia(Integer.parseInt(respuesta.getString("id_provincia")));
                 
                 usuarios_consulta.add(registro_usuario);
@@ -137,12 +138,22 @@ public class Controller_pedidos {
 
     }
 
-    public ArrayList<String[]> lista_pedidos_cliente(int id_user) throws SQLException {
+    public ArrayList<String[]> lista_pedidos(int id_user, int permiso) throws SQLException {
         
+       ResultSet respuesta; 
         
-       ResultSet respuesta =  DB.raw_select("SELECT art.* from mensajeria.articulo AS art JOIN mensajeria.pedido AS ped ON art.id_articulo = ped.id_articulo WHERE ped.id_repartidor = "+ id_user +"  AND ped.fecha_entrega IS NULL ORDER BY art.id_articulo ASC");
+       if (permiso == 1 ){
+           
+           respuesta =  DB.raw_select("SELECT art.* from articulo AS art INNER JOIN pedido AS ped ON art.id_articulo = ped.id_articulo WHERE ped.id_repartidor = "+ id_user +"  AND ped.fecha_entrega IS NULL ORDER BY art.id_articulo ASC");
         
-        
+          
+       }else {
+           
+            respuesta =  DB.raw_select("SELECT art.* from mensajeria.articulo AS art INNER JOIN mensajeria.pedido AS ped ON art.id_articulo = ped.id_articulo WHERE ped.id_cliente = "+ id_user +"  ORDER BY ped.fecha_entrega DESC LIMIT 15");
+         
+           
+       }
+
        ArrayList<String[]> articulos = new ArrayList<String[]>();
        
        
@@ -161,6 +172,9 @@ public class Controller_pedidos {
            
            DB.close_connection();
            
+       }else {
+           
+           respuesta = null;
        }
         
        
@@ -168,7 +182,8 @@ public class Controller_pedidos {
         
         
     }
-    
+
+ 
     
     
 
