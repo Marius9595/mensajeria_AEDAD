@@ -8,6 +8,9 @@ package mensajeria_app;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import javafx.util.converter.LocalDateTimeStringConverter;
 import javax.swing.BorderFactory;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -54,22 +57,44 @@ public class Graficos {
      */
     private static XYDataset createDataset_XYSeriesCollection() {
         
-        // aqui va la consulta qeu devuelve los datos y los metemos en iteracion
-        XYSeries series1 = new XYSeries("2014");
-        series1.add(18, 530);
-        series1.add(20, 580);
-        series1.add(25, 740);
-        series1.add(30, 901);
-        series1.add(40, 1300);
-        series1.add(50, 2219);
-
-        XYSeries series2 = new XYSeries("2016");
-        series2.add(18, 567);
-        series2.add(20, 612);
-        series2.add(25, 800);
-        series2.add(30, 980);
-        series2.add(40, 1210);
-        series2.add(50, 2350);
+        /* ----------- CARGAR DATOS AQUI ------------  */
+        //AQUI ES UN ArrayList<Double, double> 
+        
+        // es pedir un SUM() de los pedidos de este año y del pasado e iterar por mes
+        
+        LocalDateTime fecha_actual = LocalDateTime.now();
+        
+        // estos son los años a buscar
+        String year_Actual = String.valueOf(fecha_actual.getYear());
+        String year_Last = String.valueOf(fecha_actual.getYear() - 1);
+        
+        // las fechas para los minimos y maximos de la consulta
+        String fecha_Actual_1Enero = year_Actual + "-01-01 00:01";
+        String fecha_Actual_31Diciembre = year_Actual + "-12-31 23:59";        
+        String fecha_Last_1Enero = year_Last + "-01-01 00:01";
+        String fecha_Last_31Diciembre = year_Last + "-12-31 23:59";
+        
+        //SELECT sum(mensajeria.pedido.id_articulo) FROM mensajeria.pedido WHERE mensajeria.pedido.fecha_entrega BETWEEN fecha_Actual_1Enero AND fecha_Actual_31Diciembre;
+        //SELECT sum(mensajeria.pedido.id_articulo) FROM mensajeria.pedido WHERE mensajeria.pedido.fecha_entrega BETWEEN '2021-01-01 00:00:01' AND '2021-12-31 23:59:59';
+        
+        // esto son lso contenedores
+        double[] datoActual;
+        double[] datoLast;
+        
+        //  ------- AQUI VA LA CONSULTA -----------
+        
+        // ejemplo
+        datoActual = new double[] {2021, 18};
+        datoLast = new double[] {2020, 10};
+        
+        
+        XYSeries series1 = new XYSeries(year_Actual);
+        series1.add(2019, 0);
+        series1.add(datoActual[0], datoActual[1]);
+        
+        XYSeries series2 = new XYSeries(year_Last);
+        series2.add(2019, 0);
+        series2.add(datoLast[0], datoLast[1]);
 
         XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(series1); // raya 1
@@ -95,9 +120,9 @@ public class Graficos {
 
         // personalizar
         JFreeChart chart = ChartFactory.createXYLineChart(
-                "Average salary per age",
-                "Age",
-                "Salary (€)",
+                "Paquetes repartidos por año",
+                "Año",
+                "Paquetes",
                 dataset,
                 orienta,
                 true,
@@ -110,13 +135,13 @@ public class Graficos {
         XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
 
         for (int i = 0; i < numeroLineas; i++) {
-            renderer.setSeriesPaint(i, Color.RED);
+            if(i == 0)
+                renderer.setSeriesPaint(i, Color.RED);
+            else
+                renderer.setSeriesPaint(i, Color.BLUE);
+            
             renderer.setSeriesStroke(i, new BasicStroke(2.0f));
         }
-//        renderer.setSeriesPaint(0, Color.RED);
-//        renderer.setSeriesStroke(0, new BasicStroke(2.0f));
-//        renderer.setSeriesPaint(1, Color.BLUE);
-//        renderer.setSeriesStroke(1, new BasicStroke(2.0f));
 
         plot.setRenderer(renderer);
         plot.setBackgroundPaint(Color.white);
@@ -125,7 +150,7 @@ public class Graficos {
 
         chart.getLegend().setFrame(BlockBorder.NONE);
 
-        chart.setTitle(new TextTitle("Average Salary per Age",
+        chart.setTitle(new TextTitle("Paquetes repartidos por año",
                         new Font("Serif", Font.BOLD, 18)
                 )
         );
@@ -156,14 +181,25 @@ public class Graficos {
      */
     private static CategoryDataset createDataset_DefaultCategoryDataset() {
 
-        // consulta e iteración
+        // son 3 consultas:
+        // pedidos con fecha entrega, pedidos sin fecha entrega y pedidos sin repartidor
+        // el resultado deberia ser 3 valores
+        
+        Integer[] valores; 
+        
+        //  ------- AQUI VA LA CONSULTA -----------
+        
+//        SELECT SUM(mensajeria.pedido.id_articulo) FROM mensajeria.pedido WHERE fecha_entrega IS NOT NULL;
+//        SELECT SUM(mensajeria.pedido.id_articulo) FROM mensajeria.pedido WHERE fecha_entrega IS NULL AND id_repartidor IS NOT NULL;
+//        SELECT SUM(mensajeria.pedido.id_articulo) FROM mensajeria.pedido WHERE fecha_entrega IS NULL AND id_repartidor IS NULL;
+        
+        // ejemplo
+        valores = new Integer[]{46, 38, 29};
+         
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.setValue(46, "Gold medals", "USA");
-        dataset.setValue(38, "Gold medals", "China");
-        dataset.setValue(29, "Gold medals", "UK");
-        dataset.setValue(22, "Gold medals", "Russia");
-        dataset.setValue(13, "Gold medals", "South Korea");
-        dataset.setValue(11, "Gold medals", "Germany");
+        dataset.setValue(valores[0], "Pedidos", "Entregados");
+        dataset.setValue(valores[1], "Pedidos", "Transito");
+        dataset.setValue(valores[2], "Pedidos", "Sin entregar");
 
         return dataset;
     }
@@ -184,9 +220,9 @@ public class Graficos {
         }
         
         JFreeChart barChart = ChartFactory.createBarChart(
-                "Olympic gold medals in London",
+                "Recuento de pedidos",
                 "",
-                "Gold medals",
+                "Pedidos",
                 dataset,
                 orienta,
                 false, true, false);
@@ -217,15 +253,31 @@ public class Graficos {
      */
     private static DefaultPieDataset createDataset() {
 
-        // aqui la consulta e iteración
+        // REPETIMOS la misma qeu antes
+        
+        Integer[] valores; 
+        
+        //  ------- AQUI VA LA CONSULTA -----------
+        
+//        SELECT SUM(mensajeria.pedido.id_articulo) FROM mensajeria.pedido WHERE fecha_entrega IS NOT NULL;
+//        SELECT SUM(mensajeria.pedido.id_articulo) FROM mensajeria.pedido WHERE fecha_entrega IS NULL AND id_repartidor IS NOT NULL;
+//        SELECT SUM(mensajeria.pedido.id_articulo) FROM mensajeria.pedido WHERE fecha_entrega IS NULL AND id_repartidor IS NULL;
+        
+        // ejemplo
+        valores = new Integer[]{46, 38, 29};
+        
+        int total = 0;
+        
+        for (int i = 0; i < valores.length; i++) {
+            total = total + valores[i];
+        }
+        
+        
         
         DefaultPieDataset dataset = new DefaultPieDataset();
-        dataset.setValue("Apache", 52);
-        dataset.setValue("Nginx", 31);
-        dataset.setValue("IIS", 12);
-        dataset.setValue("LiteSpeed", 2);
-        dataset.setValue("Google server", 1);
-        dataset.setValue("Others", 2);
+        dataset.setValue("Entregados", Math.round(valores[0]*100/total));
+        dataset.setValue("Transsito", Math.round(valores[1]*100/total));
+        dataset.setValue("Pendientes", Math.round(valores[2]*100/total));
 
         return dataset;
     }
@@ -238,7 +290,7 @@ public class Graficos {
     private static JFreeChart createChart(DefaultPieDataset dataset) {
 
         JFreeChart pieChart = ChartFactory.createPieChart(
-                "Web servers market share",
+                "Total de pedidos",
                 dataset,
                 false, true, false);
 
