@@ -18,9 +18,9 @@ import javax.swing.table.DefaultTableModel;
 public class Tabla_dialog extends JFrame implements ActionListener{
 
     /**
-     * Constante MODO_TABLAS[] = {"Select", "Edit", "Delete", "Edit_NoReparto"}
+     * Constante MODO_TABLAS[] = {"Consultar", "Editar", "Borrar", "Editar Repartidor"}
      */
-    protected final String MODO_TABLAS[] = {"Select", "Edit", "Delete", "Edit_NoReparto"};
+    protected final String MODO_TABLAS[] = {"Consultar", "Editar", "Borrar", "Editar Repartidor"};
     /**
      * Constante TABLAS[] = {"Articulos","Pedidos","Provincias","Usuarios"}
      */
@@ -51,14 +51,21 @@ public class Tabla_dialog extends JFrame implements ActionListener{
      * @param per id permiso del usuario
      */
     public Tabla_dialog(int tabla, int modo, int id, int per) {
+        // atributos
         this.tabla = tabla;
         this.modo = modo;
         this.id_user = id;
         this.permiso = per;
         
+        // propiedades frame
         setTitle(TABLAS[this.tabla]);
         setLayout(new BorderLayout());
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        
+        // cargar los datos de las consultas
+        cargadorDeDatos();
+
+        /* ---------  empezamos a construir los paneles  --------- */
         
         //panel operaciones
         add(contructor_Panel_Cabecera(), BorderLayout.NORTH);
@@ -101,37 +108,79 @@ public class Tabla_dialog extends JFrame implements ActionListener{
         
         /* Panel opciones */
         
+        // recuperamos las cabeceras
+        ArrayList<String> label_String_campos = new ArrayList<>();
+        String[] valores = lista_Datos.get(0);
+        
+        for (int i = 0; i < valores.length; i++) {
+            String valor = valores[i];
+            label_String_campos.add(valor);
+        }
+        int contador_Campos = 0;
+        
+        //Campo 1
         JLabel lb_id = new JLabel();
-        lb_id.setText("Id");
         lb_id.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
         lb_id.setPreferredSize(dim);
         
         txt_id = new TextField(tamanoTextField);
         //txt_id.setPreferredSize(dim);
         
+        if(contador_Campos < valores.length){
+            lb_id.setText(label_String_campos.get(contador_Campos));
+        } else{
+            lb_id.setText("");
+            txt_id.setEnabled(false);
+        }
+        contador_Campos++;
+
+        
         JLabel lb_campo1 = new JLabel();
-        lb_campo1.setText("Campo1");
+        lb_campo1.setText(label_String_campos.get(1));
         lb_campo1.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
         lb_campo1.setPreferredSize(dim);
         
         txt_campo1 = new TextField(tamanoTextField);
         //txt_campo1.setPreferredSize(dim);     
         
+        if(contador_Campos < valores.length){
+            lb_campo1.setText(label_String_campos.get(contador_Campos));
+        } else{
+            lb_campo1.setText("");
+            txt_campo1.setEnabled(false);
+        }
+        contador_Campos++;
+        
         JLabel lb_campo2 = new JLabel();
-        lb_campo2.setText("Campo2");
         lb_campo2.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
         lb_campo2.setPreferredSize(dim);
         
         txt_campo2 = new TextField(tamanoTextField);
         //txt_campo2.setPreferredSize(dim);
         
+        if(contador_Campos < valores.length){
+            lb_campo2.setText(label_String_campos.get(contador_Campos));
+        } else{
+            lb_id.setText("");
+            txt_campo2.setEnabled(false);
+        }
+        contador_Campos++;
+        
         JLabel lb_campo3 = new JLabel();
-        lb_campo3.setText("Campo3");
         lb_campo3.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
         lb_campo3.setPreferredSize(dim);
         
         txt_campo3 = new TextField(tamanoTextField);
         //txt_campo3.setPreferredSize(dim);        
+        
+        if(contador_Campos < valores.length){
+            lb_campo3.setText(label_String_campos.get(contador_Campos));
+        } else{
+            lb_campo3.setText("");
+            txt_campo3.setEnabled(false);
+        }
+        contador_Campos++;
+        
         
         JButton botonClear = new JButton();
         botonClear.setText("Limpiar");
@@ -143,7 +192,8 @@ public class Tabla_dialog extends JFrame implements ActionListener{
         botonEnviar.setText("Buscar");
         botonEnviar.setName("Buscar");
         botonEnviar.setPreferredSize(dim);
-        botonEnviar.addActionListener(new click_Find());
+        if(permiso > 1)
+            botonEnviar.addActionListener(new click_Find());
         
         // linea superior
         panel_Cabecera_Opciones.add(lb_id);
@@ -189,27 +239,6 @@ public class Tabla_dialog extends JFrame implements ActionListener{
         panelTabla.add(panelSeparator, BorderLayout.NORTH);
         
         /* tabla de datos */
-        lista_Datos = new ArrayList<>();
-        //-------------------------- carga de datos --------------
-
-
-        if(modo == 3){
-            // Select * From "Tabla"
-        } else{
-            // Select * From 'pedidos' where id_repartidor = null
-        }
-        //lista_Datos =  <-----  método de carga de datos;
-        
-        //ejemplo
-        String column[]={"ID","CAMPO1","CAMPO2"}; //
-        lista_Datos.add(column); // <--- indice 0 nombre columnas
-        
-        for (int i = 0; i < 20; i++) {
-            String dat[] = {String.valueOf(100 +i ),"Amit",String.valueOf(i * 10000)};
-            lista_Datos.add(dat);
-        }
-        
-        // --------------------------------------------------------
         
         DefaultTableModel tableModel = mensajeria_app.Utilidades.ArrayList_to_DefaultTableModel(lista_Datos);
         
@@ -256,11 +285,46 @@ public class Tabla_dialog extends JFrame implements ActionListener{
     private void accionEnTabla(int row, int col){   
         String[] dat = lista_Datos.get(row);
         // cargamos los textfield
+        
+        if(dat.length > 2 )
+            txt_campo3.setText(dat[3]);
+        if(dat.length > 1 )
+            txt_campo2.setText(dat[2]);
+        
         txt_id.setText(dat[0]);
         txt_campo1.setText(dat[1]);
-        txt_campo2.setText(dat[2]);
-        txt_campo3.setText("");
         
+    }
+    
+    private void cargadorDeDatos(){
+        
+        lista_Datos = new ArrayList<>();
+        //-------------------------- carga de datos --------------
+
+        if(permiso == 3){ // admin siempre select *
+            // Select * From "Tabla"
+        } else if(modo == 0 && permiso == 0){ // select pedidos desde cliente
+            // Select * From 'pedidos' where id_cliente = id
+        } else if(modo == 0 && permiso == 1){ // select pedidos desde repartidor
+            // select * from pedidos where id_repartidor = id
+        } else if(modo == 3 && permiso == 2){
+            // select * from pedidos where id_repartidor is not null -> esto va a ir a un edit
+        } else if(modo == 0 && permiso == 2){
+            // select * from pedidos
+        } else {
+            JOptionPane.showMessageDialog(null, "Esto no deberias estarlo viendo, contacte con un administrador", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+           
+        //lista_Datos =  <-----  los datos se deben cargar aqui;
+        
+        //ejemplo
+        String column[]={"ID","CAMPO1","CAMPO2"}; //
+        lista_Datos.add(column); // <--- indice 0 nombre columnas
+        
+        for (int i = 0; i < 20; i++) {
+            String dat[] = {String.valueOf(100 +i ),"Amit",String.valueOf(i * 10000)};
+            lista_Datos.add(dat);
+        }
     }
 
     /**
@@ -284,6 +348,43 @@ public class Tabla_dialog extends JFrame implements ActionListener{
             switch(source.getName()){
                 case "Buscar":
                     //JOptionPane.showMessageDialog(null, "opcion 1 ", "tester", JOptionPane.PLAIN_MESSAGE);
+                    if(this.permisos > 1){ // administrador o admin                       
+                        String[] rowEnvio = null;
+                        if(!" ".equals(txt_id.getText()) && !txt_id.getText().isEmpty()){ // si id no esta vacio y no es " "                            
+                            for (String[] row : lista_Datos) {                                
+                                if(txt_id.getText().equals(row[0])){
+                                    rowEnvio = row;
+                                    break; // encontro la row -> salimos
+                                }
+                            }
+                        } else if(!" ".equals(txt_campo1.getText()) && !txt_campo1.getText().isEmpty()){
+                            for (String[] row : lista_Datos) {                                
+                                if(txt_campo1.getText().equals(row[1])){
+                                    rowEnvio = row;
+                                    break; // encontro la row -> salimos
+                                }  
+                            }
+                        } else if(!" ".equals(txt_campo2.getText()) && !txt_campo2.getText().isEmpty()){
+                            for (String[] row : lista_Datos) {                                
+                                if(row.length > 1 && txt_campo2.getText().equals(row[2])){
+                                    rowEnvio = row;
+                                    break; // encontro la row -> salimos
+                                }  
+                            }
+                        } else if(!" ".equals(txt_campo3.getText()) && !txt_campo3.getText().isEmpty()){
+                            for (String[] row : lista_Datos) {                                
+                                if(row.length > 2 && txt_campo3.getText().equals(row[3])){
+                                    rowEnvio = row;
+                                    break; // encontro la row -> salimos
+                                }  
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Lo ssentimos no hemos encontrado ningún registro con esos valores.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                        
+                        if(rowEnvio != null)
+                            envioFormulario(rowEnvio);
+                    }
                     break;
                 default:
                     txt_id.setText(" ");
@@ -292,5 +393,12 @@ public class Tabla_dialog extends JFrame implements ActionListener{
                     txt_campo3.setText(" ");                   
             }
         }
+    }
+    
+    private void envioFormulario(String[] rowEnvio){
+        String titulo = MODO_TABLAS[modo] + " " + TABLAS[tabla];
+        int id = Integer.parseInt(rowEnvio[0]);
+        
+        new Formulario_dialog(titulo, tabla, modo, id, permiso);
     }
 }
