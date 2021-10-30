@@ -32,14 +32,18 @@ public class Formulario_dialog extends JFrame implements ActionListener{
     private JPanel container_pricipal = new JPanel();
 
     /**
-     * Constante MODO_TABLAS[] = {"Select", "Edit", "Delete", "Edit_NoReparto"}
+     * Constante MODO_TABLAS[] = {"Consultar", "Editar", "Borrar", "Editar Repartidor"}
      */
-    protected final String MODO_TABLAS[] = {"Select", "Edit", "Delete", "Edit_NoReparto"};
+    protected final String MODO_TABLAS[] = {"Consultar", "Editar", "Borrar", "Editar Repartidor"};
     /**
      * Constante TABLAS[] = {"Articulos","Pedidos","Provincias","Usuarios"}
      */
     protected final String TABLAS[] = {"Articulos","Pedidos","Provincias","Usuarios"};
-
+    /**
+     * Constante TIPOS_USUARIOS[] = {"Cliente","Repartidor","Administrativo","Admin"}
+     */
+    protected final String TIPOS_USUARIOS[] = {"Cliente","Repartidor","Administrativo","Admin"};
+    
     /**
      * Contructor: 
      * TABLAS[] = {"Articulos","Pedidos","Provincias","Usuarios"},
@@ -52,12 +56,74 @@ public class Formulario_dialog extends JFrame implements ActionListener{
      */
     public Formulario_dialog(String titulo, int tabla, int modo, int id_consulta, int permiso )  {
         
+        // ya no se me ocurrió una manera de diferenciar si es cliente o repartidor el nuevo usuario
+        boolean nuevo_cliente = false;
+        if("Nuevo Cliente".equals(titulo))
+            nuevo_cliente = true;
+            
         setTitle(titulo);
         
-        boolean editable = (modo == 2);
+        boolean editable = false; // modo 0 y 2
+        
+        if(modo == 1 || modo == 4){
+            editable = true;
+        }        
+        
+        String tablaString = TABLAS[tabla]; // nombre tabla
+        
+        if(tabla == 2 || tabla == 0){ // provincias o articulo
+            if(permiso == 3){ // debe ser admin
+                if(id_consulta == 0){
+                    // new provincia
+                } else{
+                    // SELECT * FROM provincias WHERE id = <<id_consulta>>
+                }
+            } else{
+                // no debería entrar aqui nunca
+            }
+        } else if(tabla == 3){ // usuario
+            if(permiso > 1){ // administrativo o admin
+                if(id_consulta == 0){
+                    // new usuario
+                } else{   
+                    // SELECT * FROM usuario WHERE id = <<id_consulta>>
+                }
+            } else{
+                // SELECT * FROM usuario WHERE id = <<id_consulta>>
+            }
+        } else { // pedidos
+            if(permiso != 1){ // cliente, admin, administrador 
+                if(id_consulta != 0){
+                    // SELECT * FROM pedidos WHERE id = <<id_consulta>>  <--- ojo que hay que cargar el tb lso datos de las tablas articulos provincias y usuarios
+                } else {
+                    // new pedido
+                }
+            }
+        }
+        
+        /* ------------- ACCESO AL FORMULARIO --------------- */
+/*      PERMISOS ESPECIALES Y COSAS
+        
+        PERMISO 3 (ADMIN): SIEMPRE ENABLE TODO
+        
+        EDITAR USUARIOS:
+            -> ID USUARIO DISABLE
+        EDITAR PEDIDO:
+            -> ID PEDIDO DISABLE
+            -> ID ARTICULO DISABLE
+            -> ID CLIENTE DISABLE
+            -> PERMISO < 2 ID REPARTIDOR DISABLE
+        NEW PEDIDO
+            -> NUEVO ARTICULO Y NUEVO PEDIDO
+            -> PERMISO 0 -> NO ID REPARTIDOR
+        NEW USUARIO 
+            PERMISO 2
+            -> nuevo_cliente IS TRUE -> NUEVO CLIENTE
+            -> nuevo_cliente IS FALSE -> NUEVO REPARTIDOR
+        
+*/        
         
         /* ------------- Carga datos ---------------- */
-        
         
         
         HashMap<String,String> datos = new HashMap<String,String>();
