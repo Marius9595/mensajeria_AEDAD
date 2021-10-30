@@ -109,14 +109,15 @@ public class Admin extends AbstractPestana{
         /* tabla de datos */     
         
         lista_datos = new ArrayList<>();
+        /* ----------- CARGAR DATOS AQUI ------------  */
+        //AQUI ES UN ArrayList<String[]> DE USUARIOS CON EL INDICE 0 COMO NOMBRE DE LAS CABECERAS
         
         // SELECT * FROM mensajeria.usuario ORDER BY mensajeria.usuario.fecha_ultima_conection DESC LIMIT 0, 15
         
         //lista_Datos =  <-----  método de carga de datos;
-        
-        // ------------------ carga de datos -----------------------
+        // ejemplo
         String column[]={"ID","CAMPO1","CAMPO2"}; //
-        lista_datos.add(column); // <--- indice 0 nombre columnas
+        lista_datos.add(column); // <--- indice 0 nombre columnas, datos apartir de indice 1
         
         for (int i = 0; i < 20; i++) {
             String dat[] = {String.valueOf(100 +i ),"Amit",String.valueOf(i * 10000)};

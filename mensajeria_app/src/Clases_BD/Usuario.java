@@ -23,10 +23,10 @@ public class Usuario {
    private String apellidos;
    // la idea es qeu cargue aquí los datos datetime: yyyy-MM-dd HH:mm:ss
    private LocalDateTime  fecha_ultima_conection;
+   
    private int id_provincia;
-
-
    private String provincia;
+   
    private int permisos;
    // faltaban estos dos
    private String correo;

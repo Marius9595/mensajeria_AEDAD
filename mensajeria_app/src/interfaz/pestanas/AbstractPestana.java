@@ -5,9 +5,11 @@
  */
 package interfaz.pestanas;
 
+import Clases_BD.Usuario;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import javax.swing.*;
 
@@ -220,11 +222,20 @@ public class AbstractPestana extends JPanel {
      */
     public void cargaDatosPermisos(){
         // cargador de datos
+        Usuario datos_usuario;
+        /* ----------- CARGAR DATOS AQUI ------------  */
+        // AQUI SERÍA SOLO UN USUARIO Y EL NOMBRE DE LA PROVINCIA -> PUEDES INSERTARLO ANTES DE TRAERLO
         
-        campo_user_name.setText("Pepe");
-        campo_user_apellido.setText("Apellido1 Apellido2");
-        campo_user_mail.setText("mail@dominio.com");
-        campo_user_city.setText("Santa Cruz de Tenerife");
+        //SELECT usu.*, pro.nombre FROM mensajeria.usuario AS usu JOIN mensajeria.provincia AS pro ON usu.id_provincia = pro.id_provincia WHERE id_usuario = <<id_user>> LIMIT 1;
+        
+        // ejemplo
+        datos_usuario = new Usuario(0, "pepe", "apellido", LocalDateTime.now(), 42, 0, "correo@dominio.com", "123456"); // <-- datos usuario
+        datos_usuario.setProvincia("Santa Cruz de Tenerife"); // <-- nombre localidad
+        
+        campo_user_name.setText(datos_usuario.getNombre());
+        campo_user_apellido.setText(datos_usuario.getApellidos());
+        campo_user_mail.setText(datos_usuario.getCorreo());
+        campo_user_city.setText(datos_usuario.getProvincia());
     }
     
     private class click_Logout implements ActionListener{
