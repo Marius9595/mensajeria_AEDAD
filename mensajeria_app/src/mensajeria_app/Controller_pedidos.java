@@ -67,7 +67,7 @@ public class Controller_pedidos {
                 registro_usuario.setCorreo(respuesta.getString("correo"));
                 registro_usuario.setPermisos(Integer.parseInt(respuesta.getString("permisos")));
                 registro_usuario.setId_provincia(Integer.parseInt(respuesta.getString("id_provincia")));
-                
+                registro_usuario.setFecha_ultima_conection(respuesta.getString("fecha_ultima_conection"));                
                 usuarios_consulta.add(registro_usuario);
                 
             }
@@ -181,6 +181,31 @@ public class Controller_pedidos {
         
        
        return articulos;
+        
+        
+    }
+
+    public ArrayList<String[]> usuarios_conexion(int id_usuario) throws SQLException {
+        
+        String Filtros = " id_usuario != " + id_usuario + " ORDER BY mensajeria.usuario.fecha_ultima_conection DESC LIMIT 0, 15";
+        
+        ArrayList<Usuario> Usuarios = get_generic_usuarios("*", Filtros);
+        
+        
+        ArrayList<String[]> usuario_enviar = new ArrayList<String[]>();
+        
+        String column[]={"ID","Nombre y apellidos","Correo","Ultima conexion"};
+        
+        usuario_enviar.add(column);
+        for (Usuario usuario : Usuarios) {
+            
+            String [] usuario_string = {usuario.getId_usuario()+"", usuario.getNombre() +" "+ usuario.getApellidos(), usuario.getCorreo(), usuario.getFecha_ultima_conection_string()};
+            
+            usuario_enviar.add(usuario_string);
+        }
+        
+        return usuario_enviar;
+        
         
         
     }

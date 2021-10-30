@@ -23,6 +23,7 @@ public class Usuario {
    private String apellidos;
    // la idea es qeu cargue aquí los datos datetime: yyyy-MM-dd HH:mm:ss
    private LocalDateTime  fecha_ultima_conection;
+   private String  fecha_ultima_conection_string;
    
    private int id_provincia;
    private String provincia;
@@ -107,7 +108,12 @@ public class Usuario {
      * @param fecha_ultima_conection 
      */
     public void setFecha_ultima_conection(String fecha_ultima_conection) {
-        this.fecha_ultima_conection = Utilidades.stringToLocalDateTime(fecha_ultima_conection);
+        //this.fecha_ultima_conection = Utilidades.stringToLocalDateTime(fecha_ultima_conection);
+        this.fecha_ultima_conection_string= fecha_ultima_conection;
+    }
+    
+    public String getFecha_ultima_conection_string() {
+        return this.fecha_ultima_conection_string;
     }
     
     public void setId_provincia(int id_provincia) {
