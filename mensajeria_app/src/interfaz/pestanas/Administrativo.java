@@ -141,8 +141,12 @@ public class Administrativo extends AbstractPestana {
             this.source = (JButton) ae.getSource();
             
             if("Editar_Perfil".equals(source.getName())){
-                // edit  -> formulario edit id_usuario
-                new Formulario_dialog("Editar perfil", 3, 2, getId_user(), getPermisoUser());
+                try {
+                    // edit  -> formulario edit id_usuario
+                    new Formulario_dialog("Editar perfil", 3, 2, getId_user(), getPermisoUser());
+                } catch (SQLException ex) {
+                    Logger.getLogger(Administrativo.class.getName()).log(Level.SEVERE, null, ex);
+                }
             } else {
                 if(OPCIONES[0].equals(source.getName()) ){
                     try {
@@ -152,14 +156,26 @@ public class Administrativo extends AbstractPestana {
                         Logger.getLogger(Administrativo.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } else if(OPCIONES[1].equals(source.getName())){
-                    // new pedido -> mandar a modal formulario: edit tabla pedidos, id_pedido = 0                   
-                    new Formulario_dialog("Nuevo pedido", 1, 1, 0, getPermisoUser());
+                    try {
+                        // new pedido -> mandar a modal formulario: edit tabla pedidos, id_pedido = 0
+                        new Formulario_dialog("Nuevo pedido", 1, 1, 0, getPermisoUser());
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Administrativo.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 } else if(OPCIONES[2].equals(source.getName())){
-                    // new user 0 -> mandar a modal formulario: edit tabla user, id_user = 0, permisos = 0
-                    new Formulario_dialog("Nuevo Cliente", 3, 1, 0, getPermisoUser());
+                    try {
+                        // new user 0 -> mandar a modal formulario: edit tabla user, id_user = 0, permisos = 0
+                        new Formulario_dialog("Nuevo Cliente", 3, 1, 0, getPermisoUser());
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Administrativo.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 } else if(OPCIONES[3].equals(source.getName())){
-                    // new user 0 -> mandar a modal formulario: edit tabla user, id_user = 0, permisos = 1
-                    new Formulario_dialog("Nuevo Repartidor", 3, 1, 0, getPermisoUser());
+                    try {
+                        // new user 0 -> mandar a modal formulario: edit tabla user, id_user = 0, permisos = 1
+                        new Formulario_dialog("Nuevo Repartidor", 3, 1, 0, getPermisoUser());
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Administrativo.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 } else if(OPCIONES[4].equals(source.getName())){
                     try {
                         // select pedidos -> modal tabla: edit tabla pedidos, no repartidor

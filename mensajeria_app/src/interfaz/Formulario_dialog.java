@@ -12,6 +12,7 @@ import java.awt.HeadlessException;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.HashMap;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -20,6 +21,7 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import mensajeria_app.Controller_pedidos;
 
 /**
  *
@@ -44,6 +46,9 @@ public class Formulario_dialog extends JFrame implements ActionListener{
      */
     protected final String TIPOS_USUARIOS[] = {"Cliente","Repartidor","Administrativo","Admin"};
     
+    
+    private Controller_pedidos DB =new Controller_pedidos();
+    
     /**
      * Contructor: 
      * TABLAS[] = {"Articulos","Pedidos","Provincias","Usuarios"},
@@ -54,7 +59,7 @@ public class Formulario_dialog extends JFrame implements ActionListener{
      * @param id_consulta
      * @param permiso 
      */
-    public Formulario_dialog(String titulo, int tabla, int modo, int id_consulta, int permiso )  {
+    public Formulario_dialog(String titulo, int tabla, int modo, int id_consulta, int permiso ) throws SQLException  {
         
         // ya no se me ocurrió una manera de diferenciar si es cliente o repartidor el nuevo usuario
         boolean nuevo_cliente = false;
@@ -71,11 +76,34 @@ public class Formulario_dialog extends JFrame implements ActionListener{
         
         String tablaString = TABLAS[tabla]; // nombre tabla
         
+        HashMap<String,String> datos =new HashMap<String,String>();
+        
         if(tabla == 2 || tabla == 0){ // provincias o articulo
             if(permiso == 3){ // debe ser admin
                 if(id_consulta == 0){
-                    // new provincia
+                    
+                    if(tablaString == "articulo"){
+                        
+                        datos.put("id_articulo", "");
+                        datos.put("descripcion", "");
+                        
+                    }else{
+                        
+                        datos.put("id_provincia", "");
+                        datos.put("nombre", "");
+
+                    }
                 } else{
+                    
+                    if(tablaString == "articulo"){
+                        
+                        
+                        
+                    }else{
+                        
+                        datos = DB.editar_provincia(id_consulta);
+
+                    }
                     // SELECT * FROM provincias WHERE id = <<id_consulta>>
                 }
             } else{
@@ -84,7 +112,14 @@ public class Formulario_dialog extends JFrame implements ActionListener{
         } else if(tabla == 3){ // usuario
             if(permiso > 1){ // administrativo o admin
                 if(id_consulta == 0){
-                    // new usuario
+                        //datos.put("id_usuario", "");
+                        datos.put("Nombre", "");
+                        datos.put("Apellidos", "");
+                        datos.put("Correo", "");
+                        datos.put("Password", "");
+                        datos.put("id_provincia", "");
+                        datos.put("permisos", "");
+                        
                 } else{   
                     // SELECT * FROM usuario WHERE id = <<id_consulta>>
                 }
@@ -97,6 +132,12 @@ public class Formulario_dialog extends JFrame implements ActionListener{
                     // SELECT * FROM pedidos WHERE id = <<id_consulta>>  <--- ojo que hay que cargar el tb lso datos de las tablas articulos provincias y usuarios
                 } else {
                     // new pedido
+                    datos.put("id_articulo", "");
+                    datos.put("id_provincia", "");
+                    datos.put("id_cliente", "");
+                    datos.put("id_repartidor", "");
+                    datos.put("num_articulos", "");
+
                 }
             } else{
                 // SELECT * FROM pedidos WHERE id_repartidor = <<id_consulta>>
@@ -128,7 +169,7 @@ public class Formulario_dialog extends JFrame implements ActionListener{
         /* ------------- Carga datos ---------------- */
         
         
-        HashMap<String,String> datos = new HashMap<String,String>();
+        //HashMap<String,String> datos = new HashMap<String,String>();
         
         container_pricipal.setLayout(new GridLayout(datos.size()+1,1));
         

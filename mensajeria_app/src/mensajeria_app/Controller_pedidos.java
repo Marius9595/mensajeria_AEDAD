@@ -13,6 +13,7 @@ import com.mysql.cj.protocol.Resultset;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -607,6 +608,44 @@ public class Controller_pedidos {
         return resultados;
         
     }
+    
+    
+    
+    public HashMap<String,String> editar_provincia(int id_provincia) throws SQLException{
+        
+        
+        HashMap<String,String> provincia_string = new HashMap<String,String>();
+        
+        
+        
+        String sentencia = "SELECT * FROM provincia WHERE id_provincia = " + id_provincia;
+        
+        
+        
+        ResultSet respuesta = DB.raw_select(sentencia);
+        
+        
+        if(respuesta!= null){
+            
+            if(respuesta.next()){
+                
+                provincia_string.put("id_provincia", respuesta.getString("id_provincia")+"");
+                provincia_string.put("nombre", respuesta.getString("nombre")+"");
+            }
+            
+        }else{
+            
+            provincia_string = null;
+        }
+        
+        return provincia_string;
+        
+
+        
+        
+        
+        
+    } 
 
  
     

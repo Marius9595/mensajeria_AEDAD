@@ -147,8 +147,12 @@ public class Admin extends AbstractPestana{
             this.source = (JButton) ae.getSource();
             
             if("Editar_Perfil".equals(source.getName())){
-                // edit  -> formulario edit id_usuario
-                new Formulario_dialog("Editar perfil", 3, 2, super.id_usuario, super.permisos);
+                try {
+                    // edit  -> formulario edit id_usuario
+                    new Formulario_dialog("Editar perfil", 3, 2, super.id_usuario, super.permisos);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+                }
             } else {
                 int opcion_Marcada = 1; // para simplificar por defecto edit
                 boolean nuevo = false; // para controlar el nuevo registro
@@ -169,7 +173,11 @@ public class Admin extends AbstractPestana{
                 int tabla = (int)comboTablas.getSelectedIndex();
                 
                 if (nuevo) {
-                    new Formulario_dialog("Nuevo", tabla, 1, 0, getPermisoUser());
+                    try {
+                        new Formulario_dialog("Nuevo", tabla, 1, 0, getPermisoUser());
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 } else{
                     try {
                         new Tabla_dialog(tabla, opcion_Marcada, getId_user(), getPermisoUser());
