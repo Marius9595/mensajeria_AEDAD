@@ -11,11 +11,15 @@ import interfaz.Formulario_dialog;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import static java.lang.Thread.sleep;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.*;
 import mensajeria_app.Controller_pedidos;
 
@@ -26,7 +30,7 @@ import mensajeria_app.Controller_pedidos;
 public class Login extends JPanel {
     
     private JTextField campo_user_name;
-    private JTextField campo_password;
+    private JPasswordField campo_password;
     private TabPanel tab;
     
 
@@ -38,7 +42,7 @@ public class Login extends JPanel {
         this.tab = tab;
         
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        
+
         JPanel center_container = new JPanel();       
         center_container.setLayout(new GridLayout(3, 1));
         
@@ -65,6 +69,26 @@ public class Login extends JPanel {
         linea_user_name.add(label_usuario);
         
         campo_user_name=new JTextField(tam_textField);
+        campo_user_name.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+                String emailStr = campo_user_name.getText();
+                
+                Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
+                if(matcher.find()){
+                    campo_password.setEditable(true);
+                } else{
+                    JOptionPane.showMessageDialog(null, "Debes introducir un email correcto.", "Error", JOptionPane.ERROR_MESSAGE);
+                    campo_user_name.setText(" ");
+                    campo_password.setEditable(false); 
+                }
+            }
+        });
         //campo_user_name.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         linea_user_name.add(campo_user_name);
@@ -74,7 +98,8 @@ public class Login extends JPanel {
         
         linea_password.add(label_password);
         
-        campo_password=new JTextField(tam_textField);
+        campo_password=new JPasswordField(tam_textField);
+        campo_password.setEditable(false); 
         //campo_password.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         linea_password.add(campo_password);
@@ -100,8 +125,6 @@ public class Login extends JPanel {
         add(north_container);
         add(center_container);
         add(south_container);
-        
-        
     }
     
     
