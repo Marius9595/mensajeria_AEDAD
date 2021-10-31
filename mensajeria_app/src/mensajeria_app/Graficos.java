@@ -8,16 +8,19 @@ package mensajeria_app;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.SystemColor;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import javafx.util.converter.LocalDateTimeStringConverter;
 import javax.swing.BorderFactory;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.block.BlockBorder;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.renderer.category.StandardBarPainter;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.category.CategoryDataset;
@@ -136,9 +139,9 @@ public class Graficos {
 
         for (int i = 0; i < numeroLineas; i++) {
             if(i == 0)
-                renderer.setSeriesPaint(i, Color.RED);
+                renderer.setSeriesPaint(i, Color.GREEN);
             else
-                renderer.setSeriesPaint(i, Color.BLUE);
+                renderer.setSeriesPaint(i, Color.MAGENTA);
             
             renderer.setSeriesStroke(i, new BasicStroke(2.0f));
         }
@@ -169,6 +172,8 @@ public class Graficos {
     public static ChartPanel grafica_Barras(String orientacion){
         CategoryDataset dataset = createDataset_DefaultCategoryDataset();
         JFreeChart chart = createChart_createBarChart(dataset, orientacion);
+        
+        cambiarColor(chart, "barras");
         
         ChartPanel chartPanel = new ChartPanel(chart);
         
@@ -240,6 +245,8 @@ public class Graficos {
         DefaultPieDataset dataset = createDataset();
         JFreeChart chart = createChart(dataset);
         
+        cambiarColor(chart, "queso");
+        
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         chartPanel.setBackground(Color.white);
@@ -276,7 +283,7 @@ public class Graficos {
         
         DefaultPieDataset dataset = new DefaultPieDataset();
         dataset.setValue("Entregados", Math.round(valores[0]*100/total));
-        dataset.setValue("Transsito", Math.round(valores[1]*100/total));
+        dataset.setValue("Transito", Math.round(valores[1]*100/total));
         dataset.setValue("Pendientes", Math.round(valores[2]*100/total));
 
         return dataset;
@@ -295,5 +302,31 @@ public class Graficos {
                 false, true, false);
 
         return pieChart;
+    }
+    
+    /**
+     * cambiar lso colores de las graficas
+     * @param chart
+     * @param graf 
+     */
+    private static void cambiarColor(JFreeChart chart, String graf){
+        if("queso".equals(graf)){ // grafica queso
+            PiePlot plot = (PiePlot) chart.getPlot();
+            plot.setSectionPaint("Entregados", Color.ORANGE);
+            plot.setSectionPaint("Transito", Color.PINK);
+            plot.setSectionPaint("Pendientes", Color.GREEN);
+        } else if("barras".equals(graf)){ // grafica barras
+            CategoryPlot cplot = (CategoryPlot)chart.getPlot();
+            cplot.setBackgroundPaint(SystemColor.inactiveCaption);//change background color
+
+            //set  bar chart color
+            ((BarRenderer)cplot.getRenderer()).setBarPainter(new StandardBarPainter());
+
+            BarRenderer r = (BarRenderer)chart.getCategoryPlot().getRenderer();
+            r.setSeriesPaint(0, Color.CYAN);
+        } else {
+            // no se hace nada
+        }
+
     }
 }

@@ -148,7 +148,7 @@ public class Admin extends AbstractPestana{
             
             if("Editar_Perfil".equals(source.getName())){
                 // edit  -> formulario edit id_usuario
-                new Formulario_dialog("Editar perfil", 3, 2, super.id_usuario, super.permisos);
+                new Formulario_dialog("Editar perfil", 3, 2, id_user, permisoUser);
             } else {
                 int opcion_Marcada = 1; // para simplificar por defecto edit
                 boolean nuevo = false; // para controlar el nuevo registro

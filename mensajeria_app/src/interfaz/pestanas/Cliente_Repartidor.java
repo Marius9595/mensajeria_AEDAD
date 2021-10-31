@@ -98,8 +98,6 @@ public class Cliente_Repartidor extends AbstractPestana {
 
         listaPedidos.setModel(modelo);
         
-        // no queremos que marque nada solo que sea visual
-        listaPedidos.setEnabled(true);
         listaPedidos.setPreferredSize(new Dimension(100,100));
         
         panelCentralCentro.add(listaPedidos);
@@ -131,7 +129,7 @@ public class Cliente_Repartidor extends AbstractPestana {
             switch(source.getName()){
                 case "Editar_Perfil":
                     // edit -> modal formulario: edit tabla usuario, id_usuario, permisos
-                    new Formulario_dialog("Editar perfil", 3, 2, super.id_usuario, getPermisoUser());
+                    new Formulario_dialog("Editar perfil", 3, 2, id_user, getPermisoUser());
                     break;
                 case "New_Pedido":
                     // new edit -> modal formulario: edit tabla pedidos, 0, permisos

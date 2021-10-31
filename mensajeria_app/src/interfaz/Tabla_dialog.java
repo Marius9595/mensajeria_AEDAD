@@ -194,11 +194,24 @@ public class Tabla_dialog extends JFrame implements ActionListener{
         
         JButton botonEnviar = new JButton();
         botonEnviar.setText("Buscar");
-        botonEnviar.setName("Buscar");
-        botonEnviar.setPreferredSize(dim);
-        if(permiso > 1)
-            botonEnviar.addActionListener(new click_Find());
         
+        botonEnviar.setPreferredSize(dim);
+        
+        // esto faltaba
+        if(permiso > 1){
+            botonEnviar.setName("Buscar");
+            botonEnviar.addActionListener(new click_Find());
+        } else{
+
+            botonEnviar.setName(" ");
+            botonEnviar.setEnabled(false);
+            
+            txt_id.setEditable(false);
+            txt_campo1.setEditable(false);
+            txt_campo2.setEditable(false);
+            txt_campo3.setEditable(false);
+        }
+
         // linea superior
         panel_Cabecera_Opciones.add(lb_id);
         panel_Cabecera_Opciones.add(txt_id);
@@ -287,12 +300,12 @@ public class Tabla_dialog extends JFrame implements ActionListener{
      * @param col  columna
      */
     private void accionEnTabla(int row, int col){   
-        String[] dat = lista_Datos.get(row);
+        String[] dat = lista_Datos.get(row + 1);
         // cargamos los textfield
         
-        if(dat.length > 2 )
+        if(dat.length > 3 )
             txt_campo3.setText(dat[3]);
-        if(dat.length > 1 )
+        if(dat.length > 2 )
             txt_campo2.setText(dat[2]);
         
         txt_id.setText(dat[0]);
@@ -357,7 +370,7 @@ public class Tabla_dialog extends JFrame implements ActionListener{
             switch(source.getName()){
                 case "Buscar":
                     //JOptionPane.showMessageDialog(null, "opcion 1 ", "tester", JOptionPane.PLAIN_MESSAGE);
-                    if(this.permisos > 1){ // administrador o admin                       
+                    if(permiso > 1){ // administrador o admin                       
                         String[] rowEnvio = null;
                         if(!" ".equals(txt_id.getText()) && !txt_id.getText().isEmpty()){ // si id no esta vacio y no es " "                            
                             for (String[] row : lista_Datos) {                                
@@ -388,7 +401,7 @@ public class Tabla_dialog extends JFrame implements ActionListener{
                                 }  
                             }
                         } else {
-                            JOptionPane.showMessageDialog(null, "Lo ssentimos no hemos encontrado ningún registro con esos valores.", "Error", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "Lo sentimos no hemos encontrado ningún registro con esos valores.", "Error", JOptionPane.ERROR_MESSAGE);
                         }
                         
                         if(rowEnvio != null)
@@ -406,7 +419,15 @@ public class Tabla_dialog extends JFrame implements ActionListener{
     
     private void envioFormulario(String[] rowEnvio){
         String titulo = MODO_TABLAS[modo] + " " + TABLAS[tabla];
-        int id = Integer.parseInt(rowEnvio[0]);
+        int id;
+        try {
+            id = Integer.parseInt(rowEnvio[0]);
+        } catch (Exception e) {
+            id = 500; // <- EN TEORIA ESTABA MONTADO PARA QEU EL CAMPO 1 DE LA TABLA SIEMPRE SEA ID
+            
+            /* SI NO ES CAMPO ID EL INDICE 0 DE LA ROW HAY QUE PREGUNTAR A LA BASE DE DATOS 
+            POR EL REGISTRO Y RECUPERAR SU ID*/
+        }
         
         new Formulario_dialog(titulo, tabla, modo, id, permiso);
     }

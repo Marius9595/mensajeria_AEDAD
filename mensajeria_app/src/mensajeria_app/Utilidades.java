@@ -67,10 +67,15 @@ public class Utilidades {
     public static DefaultTableModel ArrayList_to_DefaultTableModel(ArrayList<String[]> lista_Datos){
         DefaultTableModel tableModel = new DefaultTableModel(lista_Datos.get(0), 0);
 
-        for(String[] rowAdd : lista_Datos){
-            Object[] objs = rowAdd;
+        for (int i = 1; i < lista_Datos.size(); i++) {
+            Object[] objs = lista_Datos.get(i);
             tableModel.addRow(objs);
         }
+        
+//        for(String[] rowAdd : lista_Datos){
+//            Object[] objs = rowAdd;
+//            tableModel.addRow(objs);
+//        }
         
         return tableModel;
     }

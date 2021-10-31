@@ -18,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -55,6 +56,12 @@ public class Formulario_dialog extends JFrame implements ActionListener{
      * @param permiso 
      */
     public Formulario_dialog(String titulo, int tabla, int modo, int id_consulta, int permiso )  {
+        // PARA PRUEBAS
+        String control_ID = "Se recive esto: "+ titulo +", Tabla: "+ tabla +", Modo: "+ modo +", Id: "+ id_consulta +", Permiso: "+ permiso;
+        if(id_consulta == 500)
+            control_ID = "El ID acaba de petar";
+        // mostrando lo que se recibe
+        JOptionPane.showMessageDialog(null, control_ID, "Aviso", JOptionPane.PLAIN_MESSAGE);
         
         // ya no se me ocurrió una manera de diferenciar si es cliente o repartidor el nuevo usuario
         boolean nuevo_cliente = false;
