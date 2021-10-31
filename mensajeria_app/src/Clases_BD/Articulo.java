@@ -20,6 +20,10 @@ public class Articulo {
         this.descripcion = descripcion;
     }
 
+    public Articulo() {
+        
+    }
+
     // getter y setter
     public int getId_articulo() {
         return id_articulo;

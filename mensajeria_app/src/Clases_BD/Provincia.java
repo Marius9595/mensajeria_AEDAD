@@ -21,7 +21,7 @@ public class Provincia {
     }
 
     public Provincia() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     // getter y setter

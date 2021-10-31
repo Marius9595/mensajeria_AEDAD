@@ -23,7 +23,19 @@ public class Pedido {
     private Integer id_repartidor;
     private String nombre_repartidor;
     private LocalDateTime fecha_entrega;
+    private String fecha_entrega_string;
     private int num_articulos;
+    
+    
+    
+    public String getFecha_entrega_string() {
+        return fecha_entrega_string;
+    }
+
+    public void setFecha_entrega_string(String fecha_entrega_string) {
+        this.fecha_entrega_string = fecha_entrega_string;
+    }
+    
 
     // constructor sin fecha de entrega
     public Pedido(int id_articulo, int id_provincia, int id_cliente, Integer id_repartidor, int num_articulos) {
@@ -51,6 +63,10 @@ public class Pedido {
         this.nombre_cliente = "";
         this.nombre_provincia = "";
         this.nombre_repartidor = "";
+    }
+
+    public Pedido() {
+        
     }
 
     // getter y setter

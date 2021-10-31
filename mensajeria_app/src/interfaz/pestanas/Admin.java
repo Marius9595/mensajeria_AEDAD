@@ -12,6 +12,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -150,6 +152,7 @@ public class Admin extends AbstractPestana{
             } else {
                 int opcion_Marcada = 1; // para simplificar por defecto edit
                 boolean nuevo = false; // para controlar el nuevo registro
+                
                 if(radioButton_New.isSelected()){
                     // New edit -> formulario edit 0
                     nuevo = true;
@@ -166,9 +169,13 @@ public class Admin extends AbstractPestana{
                 int tabla = (int)comboTablas.getSelectedIndex();
                 
                 if (nuevo) {
-                    new Formulario_dialog("Nuevo", tabla, 1, 0, super.permisos);
+                    new Formulario_dialog("Nuevo", tabla, 1, 0, getPermisoUser());
                 } else{
-                    new Tabla_dialog(tabla, opcion_Marcada, super.id_usuario, super.permisos);
+                    try {
+                        new Tabla_dialog(tabla, opcion_Marcada, getId_user(), getPermisoUser());
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
         }

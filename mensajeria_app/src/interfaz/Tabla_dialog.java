@@ -7,9 +7,11 @@ package interfaz;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLException;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import mensajeria_app.Controller_pedidos;
 
 /**
  *
@@ -17,6 +19,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Tabla_dialog extends JFrame implements ActionListener{
 
+    private Controller_pedidos DB = new Controller_pedidos();
+    
     /**
      * Constante MODO_TABLAS[] = {"Consultar", "Editar", "Borrar", "Editar Repartidor"}
      */
@@ -24,7 +28,7 @@ public class Tabla_dialog extends JFrame implements ActionListener{
     /**
      * Constante TABLAS[] = {"Articulos","Pedidos","Provincias","Usuarios"}
      */
-    protected final String TABLAS[] = {"Articulos","Pedidos","Provincias","Usuarios"};
+    protected final String TABLAS[] = {"articulo","pedido","provincia","usuario"};
     // las tablas que hay 
     private int tabla;
     private int modo;
@@ -50,7 +54,7 @@ public class Tabla_dialog extends JFrame implements ActionListener{
      * @param id id del usuario 
      * @param per id permiso del usuario
      */
-    public Tabla_dialog(int tabla, int modo, int id, int per) {
+    public Tabla_dialog(int tabla, int modo, int id, int per) throws SQLException {
         // atributos
         this.tabla = tabla;
         this.modo = modo;
@@ -296,27 +300,32 @@ public class Tabla_dialog extends JFrame implements ActionListener{
         
     }
     
-    private void cargadorDeDatos(){
+    private void cargadorDeDatos() throws SQLException{
         
-        lista_Datos = new ArrayList<>();
+        lista_Datos = new ArrayList<String[]>();
         //-------------------------- carga de datos --------------
 
         if(permiso == 3){ // admin siempre select *
+            
+            lista_Datos = DB.select_all_tabla(TABLAS[tabla]);
             // Select * From "Tabla"
-        } else if(modo == 0 && permiso == 0){ // select pedidos desde cliente
+        } else if(modo == 0 && (permiso == 0 || permiso == 1 )){ // select pedidos desde cliente
+            lista_Datos = DB.select_cliente_repartidor(TABLAS[tabla],permiso,id_user);
             // Select * From 'pedidos' where id_cliente = id
-        } else if(modo == 0 && permiso == 1){ // select pedidos desde repartidor
+       // select pedidos desde repartidor
             // select * from pedidos where id_repartidor = id
         } else if(modo == 3 && permiso == 2){
+            lista_Datos = DB.select_cliente_repartidor(TABLAS[tabla],permiso,id_user);
             // select * from pedidos where id_repartidor is not null -> esto va a ir a un edit
         } else if(modo == 0 && permiso == 2){
-            // select * from pedidos
+            lista_Datos = DB.select_all_tabla("pedido");
         } else {
             JOptionPane.showMessageDialog(null, "Esto no deberias estarlo viendo, contacte con un administrador", "Error", JOptionPane.ERROR_MESSAGE);
         }
            
         //lista_Datos =  <-----  los datos se deben cargar aqui;
         
+        /*
         //ejemplo
         String column[]={"ID","CAMPO1","CAMPO2"}; //
         lista_Datos.add(column); // <--- indice 0 nombre columnas
@@ -324,7 +333,7 @@ public class Tabla_dialog extends JFrame implements ActionListener{
         for (int i = 0; i < 20; i++) {
             String dat[] = {String.valueOf(100 +i ),"Amit",String.valueOf(i * 10000)};
             lista_Datos.add(dat);
-        }
+        }  */
     }
 
     /**

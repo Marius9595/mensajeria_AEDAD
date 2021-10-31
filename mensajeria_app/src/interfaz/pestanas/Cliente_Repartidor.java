@@ -12,6 +12,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 /**
@@ -129,15 +131,24 @@ public class Cliente_Repartidor extends AbstractPestana {
             switch(source.getName()){
                 case "Editar_Perfil":
                     // edit -> modal formulario: edit tabla usuario, id_usuario, permisos
-                    new Formulario_dialog("Editar perfil", 3, 2, super.id_usuario, super.permisos);
+                    new Formulario_dialog("Editar perfil", 3, 2, super.id_usuario, getPermisoUser());
                     break;
                 case "New_Pedido":
                     // new edit -> modal formulario: edit tabla pedidos, 0, permisos
-                    new Formulario_dialog("Nuevo pedido", 1, 1, 0, super.permisos);
+                    new Formulario_dialog("Nuevo pedido", 1, 1, 0, getPermisoUser());
                     break;
                 default:
+            {
+                try {
                     // modal tabla: tabla pedidos, modo 0, id_usuario, permiso
-                    new Tabla_dialog(1, 0, super.id_usuario, super.permisos);
+                    new Tabla_dialog(1, 0, getId_user(), getPermisoUser());
+                    
+                    // para saber cual eliminar : System.out.println("metodo:  " + getId_user() + " " + getId_usuario() + " "+ super.id_usuario);
+                    
+                } catch (SQLException ex) {
+                    Logger.getLogger(Cliente_Repartidor.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
             }
         }
     }

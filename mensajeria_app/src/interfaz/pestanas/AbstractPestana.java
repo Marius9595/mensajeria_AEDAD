@@ -66,6 +66,7 @@ public class AbstractPestana extends JPanel {
     public AbstractPestana(int permiso, TabPanel tab, Usuario usuario) throws SQLException{
         // por defecto siempre que sea cliente
         this.permisoUser = permiso;
+        this.id_user = usuario.getId_usuario();
         this.tab = tab;
         
         setLayout(new BorderLayout());

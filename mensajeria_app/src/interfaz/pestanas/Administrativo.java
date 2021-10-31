@@ -11,6 +11,8 @@ import interfaz.Tabla_dialog;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import mensajeria_app.Graficos;
 import org.jfree.chart.ChartPanel;
@@ -64,26 +66,31 @@ public class Administrativo extends AbstractPestana {
         JButton boton_Pedidos_Select = new JButton();
         boton_Pedidos_Select.setText("Consultar Pedidos");
         boton_Pedidos_Select.setName(OPCIONES[0]);
+        boton_Pedidos_Select.addActionListener(new click_operar());
         //boton_Pedidos_Select.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         JButton boton_Pedidos_New = new JButton();
         boton_Pedidos_New.setText("Crear Pedidos");
         boton_Pedidos_New.setName(OPCIONES[1]);
+        boton_Pedidos_New.addActionListener(new click_operar());
         //boton_Pedidos_New.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         JButton boton_Cliente_New = new JButton();
         boton_Cliente_New.setText("Crear Cliente");
         boton_Cliente_New.setName(OPCIONES[2]);
+        boton_Cliente_New.addActionListener(new click_operar());
         //boton_Cliente_New.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         JButton boton_Repartidor_New = new JButton();
         boton_Repartidor_New.setText("Crear Repartidor");
         boton_Repartidor_New.setName(OPCIONES[3]);
+        boton_Repartidor_New.addActionListener(new click_operar());
         //boton_Repartidor_New.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         JButton boton_Repartidor_Asignar = new JButton();
         boton_Repartidor_Asignar.setText("Asignar Repartidor");
         boton_Repartidor_Asignar.setName(OPCIONES[4]);
+        boton_Repartidor_Asignar.addActionListener(new click_operar());
         //boton_Repartidor_Asignar.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         panelBotones.add(boton_Pedidos_Select);
@@ -135,25 +142,33 @@ public class Administrativo extends AbstractPestana {
             
             if("Editar_Perfil".equals(source.getName())){
                 // edit  -> formulario edit id_usuario
-                new Formulario_dialog("Editar perfil", 3, 2, super.id_usuario, super.permisos);
+                new Formulario_dialog("Editar perfil", 3, 2, getId_user(), getPermisoUser());
             } else {
-                if(OPCIONES[0].equals(source.getText()) ){
-                    // select pedidos -> modal tabla: select tabla pedidos
-                    new Tabla_dialog(1, 0, super.id_usuario, super.permisos); 
-                } else if(OPCIONES[1].equals(source.getText())){
+                if(OPCIONES[0].equals(source.getName()) ){
+                    try {
+                        // select pedidos -> modal tabla: select tabla pedidos
+                        new Tabla_dialog(1, 0, getId_user(), getPermisoUser());
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Administrativo.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else if(OPCIONES[1].equals(source.getName())){
                     // new pedido -> mandar a modal formulario: edit tabla pedidos, id_pedido = 0                   
-                    new Formulario_dialog("Nuevo pedido", 1, 1, 0, super.permisos);
-                } else if(OPCIONES[2].equals(source.getText())){
+                    new Formulario_dialog("Nuevo pedido", 1, 1, 0, getPermisoUser());
+                } else if(OPCIONES[2].equals(source.getName())){
                     // new user 0 -> mandar a modal formulario: edit tabla user, id_user = 0, permisos = 0
-                    new Formulario_dialog("Nuevo Cliente", 3, 1, 0, super.permisos);
-                } else if(OPCIONES[3].equals(source.getText())){
+                    new Formulario_dialog("Nuevo Cliente", 3, 1, 0, getPermisoUser());
+                } else if(OPCIONES[3].equals(source.getName())){
                     // new user 0 -> mandar a modal formulario: edit tabla user, id_user = 0, permisos = 1
-                    new Formulario_dialog("Nuevo Repartidor", 3, 1, 0, super.permisos);
-                } else if(OPCIONES[4].equals(source.getText())){
-                    // select pedidos -> modal tabla: edit tabla pedidos, no repartidor
-                    new Tabla_dialog(1, 3, super.id_usuario, super.permisos); 
+                    new Formulario_dialog("Nuevo Repartidor", 3, 1, 0, getPermisoUser());
+                } else if(OPCIONES[4].equals(source.getName())){
+                    try {
+                        // select pedidos -> modal tabla: edit tabla pedidos, no repartidor
+                        new Tabla_dialog(1, 3, getId_user(), getPermisoUser());
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Administrativo.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 } else{
-                    JOptionPane.showMessageDialog(null, "No de berias estar viendo esto....", "Error", JOptionPane.ERROR_MESSAGE);   
+                    JOptionPane.showMessageDialog(null, "No deberias estar viendo esto....", "Error", JOptionPane.ERROR_MESSAGE);   
                 }
             }
         }
