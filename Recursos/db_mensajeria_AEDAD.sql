@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `mensajeria`.`usuario` (
   `Apellidos` VARCHAR(150) NULL,
   `Correo` VARCHAR(45) unique NOT NULL,
   `Password` VARCHAR(45) NULL,
-  `fecha_ultima_conection` DATETIME NOT NULL,
+  `fecha_ultima_conection` DATETIME NOT NULL default current_timestamp,
   `id_provincia` INT NOT NULL,
   `permisos` ENUM("0", "1", "2", "3") NOT NULL,
   PRIMARY KEY (`id_usuario`),

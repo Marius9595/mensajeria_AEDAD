@@ -9,6 +9,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import mensajeria_app.Controller_pedidos;
@@ -405,7 +407,11 @@ public class Tabla_dialog extends JFrame implements ActionListener{
                         }
                         
                         if(rowEnvio != null)
-                            envioFormulario(rowEnvio);
+                            try {
+                                envioFormulario(rowEnvio);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(Tabla_dialog.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                     break;
                 default:
@@ -417,7 +423,7 @@ public class Tabla_dialog extends JFrame implements ActionListener{
         }
     }
     
-    private void envioFormulario(String[] rowEnvio){
+    private void envioFormulario(String[] rowEnvio) throws SQLException{
         String titulo = MODO_TABLAS[modo] + " " + TABLAS[tabla];
         int id;
         try {

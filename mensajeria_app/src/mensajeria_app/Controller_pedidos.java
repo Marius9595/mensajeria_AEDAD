@@ -13,6 +13,7 @@ import com.mysql.cj.protocol.Resultset;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -38,6 +39,12 @@ public class Controller_pedidos {
     */
     
     Connection_BBDD DB = new Connection_BBDD(USER, PASS, IP, DATABASE);
+    
+    
+
+    
+
+    
     
     
     private ArrayList<Usuario> get_generic_usuarios (ResultSet respuesta) throws SQLException{
@@ -374,13 +381,13 @@ public class Controller_pedidos {
         
         
         
-        String column[]={"Cliente","Repartidor","Lugar de Entrega","Articulo","Nº articulos"};
+        String column[]={"ID","Cliente","Repartidor","Lugar de Entrega","Articulo","Nº articulos"};
         
         
         resultado.add(column);
         for (Pedido pedido : pedidos) {
             
-            String [] pedido_string = {pedido.getNombre_cliente(), pedido.getNombre_repartidor(), pedido.getNombre_provincia(), pedido.getNombre_articulo(), pedido.getNum_articulos()+"" };
+            String [] pedido_string = {pedido.getId_articulo()+"",pedido.getNombre_cliente(), pedido.getNombre_repartidor(), pedido.getNombre_provincia(), pedido.getNombre_articulo(), pedido.getNum_articulos()+"" };
             
             resultado.add(pedido_string);
         }
@@ -596,7 +603,7 @@ public class Controller_pedidos {
             
         }else if (permiso == 2){
             
-            sentencia += " id_repartidor is not null";
+            sentencia += " id_repartidor is  null";
         }
         
         ResultSet respuesta = DB.raw_select(sentencia);
@@ -607,6 +614,118 @@ public class Controller_pedidos {
         return resultados;
         
     }
+    
+    
+    private ResultSet get_object_by_id(String tabla, String filtros){
+        
+        
+       String setencia = "SELECT *  FROM " + tabla + " WHERE " + filtros;
+       
+       ResultSet respuesta = DB.raw_select(setencia);
+       
+       return respuesta;
+        
+        
+    }
+    
+    
+    private HashMap<String,String> get_object_data_by_id (String[] columnas ,String tabla , int id_object) throws SQLException{
+        
+        HashMap<String,String> data = new HashMap<String,String>();
+        
+        ResultSet respuesta = get_object_by_id(tabla, columnas[0]+ " = " + id_object);
+        
+        if(respuesta.next()){
+            
+            for (String columna : columnas) {
+                
+                data.put(columna, respuesta.getString(columna));
+                
+            }
+
+            
+        }else{
+            data = null;
+        }
+        
+        
+        return data;
+        
+        
+        
+    }
+    
+
+    public HashMap<String,String> get_provincia_by_id_(int id_consulta) throws SQLException {
+        
+        String[] columnas = {"id_provincia","nombre"};
+
+        return get_object_data_by_id(columnas,"provincia",id_consulta);
+        
+    }
+
+    public HashMap<String, String> get_articulo_by_id(int id_consulta) throws SQLException {
+        
+        
+        String[] columnas = {"id_articulo","descripcion"};
+        
+        return get_object_data_by_id(columnas,"articulo",id_consulta);
+        
+        
+    }
+
+    public HashMap<String, String> get_usuario_by_id(int id_consulta) throws SQLException {
+        
+        String[] columnas = {"id_usuario","nombre","apellidos","correo","id_provincia"};
+        
+        return get_object_data_by_id(columnas,"usuario",id_consulta);
+
+
+    }
+    
+    
+    public HashMap<String, String> get_pedido_by_id(int id_consulta) throws SQLException {
+
+
+        String[] columnas = {"id_articulo","id_cliente","id_repartidor","fecha_entrega","num_articulos"};
+        
+        
+        return get_object_data_by_id(columnas,"pedido",id_consulta);
+        
+    }
+    
+    
+    
+    
+    
+    public void update(String tabla,HashMap<String,Object> registros,String filtros ){
+         
+        
+        DB.update(tabla, registros, filtros);
+        
+        DB.close_connection();
+        
+        
+    }
+
+    public void insert(String tabla, HashMap<String, Object> registros) {
+        
+        DB.insert(tabla, registros);
+        DB.close_connection();
+        
+    }
+    
+    
+    public void delete(String tabla, String filtros) {
+        
+        DB.delete(tabla, filtros);
+        DB.close_connection();
+        
+    }
+    
+    
+    
+  
 
  
     
