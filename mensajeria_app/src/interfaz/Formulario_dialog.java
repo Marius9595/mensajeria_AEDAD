@@ -149,7 +149,8 @@ public class Formulario_dialog extends JFrame implements ActionListener{
                     }
                 }
             } else{
-                // SELECT * FROM usuario WHERE id = <<id_consulta>>
+                click_execute_listener = new click_Execute("actualizar", tablaString);
+                datos = DB.get_usuario_by_id(id_consulta);
             }
         } else { // pedidos
             if(permiso != 1){ // cliente, admin, administrador 
