@@ -36,6 +36,8 @@ import org.jfree.data.xy.XYSeriesCollection;
  */
 public class Graficos {
     
+    private static Controller_pedidos DB = new Controller_pedidos();
+    
 
     /* ---------- grafica de lineas -----------   */
     
@@ -84,11 +86,14 @@ public class Graficos {
         double[] datoActual;
         double[] datoLast;
         
+        double pedidos_last = DB.get_pedidos;
+        double pedido_actual
+        
         //  ------- AQUI VA LA CONSULTA -----------
         
         // ejemplo
-        datoActual = new double[] {2021, 18};
-        datoLast = new double[] {2020, 10};
+        datoActual = new double[] {year_Actual, pedidos_last};
+        datoLast = new double[] {year_Last, pedido_actual};
         
         
         XYSeries series1 = new XYSeries(year_Actual);

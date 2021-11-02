@@ -149,7 +149,7 @@ public class Admin extends AbstractPestana{
             if("Editar_Perfil".equals(source.getName())){
                 try {
                     // edit  -> formulario edit id_usuario
-                    new Formulario_dialog("Editar perfil", 3, 2, id_user, permisoUser);
+                    new Formulario_dialog("Editar perfil", 3, 3, id_user, permisoUser);
                 } catch (SQLException ex) {
                     Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
                 }
