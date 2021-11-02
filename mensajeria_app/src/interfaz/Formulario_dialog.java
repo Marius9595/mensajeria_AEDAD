@@ -60,11 +60,11 @@ public class Formulario_dialog extends JFrame implements ActionListener{
      */
     public Formulario_dialog(String titulo, int tabla, int modo, int id_consulta, int permiso ) throws SQLException  {
         // PARA PRUEBAS
-        String control_ID = "Se recive esto: "+ titulo +", Tabla: "+ tabla +", Modo: "+ modo +", Id: "+ id_consulta +", Permiso: "+ permiso;
-        if(id_consulta == 500)
-            control_ID = "El ID acaba de petar";
-        // mostrando lo que se recibe
-        JOptionPane.showMessageDialog(null, control_ID, "Aviso", JOptionPane.PLAIN_MESSAGE);
+//        String control_ID = "Se recive esto: "+ titulo +", Tabla: "+ tabla +", Modo: "+ modo +", Id: "+ id_consulta +", Permiso: "+ permiso;
+//        if(id_consulta == 500)
+//            control_ID = "El ID acaba de petar";
+//        // mostrando lo que se recibe
+//        JOptionPane.showMessageDialog(null, control_ID, "Aviso", JOptionPane.PLAIN_MESSAGE);
         
         // ya no se me ocurrió una manera de diferenciar si es cliente o repartidor el nuevo usuario
         boolean nuevo_cliente = false;
@@ -346,7 +346,8 @@ public class Formulario_dialog extends JFrame implements ActionListener{
                 DB.delete(tabla, filtro);
                 
             }
-
+            
+            JOptionPane.showMessageDialog(null, "Se ha realizado la operación", "Aviso", JOptionPane.PLAIN_MESSAGE);
         }
     }
 }
