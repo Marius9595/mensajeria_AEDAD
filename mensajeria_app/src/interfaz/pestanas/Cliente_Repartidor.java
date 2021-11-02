@@ -131,7 +131,7 @@ public class Cliente_Repartidor extends AbstractPestana {
             {
                 try {
                     // edit -> modal formulario: edit tabla usuario, id_usuario, permisos
-                    new Formulario_dialog("Editar perfil", 3, 1, id_user, getPermisoUser());
+                    new Formulario_dialog("Editar perfil", 3, 1, id_user, permisoUser);
                 } catch (SQLException ex) {
                     Logger.getLogger(Cliente_Repartidor.class.getName()).log(Level.SEVERE, null, ex);
                 }
