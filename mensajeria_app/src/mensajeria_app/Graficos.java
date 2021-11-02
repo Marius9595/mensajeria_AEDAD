@@ -9,6 +9,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.SystemColor;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import javax.swing.BorderFactory;
 import org.jfree.chart.ChartFactory;
@@ -47,7 +48,7 @@ public class Graficos {
      * @param orientacion la orientacion de la gráfica
      * @return ChartPanel con la gráfica
      */
-    public static ChartPanel grafica_Rayas(int numeroLineas, String orientacion){
+    public static ChartPanel grafica_Rayas(int numeroLineas, String orientacion) throws SQLException{
         XYDataset dataset = createDataset_XYSeriesCollection();
         JFreeChart chart = createChart_createXYLineChart(dataset, numeroLineas, orientacion);
 
@@ -60,7 +61,7 @@ public class Graficos {
      * datos de la gráfica de lineas
      * @return XYDataset con lso datos de la gráfica
      */
-    private static XYDataset createDataset_XYSeriesCollection() {
+    private static XYDataset createDataset_XYSeriesCollection() throws SQLException {
         
         /* ----------- CARGAR DATOS AQUI ------------  */
         //AQUI ES UN ArrayList<Double, double> 
@@ -86,14 +87,14 @@ public class Graficos {
         double[] datoActual;
         double[] datoLast;
         
-        double pedidos_last = DB.get_pedidos;
-        double pedido_actual
+        double pedidos_last = DB.get_pedidos_periodo(fecha_Last_1Enero,fecha_Last_31Diciembre);
+        double pedido_actual = DB.get_pedidos_periodo(fecha_Actual_1Enero,fecha_Actual_31Diciembre);
         
         //  ------- AQUI VA LA CONSULTA -----------
         
         // ejemplo
-        datoActual = new double[] {year_Actual, pedidos_last};
-        datoLast = new double[] {year_Last, pedido_actual};
+        datoActual = new double[] {Double.parseDouble(year_Actual), pedidos_last};
+        datoLast = new double[] {Double.parseDouble(year_Last), pedido_actual};
         
         
         XYSeries series1 = new XYSeries(year_Actual);
@@ -174,7 +175,7 @@ public class Graficos {
      * @param orientacion orientacion de la gráfica
      * @return chartPanel con la gráfica
      */
-    public static ChartPanel grafica_Barras(String orientacion){
+    public static ChartPanel grafica_Barras(String orientacion) throws SQLException{
         CategoryDataset dataset = createDataset_DefaultCategoryDataset();
         JFreeChart chart = createChart_createBarChart(dataset, orientacion);
         
@@ -189,7 +190,7 @@ public class Graficos {
      * datos de la gráfica de barras
      * @return datos de la gráfica
      */
-    private static CategoryDataset createDataset_DefaultCategoryDataset() {
+    private static CategoryDataset createDataset_DefaultCategoryDataset() throws SQLException {
 
         // son 3 consultas:
         // pedidos con fecha entrega, pedidos sin fecha entrega y pedidos sin repartidor
@@ -204,7 +205,7 @@ public class Graficos {
 //        SELECT SUM(mensajeria.pedido.id_articulo) FROM mensajeria.pedido WHERE fecha_entrega IS NULL AND id_repartidor IS NULL;
         
         // ejemplo
-        valores = new Integer[]{46, 38, 29};
+        valores = DB.get_estadistica_pedidos();
          
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         dataset.setValue(valores[0], "Pedidos", "Entregados");
@@ -246,7 +247,7 @@ public class Graficos {
      * grafica de queso
      * @return ChartPanel con la gráfica de queso
      */
-    public static ChartPanel grafica_Queso(){
+    public static ChartPanel grafica_Queso() throws SQLException{
         DefaultPieDataset dataset = createDataset();
         JFreeChart chart = createChart(dataset);
         
@@ -263,7 +264,7 @@ public class Graficos {
      * datos de la gráfica de queso
      * @return DefaultPieDataset con los datos
      */
-    private static DefaultPieDataset createDataset() {
+    private static DefaultPieDataset createDataset() throws SQLException {
 
         // REPETIMOS la misma qeu antes
         
@@ -276,7 +277,7 @@ public class Graficos {
 //        SELECT SUM(mensajeria.pedido.id_articulo) FROM mensajeria.pedido WHERE fecha_entrega IS NULL AND id_repartidor IS NULL;
         
         // ejemplo
-        valores = new Integer[]{46, 38, 29};
+        valores = DB.get_estadistica_pedidos();
         
         int total = 0;
         

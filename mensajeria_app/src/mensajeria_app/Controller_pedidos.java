@@ -722,6 +722,116 @@ public class Controller_pedidos {
         DB.close_connection();
         
     }
+
+    public double get_pedidos_periodo(String fecha_Last_1Enero, String fecha_Last_31Diciembre) throws SQLException {
+        
+        ResultSet respuesta = DB.raw_select("SELECT sum(mensajeria.pedido.id_articulo) as 'sum_art' FROM mensajeria.pedido WHERE mensajeria.pedido.fecha_entrega BETWEEN '"+ fecha_Last_1Enero + "' AND '"+ fecha_Last_31Diciembre +"'");
+        
+        Double valor = 0.0;
+        
+        if (respuesta != null){
+            
+            if(respuesta.next()){
+                
+                
+                try {
+                    valor = Double.parseDouble(respuesta.getString("sum_art"));
+                } catch (Exception e) {
+                    
+                    valor = 0.0;
+                }
+            
+            
+        }
+            
+            
+        }
+        
+
+        
+        DB.close_connection();
+        
+        return valor;
+        
+    }
+
+    public Integer[] get_estadistica_pedidos() throws SQLException {
+        
+        
+        int valor_entregados = -1;
+        int valor_transito = -1;
+        int valor_sin_salir = -1;
+        
+        Integer[] valores = {valor_entregados,valor_transito,valor_sin_salir};
+        
+        ResultSet respuesta;
+        
+        
+
+        
+         respuesta  = DB.raw_select("SELECT SUM(mensajeria.pedido.id_articulo) as 'sum_art' FROM mensajeria.pedido WHERE fecha_entrega IS NOT NULL");
+                
+ 
+        
+         
+        if(respuesta.next()){
+            
+            
+            try {
+                
+                valor_entregados = Integer.parseInt(respuesta.getString("sum_art"));
+                
+            } catch (Exception e) {
+                
+                valor_entregados = 0;
+            }
+            
+        }
+        
+        DB.close_connection();
+        
+        
+        respuesta  = DB.raw_select("SELECT SUM(mensajeria.pedido.id_articulo) as 'sum_art' FROM mensajeria.pedido WHERE fecha_entrega IS NULL AND id_repartidor IS NOT NULL");
+                
+ 
+        if(respuesta.next()){
+            
+            try {
+                
+                valor_transito = Integer.parseInt(respuesta.getString("sum_art"));
+                
+            } catch (Exception e) {
+                
+                valor_transito = 0;
+            }
+        }
+        
+        DB.close_connection();
+        
+        
+        respuesta  = DB.raw_select("SELECT SUM(mensajeria.pedido.id_articulo) as 'sum_art' FROM mensajeria.pedido WHERE fecha_entrega IS NULL AND id_repartidor IS NULL");
+                
+ 
+        if(respuesta.next()){
+            
+            try {
+                
+                valor_sin_salir = Integer.parseInt(respuesta.getString("sum_art"));
+                
+            } catch (Exception e) {
+                
+                valor_sin_salir = 0;
+            }
+        }
+        
+        DB.close_connection();
+        
+        
+        return valores;
+        
+        
+        
+    }
     
     
     
