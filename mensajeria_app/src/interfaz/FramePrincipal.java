@@ -27,6 +27,9 @@ public class FramePrincipal extends JFrame {
         
         setTitle("Glovo Company S.L");
         
+        ImageIcon img = new ImageIcon("..\\Recursos\\error.jpg");
+        setIconImage(img.getImage());
+        
         add(new TabPanel());
         
         setDefaultCloseOperation(EXIT_ON_CLOSE);        
