@@ -61,7 +61,7 @@ public class Formulario_dialog extends JFrame implements ActionListener{
 //        // mostrando lo que se recibe
 //        JOptionPane.showMessageDialog(null, control_ID, "Aviso", JOptionPane.PLAIN_MESSAGE);
         
-        // ya no se me ocurrió una manera de diferenciar si es cliente o repartidor el nuevo usuario
+        // el nuevo repartidor y nuevo cliente son iguales esto lo separa
         boolean nuevo_cliente = false;
         if("Nuevo Cliente".equals(titulo))
             nuevo_cliente = true;
