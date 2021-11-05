@@ -79,7 +79,7 @@ public class Login extends JPanel {
                 Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
                 String emailStr = campo_user_name.getText();
                 
-                Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
+                Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr.trim());
                 if(matcher.find()){
                     campo_password.setEditable(true);
                 } else{
@@ -139,7 +139,8 @@ public class Login extends JPanel {
             
             
             try {
-                Usuario usuario_login = DB.Login(campo_user_name.getText(), campo_password.getText());
+                String usuarioTrim = campo_user_name.getText();
+                Usuario usuario_login = DB.Login(usuarioTrim.trim(), campo_password.getText());
                 
                 
                 if (usuario_login != null  ){
