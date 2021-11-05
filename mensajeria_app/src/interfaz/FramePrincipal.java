@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import javax.swing.*;
 
 /**
- *
+ * @author Jonathan
  * @author Mario
  */
 public class FramePrincipal extends JFrame {

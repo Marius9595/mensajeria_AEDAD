@@ -19,7 +19,7 @@ import org.jfree.chart.ChartPanel;
 
 
 /**
- *
+ * @author Jonathan
  * @author Mario
  */
 public class Administrativo extends AbstractPestana {
@@ -60,46 +60,37 @@ public class Administrativo extends AbstractPestana {
         
         //------------ panel botones -----------------
         
-        // añadir padding a los botones -> el pading no lo coge, seguramente es por el pack
-        //label.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
         
         JButton boton_Pedidos_Select = new JButton();
         boton_Pedidos_Select.setText("Consultar Pedidos");
         boton_Pedidos_Select.setName(OPCIONES[0]);
         boton_Pedidos_Select.addActionListener(new click_operar());
-        //boton_Pedidos_Select.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         JButton boton_Pedidos_New = new JButton();
         boton_Pedidos_New.setText("Crear Pedidos");
         boton_Pedidos_New.setName(OPCIONES[1]);
         boton_Pedidos_New.addActionListener(new click_operar());
-        //boton_Pedidos_New.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         JButton boton_Cliente_New = new JButton();
         boton_Cliente_New.setText("Crear Cliente");
         boton_Cliente_New.setName(OPCIONES[2]);
         boton_Cliente_New.addActionListener(new click_operar());
-        //boton_Cliente_New.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         JButton boton_Repartidor_New = new JButton();
         boton_Repartidor_New.setText("Crear Repartidor");
         boton_Repartidor_New.setName(OPCIONES[3]);
         boton_Repartidor_New.addActionListener(new click_operar());
-        //boton_Repartidor_New.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         JButton boton_Repartidor_Asignar = new JButton();
         boton_Repartidor_Asignar.setText("Asignar Repartidor");
         boton_Repartidor_Asignar.setName(OPCIONES[4]);
         boton_Repartidor_Asignar.addActionListener(new click_operar());
-        //boton_Repartidor_Asignar.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         panelBotones.add(boton_Pedidos_Select);
         panelBotones.add(boton_Pedidos_New);
         panelBotones.add(boton_Cliente_New);
         panelBotones.add(boton_Repartidor_New);
         panelBotones.add(boton_Repartidor_Asignar);
-        
-        /* RECORDATORIO: hay que personalizar las gráficas */
         
         // ------------- panel graficos norte ----------
         
@@ -189,6 +180,4 @@ public class Administrativo extends AbstractPestana {
             }
         }
     }
-    
-
 }

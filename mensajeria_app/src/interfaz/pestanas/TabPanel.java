@@ -7,16 +7,11 @@ package interfaz.pestanas;
 
 import Clases_BD.Usuario;
 import java.awt.Dimension;
-import static java.lang.Thread.sleep;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JTabbedPane;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 /**
- *
+ * @author Jonathan
  * @author Mario
  */
 public class TabPanel extends JTabbedPane {
@@ -45,13 +40,7 @@ public class TabPanel extends JTabbedPane {
  
     
     public TabPanel() throws SQLException {
-        /* si lo hacemos así no podremos luego mandarle el permiso de usuario a la pestaña 
-        que toque
-        CONSULTAR: sacar los tab como private/protected para el posterior setter del permiso*/
-        
-        
-
-        
+        // crea login
         addTab("Login",new Login(this));
 
         
@@ -59,17 +48,14 @@ public class TabPanel extends JTabbedPane {
         
         
         // inicialmente que este todo en disabled y cuando loggee activamos
-        //para pruebas comentar esta parte
-        
+        //para pruebas descomentar esta parte
         
         /*
         for (int i = 0; i < 5; i++) {
             setEnabledAt(i, false);
         }
-
         */
         
-        //temporal: TODO: HACER RESPONSIVE
         setPreferredSize(new Dimension(650,500));
         
         

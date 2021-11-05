@@ -19,7 +19,7 @@ public class Mensajeria_app {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws SQLException {
-        
+        // el cargador
         new FramePrincipal();
     }
     

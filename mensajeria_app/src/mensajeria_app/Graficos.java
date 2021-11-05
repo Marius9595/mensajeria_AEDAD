@@ -32,7 +32,7 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 /**
- *
+ * @author Mario
  * @author Jonathan
  */
 public class Graficos {
@@ -266,7 +266,7 @@ public class Graficos {
      */
     private static DefaultPieDataset createDataset() throws SQLException {
 
-        // REPETIMOS la misma qeu antes
+        // REPETIMOS la misma que antes para simplificar
         
         Integer[] valores; 
         
@@ -331,7 +331,7 @@ public class Graficos {
             BarRenderer r = (BarRenderer)chart.getCategoryPlot().getRenderer();
             r.setSeriesPaint(0, Color.CYAN);
         } else {
-            // no se hace nada
+            // no se hace nada -> aqui no debería entrar nunca
         }
 
     }

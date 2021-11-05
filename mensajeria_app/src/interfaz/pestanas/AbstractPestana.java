@@ -9,21 +9,14 @@ import Clases_BD.Usuario;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import mensajeria_app.Controller_pedidos;
 
 
 /**
- *
+ * @author Jonathan
  * @author Mario
  */
 public class AbstractPestana extends JPanel {
@@ -70,10 +63,6 @@ public class AbstractPestana extends JPanel {
         this.tab = tab;
         
         setLayout(new BorderLayout());
-        //setPreferredSize(new Dimension(490, 100));
-        
-
-      
         
         /* cabeceras */
         panelSuperior = new JPanel();
@@ -94,15 +83,12 @@ public class AbstractPestana extends JPanel {
         add(panelSeparator, BorderLayout.CENTER);
         
         
-        /* Hay que definir los tamaños segun se va contruyendo o las imagenes se desbordan por ejemplo  */
         // ----------- superior oeste ---------------
         JLabel imagen = new JLabel();
-        /* poner foto genérica no vamos a implementar un cargador de imagenes  */
+        /* foto "generica", aqui iría el cargador de imagenes */
         Icon imp = new ImageIcon("..\\Recursos\\error.jpg");
         imagen.setIcon(imp);
         
-        // ajustar recursivo
-        //imagen.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         panelSuperior.add(imagen, BorderLayout.WEST);
 
@@ -115,7 +101,6 @@ public class AbstractPestana extends JPanel {
         boton_Edit = new JButton();
         boton_Edit.setText("Editar Perfil");
         boton_Edit.setName("Editar_Perfil");        
-        //botonEdit.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         panelBotones.add(boton_Edit);
 
@@ -123,7 +108,6 @@ public class AbstractPestana extends JPanel {
         boton_Logout.setText("Salir");
         boton_Logout.setName("Log_out"); 
         boton_Logout.addActionListener(new click_Logout(this.permisoUser+1));
-        //botonLogout.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         panelBotones.add(boton_Logout);
         
@@ -197,12 +181,14 @@ public class AbstractPestana extends JPanel {
         panelSuperiorDatos.add(panel_user_city);
 
         panelSuperior.add(panelSuperiorDatos);
+
+
+        // una vez todo montado llamamos a la cargaDatosPermisos
         
         cargaDatosPermisos(usuario);
         
 
-        // una vez todo montado llamamos a la cargaDatosPermisos
-        //cargaDatosPermisos();
+
         
         // -----     panel central -----------
         

@@ -30,6 +30,7 @@ public class Connection_BBDD {
     private Connection conexion;          
     private Statement  query;            
 
+    // conector
     public Connection_BBDD(String user, String password, String ip_connection, String data_base) {
              
         this.user           = user;
@@ -39,7 +40,9 @@ public class Connection_BBDD {
                
     }
 
-    
+    /**
+     * abrir conexión
+     */
     private void connect(){
         
 
@@ -57,7 +60,9 @@ public class Connection_BBDD {
         
     }
     
-    
+    /**
+     * cerrar conexión
+     */
     public void close_connection(){
         
         try {
@@ -97,25 +102,6 @@ public class Connection_BBDD {
         return sentencia;
     }
     
-    /*private String parse_register_type (Object value){
-        
-        String  result = "";
-        
-        if (value  instanceof Integer || value instanceof Float || value instanceof Double){
-            
-            result = value+"";
-            
-        } else if(value instanceof String){
-            
-          result = "'"+value.toString()+"'";
-        }
-        
-        
-     return result;   
-        
-    }*/
-    
-    
     /**
      * parsea los registros para que sean strin, string en el hashmap
      * @param registros
@@ -129,7 +115,6 @@ public class Connection_BBDD {
         for (String columna : registros.keySet()) {
             
             registros_parseados.put(columna, (registros.get(columna)) instanceof String ? "'" + registros.get(columna).toString() + "'" : registros.get(columna)+ "");
-//    parse_register_type(registros.get(columna)));
 
         }
         
@@ -176,12 +161,7 @@ public class Connection_BBDD {
     }
     
     
-    
-    
-    
     //OPERACIONES EN LA BBDD
-
-    
 
     
     public void insert (String tabla, HashMap<String,Object> registros){
@@ -267,12 +247,9 @@ public class Connection_BBDD {
         
         HashMap<String,String> registros_parseados = parse_registers_data(registros);
         
- 
-
         
         String sentencia = "UPDATE "+ tabla + " SET ";
-        
-        
+           
         
         for (String columna : registros_parseados.keySet()) {
             
@@ -303,8 +280,6 @@ public class Connection_BBDD {
             
             System.out.println(e.toString());
         }
-        
-        
         
         
     }

@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 import javax.swing.*;
 
 /**
- *
+ * @author Jonathan
  * @author Mario
  */
 public class Cliente_Repartidor extends AbstractPestana {
@@ -30,7 +30,6 @@ public class Cliente_Repartidor extends AbstractPestana {
         /* cosas padre */
         super(permiso,tab,usuario);
         boton_Edit.addActionListener(new click_operar());
-        //boton_Logout.addActionListener(new click_Logout(super.permisoUser+1));
         
         // esto es el "body" que cambia en los hijos     
         panelCentro.setLayout(new BorderLayout());
@@ -58,7 +57,6 @@ public class Cliente_Repartidor extends AbstractPestana {
         panelLabelTituloLista.setLayout(new GridBagLayout());
         
         JLabel nombreLista = new JLabel();
-        //nombreLista.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         if(permisoUser == 0)
             nombreLista.setText("Últimos pedidos");
@@ -78,8 +76,6 @@ public class Cliente_Repartidor extends AbstractPestana {
         lista_datos = new ArrayList<String[]>();
         /* ----------- CARGAR DATOS AQUI ------------  */
         // EN AMBOS CASOS DEBERIAMOS TENER SOLO UN ArrayList<String[]>  CON ARTICULOS
-        
-        
             
         lista_datos = DB.lista_pedidos(usuario.getId_usuario(),super.permisoUser);
             
@@ -90,8 +86,6 @@ public class Cliente_Repartidor extends AbstractPestana {
         // id artículo
         // nombre articulo
         for(String[] dat : lista_datos){
-            
-            //System.out.println(dat[1]);
             
             modelo.addElement("Pedido id: " + dat[0] + ", Descripción: " + dat[1]);
         }
@@ -107,8 +101,7 @@ public class Cliente_Repartidor extends AbstractPestana {
         JButton botonConsultarPedido = new JButton();
         botonConsultarPedido.setText("Consultar Pedidos");
         botonConsultarPedido.setName("Select_pedidos");
-        //botonConsultarPedido.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        botonConsultarPedido.addActionListener(new click_operar()); // evento editar
+        botonConsultarPedido.addActionListener(new click_operar()); // evento 
         panelCentralSur.add(botonConsultarPedido);
         
         // solo si es cliente
@@ -116,7 +109,7 @@ public class Cliente_Repartidor extends AbstractPestana {
             JButton botonCrearPedido = new JButton();
             botonCrearPedido.setText("Realizar Pedidos");
             botonCrearPedido.setName("New_Pedido");
-            botonCrearPedido.addActionListener(new click_operar()); // evento logout
+            botonCrearPedido.addActionListener(new click_operar()); // evento 
             panelCentralSur.add(botonCrearPedido);// evento editar
         }
     }

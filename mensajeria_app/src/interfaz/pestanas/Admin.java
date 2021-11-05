@@ -18,7 +18,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
+ * @author Jonathan
  * @author Mario
  */
 public class Admin extends AbstractPestana{
@@ -54,16 +54,12 @@ public class Admin extends AbstractPestana{
         // que por defecto sea siempre un select
         radioButton_Select = new JRadioButton("Consultar");
         radioButton_Select.setSelected(true);
-        //radioButton_Select.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         radioButton_New = new JRadioButton("Crear ");
-        //radioButton_New.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         radioButton_Update = new JRadioButton("Actualizar");  
-        //radioButton_Update.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         radioButton_Delete = new JRadioButton("Borrar");  
-        //radioButton_Delete.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         /* grupo de botones */
         ButtonGroup bg = new ButtonGroup();    
@@ -73,11 +69,9 @@ public class Admin extends AbstractPestana{
         bg.add(radioButton_Delete);
               
         comboTablas=new JComboBox(TABLAS);
-        //comboTablas.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         JButton botonEnviar = new JButton();
         botonEnviar.setText("OPERAR");
-        //botonEnviar.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         botonEnviar.addActionListener(new click_operar()); // evento operar
         
         panelComandos.add(radioButton_New);
@@ -100,7 +94,6 @@ public class Admin extends AbstractPestana{
         
         JLabel nombreLista = new JLabel();
         nombreLista.setText("Últimas conexiones");
-        //nombreLista.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         panelTituloTabla.add(nombreLista);
         
@@ -116,12 +109,9 @@ public class Admin extends AbstractPestana{
         /* ----------- CARGAR DATOS AQUI ------------  */
         //AQUI ES UN ArrayList<String[]> DE USUARIOS CON EL INDICE 0 COMO NOMBRE DE LAS CABECERAS
         
-        
-        
         // SELECT * FROM mensajeria.usuario ORDER BY mensajeria.usuario.fecha_ultima_conection DESC LIMIT 0, 15
         
         //lista_Datos =  <-----  método de carga de datos;
-        // ejemplo
 
         lista_datos = DB.usuarios_conexion(usuario.getId_usuario());
         
@@ -135,7 +125,6 @@ public class Admin extends AbstractPestana{
            
         // solo que se vea
         tablaConection.setEnabled(false);
-        //tablaConection.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         JScrollPane sp =new JScrollPane(tablaConection);
         
         panelTabla.add(sp, BorderLayout.CENTER);

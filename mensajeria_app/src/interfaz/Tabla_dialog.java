@@ -16,8 +16,8 @@ import javax.swing.table.DefaultTableModel;
 import mensajeria_app.Controller_pedidos;
 
 /**
- *
- * @author Dizzy
+ * @author Jonathan
+ * @author Mario
  */
 public class Tabla_dialog extends JFrame implements ActionListener{
 

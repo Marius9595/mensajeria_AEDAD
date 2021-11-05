@@ -6,19 +6,14 @@
 package interfaz;
 
 import static java.awt.Component.CENTER_ALIGNMENT;
-import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.HeadlessException;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -26,7 +21,7 @@ import javax.swing.JTextField;
 import mensajeria_app.Controller_pedidos;
 
 /**
- *
+ * @author Jonathan
  * @author Mario
  */
 public class Formulario_dialog extends JFrame implements ActionListener{

@@ -16,7 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
+ * Clase de utilidades por si necesitaramos algo en común
  * @author Jonathan
  * @author Mario
  */

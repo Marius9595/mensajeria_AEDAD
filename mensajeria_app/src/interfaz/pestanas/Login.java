@@ -7,15 +7,11 @@ package interfaz.pestanas;
 
 import Clases_BD.Usuario;
 import Eventos.Event_Boton_Personalizado;
-import interfaz.Formulario_dialog;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import static java.lang.Thread.sleep;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -24,7 +20,7 @@ import javax.swing.*;
 import mensajeria_app.Controller_pedidos;
 
 /**
- *
+ * @author Jonathan
  * @author Mario
  */
 public class Login extends JPanel {
@@ -57,14 +53,12 @@ public class Login extends JPanel {
         JPanel linea_user_name = new JPanel(new FlowLayout());
         JPanel linea_password= new JPanel(new FlowLayout());
         
-        // para obligar a cargar un espacio en lso textfield
+        // para obligar a cargar un espacio en los textfield
         int tam_textField = 15;          
 
         JLabel titulo = new JLabel("LOGIN");
-        //titulo.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         JLabel label_usuario = new JLabel("Usuario :   ");
-        //label_usuario.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         linea_user_name.add(label_usuario);
         
@@ -76,9 +70,10 @@ public class Login extends JPanel {
 
             @Override
             public void focusLost(FocusEvent e) {
+                // patron de correo
                 Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
                 String emailStr = campo_user_name.getText();
-                
+                // verificamos
                 Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr.trim());
                 if(matcher.find()){
                     campo_password.setEditable(true);
@@ -89,28 +84,23 @@ public class Login extends JPanel {
                 }
             }
         });
-        //campo_user_name.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         linea_user_name.add(campo_user_name);
 
         JLabel label_password = new JLabel("Contraseña :");       
-        //label_password.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         linea_password.add(label_password);
         
         campo_password=new JPasswordField(tam_textField);
         campo_password.setEditable(false); 
-        //campo_password.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         linea_password.add(campo_password);
 
         JButton botonEnviar = new JButton();
-        
+        // el login
         botonEnviar.addActionListener(new click_acceder());
         
         botonEnviar.setText("Acceder");
-        //botonEnviar.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        //botonLogout.addComponentListener(new ActionListener()); // evento sing in
 
         north_container.add(titulo);
         
@@ -172,12 +162,6 @@ public class Login extends JPanel {
                     
                     tab.setSelectedIndex(pestana_redirigida);
     
-                    
-                    
-
-                    
-                   
-                    
                     tab.setUsuario_logueado(usuario_login); 
                 }else  {
                     
@@ -192,10 +176,7 @@ public class Login extends JPanel {
             }
             
             
-            // OBTENER PERMISO Y PASARLO
-            
-
-            
+            // OBTENER PERMISO Y PASARLO -> descartado
             
             //pestana.setId_user(1);
         }
