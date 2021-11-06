@@ -15,29 +15,21 @@ import javax.swing.*;
  * @author Mario
  */
 public class FramePrincipal extends JFrame {
-    
-
 
     public FramePrincipal() throws SQLException {
         
-        Toolkit pantalla = Toolkit.getDefaultToolkit();
-        Dimension tamanoPantalla = pantalla.getScreenSize();       
-        int height = tamanoPantalla.height;
-        int width = tamanoPantalla.width;
-        
         setTitle("Glovo Company S.L");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);   
         
         ImageIcon img = new ImageIcon("..\\Recursos\\error.jpg");
         setIconImage(img.getImage());
         
+        // el tabpanel
         add(new TabPanel());
+             
+        // centramos
+        mensajeria_app.Utilidades.centrarPantalla(this);
         
-        setDefaultCloseOperation(EXIT_ON_CLOSE);        
-        
-        pack();
-        
-        setLocation(width/2 - getWidth()/2 , height/2 -getHeight()/2);
         setVisible(true);
     }
-
 }
