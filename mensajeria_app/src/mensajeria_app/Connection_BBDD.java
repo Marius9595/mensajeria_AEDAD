@@ -21,30 +21,28 @@ import java.util.logging.Logger;
  * @author Mario
  */
 public class Connection_BBDD {
-    
-    
-    private String     user;  
-    private String     password;
-    private String     ip_connection;       
-    private String     BBDD;                
-    private Connection conexion;          
-    private Statement  query;            
+
+    private String user;
+    private String password;
+    private String ip_connection;
+    private String BBDD;
+    private Connection conexion;
+    private Statement query;
 
     // conector
     public Connection_BBDD(String user, String password, String ip_connection, String data_base) {
-             
-        this.user           = user;
-        this.password       = password;
-        this.ip_connection  = ip_connection;
-        this.BBDD           = "jdbc:mysql://"+this.ip_connection+"/"+data_base;
-               
+
+        this.user = user;
+        this.password = password;
+        this.ip_connection = ip_connection;
+        this.BBDD = "jdbc:mysql://" + this.ip_connection + "/" + data_base;
+
     }
 
     /**
      * abrir conexión
      */
-    private void connect(){
-        
+    private void connect() {
 
         try {
             try {
@@ -57,261 +55,218 @@ public class Connection_BBDD {
         } catch (SQLException ex) {
             Logger.getLogger(Connection_BBDD.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
+
     /**
      * cerrar conexión
      */
-    public void close_connection(){
-        
+    public void close_connection() {
+
         try {
 
-            if (query != null){
+            if (query != null) {
                 query.close();
             }
-            
-            if (conexion != null){
+
+            if (conexion != null) {
                 conexion.close();
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(Connection_BBDD.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-        
-    }
-    
-    //FUNCIONES INTERNAS PARA HACER INTELIGIBLES LAS OPERACIONES CRUD
 
+    }
+
+    //FUNCIONES INTERNAS PARA HACER INTELIGIBLES LAS OPERACIONES CRUD
     /**
-     * recoge una sentencia en String y le añade el where, que viene como "filtros"
+     * recoge una sentencia en String y le añade el where, que viene como
+     * "filtros"
+     *
      * @param sentencia la query a procesar
      * @param filtros las condiciones del where
      * @return String con la sentencia completa
      */
-    private String add_filters (String sentencia, String filtros){
-        
+    private String add_filters(String sentencia, String filtros) {
 
-        if( filtros != null){
-      
+        if (filtros != null) {
+
             sentencia += " WHERE " + filtros;
         }
 
         return sentencia;
     }
-    
+
     /**
      * parsea los registros para que sean strin, string en el hashmap
+     *
      * @param registros
-     * @return 
+     * @return
      */
-    private HashMap<String,String> parse_registers_data(HashMap<String,Object> registros){
-        
-        
-        HashMap<String,String> registros_parseados = new HashMap<>();
+    private HashMap<String, String> parse_registers_data(HashMap<String, Object> registros) {
+
+        HashMap<String, String> registros_parseados = new HashMap<>();
 
         for (String columna : registros.keySet()) {
-            
-            registros_parseados.put(columna, (registros.get(columna)) instanceof String ? "'" + registros.get(columna).toString() + "'" : registros.get(columna)+ "");
+
+            registros_parseados.put(columna, (registros.get(columna)) instanceof String ? "'" + registros.get(columna).toString() + "'" : registros.get(columna) + "");
 
         }
-        
+
         return registros_parseados;
-        
+
     }
-    
-    
-    
-    private String wirte_registers (ArrayList<String> values, ArrayList<String> columnas, String sentencia){
-        
-        
+
+    private String wirte_registers(ArrayList<String> values, ArrayList<String> columnas, String sentencia) {
+
         //añadir columnas
         sentencia += "(";
 
         for (String columna : columnas) {
 
-
-            sentencia += columna +",";
+            sentencia += columna + ",";
 
         }
 
-        sentencia = sentencia.substring(0, sentencia.length()-1);
+        sentencia = sentencia.substring(0, sentencia.length() - 1);
 
         sentencia += ") VALUES (";
 
-
-       //añadir valores
-
-
+        //añadir valores
         for (String value : values) {
 
-
-            sentencia += value +",";
+            sentencia += value + ",";
 
         }
 
-        sentencia = sentencia.substring(0, sentencia.length()-1);
-
+        sentencia = sentencia.substring(0, sentencia.length() - 1);
 
         sentencia += ")";
-        
+
         return sentencia;
     }
-    
-    
-    //OPERACIONES EN LA BBDD
 
-    
-    public void insert (String tabla, HashMap<String,Object> registros){
-        
-        
-        HashMap<String,String> registros_parseados = parse_registers_data(registros);
+    //OPERACIONES EN LA BBDD
+    public void insert(String tabla, HashMap<String, Object> registros) {
+
+        HashMap<String, String> registros_parseados = parse_registers_data(registros);
 
         ArrayList<String> columnas = new ArrayList<>();
         ArrayList<String> values = new ArrayList<>();
-        
-        
+
         for (String columna : registros_parseados.keySet()) {
-            
+
             columnas.add(columna);
-            values.add(registros_parseados.get(columna)); 
+            values.add(registros_parseados.get(columna));
         }
 
         String sentencia = "INSERT INTO " + tabla + " ";
-        
-        
+
         try {
-   
-  
+
             sentencia = wirte_registers(values, columnas, sentencia);
 
-          
             System.out.println(sentencia);
 
             this.connect();
-                      
-            
+
             query.execute(sentencia);
-            
+
             System.out.println("Se ha insertado todo correctamente");
-            
 
         } catch (SQLException ex) {
-            
+
             System.out.println(ex.toString());
-        } catch (Exception e){
-            
+        } catch (Exception e) {
+
             System.out.println(e.toString());
         }
-        
-        
-        
+
     }
-    
-    
-    public void delete (String tabla, String filtros){
-        
-        
+
+    public void delete(String tabla, String filtros) {
+
         String sentencia = "DELETE FROM " + tabla + " ";
 
-        sentencia = add_filters(sentencia, filtros) ;
-        
-        try {
-   
-  
-
-            this.connect();
-                    
-            
-            query.execute(sentencia);
-            
-            System.out.println("Se ha borrado el registro");
-            
-
-        } catch (SQLException ex) {
-            
-            System.out.println(ex.toString());
-        } catch (Exception e){
-            
-            System.out.println(e.toString());
-        }
-
-        
-    }
-    
-    
-    
-    public void  update(String tabla, HashMap<String,Object> registros, String filtros){
-        
-        HashMap<String,String> registros_parseados = parse_registers_data(registros);
-        
-        
-        String sentencia = "UPDATE "+ tabla + " SET ";
-           
-        
-        for (String columna : registros_parseados.keySet()) {
-            
-            sentencia += columna + " = " + registros_parseados.get(columna) + ",";
-            
-        }
-        
-        sentencia = sentencia.substring(0,sentencia.length()-1);
-        
         sentencia = add_filters(sentencia, filtros);
-        
-        
-        
+
         try {
 
             this.connect();
 
-            
             query.execute(sentencia);
-            
-            System.out.println("Se ha actualizado el registro");
-            
+
+            System.out.println("Se ha borrado el registro");
 
         } catch (SQLException ex) {
-            
+
             System.out.println(ex.toString());
-        } catch (Exception e){
-            
+        } catch (Exception e) {
+
             System.out.println(e.toString());
         }
-        
-        
+
     }
-    
+
+    public void update(String tabla, HashMap<String, Object> registros, String filtros) {
+
+        HashMap<String, String> registros_parseados = parse_registers_data(registros);
+
+        String sentencia = "UPDATE " + tabla + " SET ";
+
+        for (String columna : registros_parseados.keySet()) {
+
+            sentencia += columna + " = " + registros_parseados.get(columna) + ",";
+
+        }
+
+        sentencia = sentencia.substring(0, sentencia.length() - 1);
+
+        sentencia = add_filters(sentencia, filtros);
+
+        try {
+
+            this.connect();
+
+            query.execute(sentencia);
+
+            System.out.println("Se ha actualizado el registro");
+
+        } catch (SQLException ex) {
+
+            System.out.println(ex.toString());
+        } catch (Exception e) {
+
+            System.out.println(e.toString());
+        }
+
+    }
+
     /**
      * select pasandole un string, devuelve el resultSet, no hay cerrado ojo
+     *
      * @param query_sended String con la petición
      * @return ResultSet con la consulta
      */
-    public ResultSet raw_select(String query_sended){
-        
+    public ResultSet raw_select(String query_sended) {
 
-         try {
+        try {
 
             this.connect();
-            
+
             return query.executeQuery(query_sended);
-            
 
         } catch (SQLException ex) {
-            
+
             System.out.println(ex.toString());
-        } catch (Exception e){
-            
+        } catch (Exception e) {
+
             System.out.println(e.toString());
-        }  
-        
-         return null;
- 
+        }
+
+        return null;
+
     }
 
 }
-
-    
-

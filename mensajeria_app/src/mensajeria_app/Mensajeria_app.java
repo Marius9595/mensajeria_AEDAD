@@ -22,5 +22,5 @@ public class Mensajeria_app {
         // el cargador
         new FramePrincipal();
     }
-    
+
 }
