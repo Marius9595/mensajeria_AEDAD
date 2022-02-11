@@ -18,6 +18,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 /**
+ * Jpanel del administrador
  * @author Jonathan
  * @author Mario
  */

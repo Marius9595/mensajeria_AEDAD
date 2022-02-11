@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 import mensajeria_app.Controller_pedidos;
 
 /**
+ * JFrame modal de la tabla
  * @author Jonathan
  * @author Mario
  */

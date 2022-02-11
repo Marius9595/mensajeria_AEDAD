@@ -6,11 +6,11 @@
 package interfaz;
 
 import interfaz.pestanas.TabPanel;
-import java.awt.*;
 import java.sql.SQLException;
 import javax.swing.*;
 
 /**
+ * El Jframe principal
  * @author Jonathan
  * @author Mario
  */

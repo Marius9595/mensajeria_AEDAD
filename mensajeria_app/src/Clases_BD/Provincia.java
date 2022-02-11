@@ -6,7 +6,7 @@
 package Clases_BD;
 
 /**
- *
+ * clase provincia de la base de datos
  * @author Jonathan
  * @author Mario
  */

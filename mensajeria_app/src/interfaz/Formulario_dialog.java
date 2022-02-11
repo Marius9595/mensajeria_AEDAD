@@ -21,6 +21,7 @@ import javax.swing.JTextField;
 import mensajeria_app.Controller_pedidos;
 
 /**
+ * Clase Jframe de la ventana modal formulario
  * @author Jonathan
  * @author Mario
  */

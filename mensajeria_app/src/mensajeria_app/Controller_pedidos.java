@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
+ * Es el controlador que hace de backend para las operaciones de la base de datos
  * @author Jonathan
  * @author Mario
  */

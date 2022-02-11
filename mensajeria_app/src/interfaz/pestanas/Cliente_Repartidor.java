@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import javax.swing.*;
 
 /**
+ * JPanel de los clientes/repartidores
  * @author Jonathan
  * @author Mario
  */

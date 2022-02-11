@@ -8,7 +8,7 @@ package Clases_BD;
 import java.time.LocalDateTime;
 
 /**
- *
+ * Clase pedido de la base de datos
  * @author Jonathan
  * @author Mario
  */

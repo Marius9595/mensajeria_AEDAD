@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import javax.swing.JTabbedPane;
 
 /**
+ * Contenedor de pestañas, aqui es donde se crean
  * @author Jonathan
  * @author Mario
  */

@@ -6,7 +6,7 @@
 package Clases_BD;
 
 /**
- *
+ * Esta es la clase artículo de la base de datos
  * @author Jonathan
  * @author Mario
  */
@@ -14,7 +14,11 @@ public class Articulo {
     private int id_articulo;
     private String descripcion;
 
-    // constructor
+    /**
+     * Constructor
+     * @param id_articulo
+     * @param descripcion 
+     */
     public Articulo(int id_articulo, String descripcion) {
         this.id_articulo = id_articulo;
         this.descripcion = descripcion;

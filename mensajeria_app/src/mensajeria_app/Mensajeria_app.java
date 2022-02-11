@@ -9,7 +9,7 @@ import interfaz.FramePrincipal;
 import java.sql.SQLException;
 
 /**
- *
+ * Clase main de arranque
  * @author Jonathan
  * @author Mario
  */

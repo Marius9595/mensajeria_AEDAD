@@ -6,11 +6,10 @@
 package Clases_BD;
 
 import java.time.LocalDateTime;
-import mensajeria_app.Utilidades;
 
 
 /**
- *
+ * Clase usuario de la base de datos
  * @author Jonathan
  * @author Mario
  */

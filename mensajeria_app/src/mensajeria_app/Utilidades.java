@@ -60,6 +60,10 @@ public class Utilidades {
         return dateTime;
     }
 
+    /**
+     * metodo para centrar Jframe
+     * @param elFrame 
+     */
     public static void centrarPantalla(JFrame elFrame) {
         Toolkit pantalla = Toolkit.getDefaultToolkit();
         Dimension tamanoPantalla = pantalla.getScreenSize();
@@ -72,6 +76,11 @@ public class Utilidades {
         elFrame.setLocation(width / 2 - elFrame.getWidth() / 2, height / 2 - elFrame.getHeight() / 2);
     }
 
+    /**
+     * contructor de modelo automatico para la tabla
+     * @param lista_Datos
+     * @return 
+     */
     public static DefaultTableModel ArrayList_to_DefaultTableModel(ArrayList<String[]> lista_Datos) {
         DefaultTableModel tableModel = new DefaultTableModel(lista_Datos.get(0), 0);
 

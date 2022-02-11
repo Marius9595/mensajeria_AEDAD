@@ -9,6 +9,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 /**
+ * Evento personalizado del boton
  * @author Jonathan
  * @author Mario
  */

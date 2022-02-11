@@ -20,6 +20,7 @@ import javax.swing.*;
 import mensajeria_app.Controller_pedidos;
 
 /**
+ * JPanel de inicio, es el login
  * @author Jonathan
  * @author Mario
  */

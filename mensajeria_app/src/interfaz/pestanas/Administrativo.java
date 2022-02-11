@@ -19,6 +19,7 @@ import org.jfree.chart.ChartPanel;
 
 
 /**
+ * Jpanel de los administrativos
  * @author Jonathan
  * @author Mario
  */

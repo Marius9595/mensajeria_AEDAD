@@ -15,6 +15,7 @@ import javax.swing.*;
 import mensajeria_app.Controller_pedidos;
 
 /**
+ * JPanel abstracto, no se usa este sino los hijos
  * @author Jonathan
  * @author Mario
  */

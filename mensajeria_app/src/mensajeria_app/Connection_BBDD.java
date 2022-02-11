@@ -16,7 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Conector de la base de datos
  * @author Jonathan
  * @author Mario
  */
